@@ -14,8 +14,6 @@ public class PathToken implements Token {
     private final String path;
     private final Deque<Parameter> parameters=new LinkedList<>();
 
-    private final StringBuilder token=new StringBuilder(PATH);
-
     private PathToken(String path) {
         if(isInvalidPart(path))
             throw new InvalidTokenPathException(path);
@@ -23,7 +21,6 @@ public class PathToken implements Token {
     }
 
     public String asTokenString() {
-
         return PATH+PARAMETER_VALUE_SEPARATOR+path+parametersString(parameters.iterator());
     }
 

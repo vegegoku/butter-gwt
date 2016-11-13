@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ec1dcc38-2894-41b0-8769-b884f59a31b1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/History/PathToken.java" afterPath="$PROJECT_DIR$/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/History/PathToken.java" />
     </list>
     <ignored path="engine-app.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -50,7 +51,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PathTokenConstructor.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PathTokenConstructor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/org.akab.engine.core/src/main/java/org/akab/engine/core/client/history/PathTokenConstructor.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="200">
@@ -66,12 +67,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PathToken.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PathToken.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/History/PathToken.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1080">
-              <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="36">
+              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1380#1381#0" expanded="true" />
+                <element signature="e#1458#1459#0" expanded="true" />
+                <element signature="e#1849#1850#0" expanded="true" />
+                <element signature="e#1913#1914#0" expanded="true" />
+                <element signature="e#2210#2211#0" expanded="true" />
+                <element signature="e#2259#2260#0" expanded="true" />
+                <element signature="e#2463#2464#0" expanded="true" />
+                <element signature="e#2498#2499#0" expanded="true" />
+                <element signature="e#2743#2744#0" expanded="true" />
+                <element signature="e#2796#2797#0" expanded="true" />
+                <element signature="e#2846#2847#0" expanded="true" />
+                <element signature="e#2888#2889#0" expanded="true" />
+                <element signature="e#3299#3300#0" expanded="true" />
+                <element signature="e#3387#3388#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -249,9 +266,9 @@
         <option value="$PROJECT_DIR$/engine-app-client/pom.xml" />
         <option value="$PROJECT_DIR$/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/History/TokenConstruct.java" />
         <option value="$PROJECT_DIR$/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/History/Token.java" />
-        <option value="$PROJECT_DIR$/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/History/PathToken.java" />
         <option value="$PROJECT_DIR$/org.akab.engine.core/src/main/java/org/akab/engine/core/client/history/PathTokenConstructor.java" />
         <option value="$PROJECT_DIR$/org.akab.engine.core/src/test/java/org/akab/engine/core/client/history/PathTokenConstructorTest.java" />
+        <option value="$PROJECT_DIR$/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/History/PathToken.java" />
       </list>
     </option>
   </component>
@@ -788,7 +805,14 @@
       <option name="project" value="LOCAL" />
       <updated>1479073328835</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add extra replace similar to PathTokenConstruct&#10;">
+      <created>1479073509949</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1479073509950</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1184,14 +1208,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/History/PathToken.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/org.akab.engine.core/src/test/java/org/akab/engine/core/client/history/PathTokenConstructorTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1470">
@@ -1212,6 +1228,30 @@
             <element signature="e#519#520#0" expanded="true" />
             <element signature="e#786#787#0" expanded="true" />
             <element signature="e#826#827#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/History/PathToken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1380#1381#0" expanded="true" />
+            <element signature="e#1458#1459#0" expanded="true" />
+            <element signature="e#1849#1850#0" expanded="true" />
+            <element signature="e#1913#1914#0" expanded="true" />
+            <element signature="e#2210#2211#0" expanded="true" />
+            <element signature="e#2259#2260#0" expanded="true" />
+            <element signature="e#2463#2464#0" expanded="true" />
+            <element signature="e#2498#2499#0" expanded="true" />
+            <element signature="e#2743#2744#0" expanded="true" />
+            <element signature="e#2796#2797#0" expanded="true" />
+            <element signature="e#2846#2847#0" expanded="true" />
+            <element signature="e#2888#2889#0" expanded="true" />
+            <element signature="e#3299#3300#0" expanded="true" />
+            <element signature="e#3387#3388#0" expanded="true" />
           </folding>
         </state>
       </provider>
