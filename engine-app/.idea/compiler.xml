@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <resourceExtensions />
+    <wildcardResourcePatterns>
+      <entry name="!?*.java" />
+      <entry name="!?*.form" />
+      <entry name="!?*.class" />
+      <entry name="!?*.groovy" />
+      <entry name="!?*.scala" />
+      <entry name="!?*.flex" />
+      <entry name="!?*.kt" />
+      <entry name="!?*.clj" />
+      <entry name="!?*.aj" />
+    </wildcardResourcePatterns>
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="false">
+        <processorPath useClasspath="true" />
+      </profile>
+      <profile default="false" name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="core" />
+        <module name="core-api" />
+        <module name="core-api-shared" />
+        <module name="core-logger" />
+        <module name="engine-app-client" />
+        <module name="engine-app-server" />
+        <module name="engine-app-shared" />
+        <module name="engine-sample-shared" />
+        <module name="or.akab.engine.core.logger" />
+        <module name="org.akab.engine.core.api.shared" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="anothersample" target="1.8" />
+      <module name="core" target="1.8" />
+      <module name="core-api" target="1.8" />
+      <module name="core-api-shared" target="1.8" />
+      <module name="core-logger" target="1.8" />
+      <module name="engine-app" target="1.8" />
+      <module name="engine-app-client" target="1.8" />
+      <module name="engine-app-server" target="1.8" />
+      <module name="engine-app-shared" target="1.8" />
+      <module name="org.akab.app.sample" target="1.8" />
+      <module name="org.akab.app.sample.shared" target="1.8" />
+      <module name="sample" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
