@@ -1,0 +1,15 @@
+package org.akab.engine.core.logger.client;
+
+import java.util.logging.Logger;
+
+public class CoreLoggerFactory {
+
+	public static CoreLogger getLogger(String className) {
+		return new CoreLogger(Logger.getLogger(className));
+	}
+
+	public static CoreLogger getLogger(Class<?> type) {
+		return new CoreLogger(Logger.getLogger(type.getName()));
+	}
+
+}

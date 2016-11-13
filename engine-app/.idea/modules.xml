@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/org.akab.engine.core/core.iml" filepath="$PROJECT_DIR$/org.akab.engine.core/core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/org.akab.engine.core.api/core-api.iml" filepath="$PROJECT_DIR$/org.akab.engine.core.api/core-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/org.akab.engine.core.api.shared/core-api-shared.iml" filepath="$PROJECT_DIR$/org.akab.engine.core.api.shared/core-api-shared.iml" />
+      <module fileurl="file://$PROJECT_DIR$/org.akab.engine.core.logger/core-logger.iml" filepath="$PROJECT_DIR$/org.akab.engine.core.logger/core-logger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/engine-app.iml" filepath="$PROJECT_DIR$/engine-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/engine-app-client/engine-app-client.iml" filepath="$PROJECT_DIR$/engine-app-client/engine-app-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/engine-app-server/engine-app-server.iml" filepath="$PROJECT_DIR$/engine-app-server/engine-app-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/engine-app-shared/engine-app-shared.iml" filepath="$PROJECT_DIR$/engine-app-shared/engine-app-shared.iml" />
+    </modules>
+  </component>
+</project>
