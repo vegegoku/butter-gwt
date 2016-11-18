@@ -10,7 +10,7 @@
 	<name>org.akab.engine.core-api</name>
 
 	<properties>
-		<gwtVersion>2.8.0-rc2</gwtVersion>
+		<gwtVersion>2.8.0</gwtVersion>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>

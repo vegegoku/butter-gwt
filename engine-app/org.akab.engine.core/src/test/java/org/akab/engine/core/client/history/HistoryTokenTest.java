@@ -1,6 +1,5 @@
 package org.akab.engine.core.client.history;
 
-
 import org.akab.engine.core.api.client.History.PathToken;
 import org.akab.engine.core.api.client.History.Token;
 import org.junit.Before;

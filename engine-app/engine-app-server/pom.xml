@@ -17,16 +17,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>engine-app-shared</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.akab.engine.app</groupId>
-      <artifactId>org.akab.app.sample.shared</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
       <groupId>org.akab.engine.app</groupId>
       <artifactId>core-api-shared</artifactId>
       <version>1.0-SNAPSHOT</version>

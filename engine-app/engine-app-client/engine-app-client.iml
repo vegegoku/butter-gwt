@@ -9,8 +9,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="engine-app-shared" />
-    <orderEntry type="module" module-name="engine-app-shared" />
     <orderEntry type="module" module-name="core-api-shared" />
     <orderEntry type="module" module-name="core-api-shared" />
     <orderEntry type="library" name="Maven: com.google.gwt:gwt-user:2.8.0" level="project" />
