@@ -17,6 +17,7 @@ public abstract class BaseRequest<P extends ClientPresenter> implements Request<
     protected final String key;
     protected RequestState state;
     protected final ClientApp clientApp=ClientApp.make();
+    protected Request chainedRequest;
 
     protected final RequestState<DefaultRequestStateContext> ready=new RequestState<DefaultRequestStateContext>() {
         @Override
@@ -35,6 +36,11 @@ public abstract class BaseRequest<P extends ClientPresenter> implements Request<
     public BaseRequest() {
         this.key=this.getClass().getCanonicalName();
         this.state=ready;
+    }
+
+    @Override
+    public void chainRequest(Request request) {
+        this.chainedRequest=request;
     }
 
     @Override

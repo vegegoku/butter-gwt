@@ -9,6 +9,8 @@ public interface PresentersRepository {
     void clear();
 
     class PresenterCannotBeRegisteredMoreThanOnce extends RuntimeException {
+        private static final long serialVersionUID = 956087089156886416L;
+
         public PresenterCannotBeRegisteredMoreThanOnce() {
         }
 
@@ -18,6 +20,8 @@ public interface PresentersRepository {
     }
 
     class PresenterNotFoundException extends RuntimeException {
+        private static final long serialVersionUID = -6455103815754837305L;
+
         public PresenterNotFoundException() {
         }
 

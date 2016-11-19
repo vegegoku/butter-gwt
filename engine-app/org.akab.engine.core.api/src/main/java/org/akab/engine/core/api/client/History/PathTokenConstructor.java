@@ -1,4 +1,4 @@
-package org.akab.engine.core.client.history;
+package org.akab.engine.core.api.client.History;
 
 import org.akab.engine.core.api.client.History.Token;
 import org.akab.engine.core.api.client.History.TokenConstruct;

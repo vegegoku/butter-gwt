@@ -1,6 +1,7 @@
-package org.akab.engine.core.client.history;
+package org.akab.engine.core.api.client.history;
 
 import org.akab.engine.core.api.client.History.TokenizedPath;
+import org.akab.engine.core.api.client.History.UrlTokenizedPath;
 import org.junit.Before;
 import org.junit.Test;
 

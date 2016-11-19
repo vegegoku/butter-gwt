@@ -1,6 +1,7 @@
 package org.akab.engine.core.api.client;
 
-import org.akab.engine.core.api.client.History.TokenConstruct;
+import com.google.gwt.user.client.History;
+import org.akab.engine.core.api.client.History.*;
 import org.akab.engine.core.api.client.events.EventsBus;
 import org.akab.engine.core.api.shared.extension.Contribution;
 import org.akab.engine.core.api.client.extension.ContributionsRegistry;
@@ -16,10 +17,14 @@ import org.akab.engine.core.api.client.mvp.view.View;
 import org.akab.engine.core.api.client.mvp.view.ViewHolder;
 import org.akab.engine.core.api.client.mvp.view.ViewsRepository;
 
+import java.util.Deque;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegistry, InitialTaskRegistry, ContributionsRegistry{
+public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegistry, InitialTaskRegistry, ContributionsRegistry,
+        PathToRequestMapperRegistry{
+
     @Override
     public void registerPresenter(String name, ClientPresenter presenter) {
         presentersRepository.registerPresenter(new PresenterHolder(name, presenter));
@@ -41,6 +46,11 @@ public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegist
     }
 
     @Override
+    public void registerMapper(String path, RequestFromPath mapper) {
+        pathToRequestMappersRepository.registerMapper(path, mapper);
+    }
+
+    @Override
     public void registerInitialTask(InitializeTask task) {
         initialTasks.add(task);
     }
@@ -52,6 +62,7 @@ public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegist
     private static PresentersRepository presentersRepository;
     private static ViewsRepository viewsRepository;
     private static ContributionsRepository contributionsRepository;
+    private static PathToRequestMappersRepository pathToRequestMappersRepository;
     private static TokenConstruct tokenConstruct;
 
     private static Set<InitializeTask> initialTasks=new HashSet<>();
@@ -60,7 +71,7 @@ public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegist
     }
 
     private ClientApp(RequestRouter<ClientRequest> clientRouter, RequestRouter<ServerRequest> serverRouter , EventsBus eventsBus, RequestsRepository requestRepository,
-                      PresentersRepository presentersRepository, ViewsRepository viewsRepository, ContributionsRepository contributionsRepository, TokenConstruct tokenConstruct) {
+                      PresentersRepository presentersRepository, ViewsRepository viewsRepository, ContributionsRepository contributionsRepository, PathToRequestMappersRepository pathToRequestMappersRepository, TokenConstruct tokenConstruct) {
         ClientApp.clientRouter = clientRouter;
         ClientApp.serverRouter=serverRouter;
         ClientApp.eventsBus = eventsBus;
@@ -68,7 +79,9 @@ public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegist
         ClientApp.presentersRepository = presentersRepository;
         ClientApp.viewsRepository = viewsRepository;
         ClientApp.contributionsRepository=contributionsRepository;
+        ClientApp.pathToRequestMappersRepository=pathToRequestMappersRepository;
         ClientApp.tokenConstruct=tokenConstruct;
+
     }
 
     public static ClientApp make(){
@@ -98,6 +111,10 @@ public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegist
         return viewsRepository;
     }
 
+    public PathToRequestMappersRepository getPathToRequestMappersRepository(){
+        return pathToRequestMappersRepository;
+    }
+
     public TokenConstruct getTokenConstruct(){
         return tokenConstruct;
     }
@@ -108,11 +125,14 @@ public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegist
         configuration.registerViews(this);
         configuration.registerContributions(this);
         configuration.registerInitialTasks(this);
+        configuration.registerPathMapper(this);
     }
 
     public void run(){
         initialTasks.stream().forEach(t -> t.execute());
     }
+
+
 
     public void applyContributions(Class<? extends ExtensionPoint> extensionPointInterface, ExtensionPoint extensionPoint) {
         contributionsRepository.findExtensionPointContributions(extensionPointInterface).forEach(c -> c.contribute(extensionPoint));
@@ -127,7 +147,8 @@ public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegist
         private PresentersRepository presentersRepository;
         private ViewsRepository viewsRepository;
         private ContributionsRepository contributionsRepository;
-        private static TokenConstruct tokenConstruct;
+        private PathToRequestMappersRepository pathToRequestMappersRepository;
+        private TokenConstruct tokenConstruct;
 
         public ClientAppBuilder() {
         }
@@ -167,13 +188,18 @@ public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegist
             return this;
         }
 
+        public ClientAppBuilder pathToRequestMapperRepository(PathToRequestMappersRepository pathToRequestMappersRepository) {
+            this.pathToRequestMappersRepository = pathToRequestMappersRepository;
+            return this;
+        }
+
         public ClientAppBuilder tokenConstruct(TokenConstruct tokenConstruct) {
             this.tokenConstruct = tokenConstruct;
             return this;
         }
 
         public ClientApp build() {
-            return new ClientApp(clientRouter, serverRouter, eventsBus, requestRepository, presentersRepository, viewsRepository, contributionsRepository, tokenConstruct);
+            return new ClientApp(clientRouter, serverRouter, eventsBus, requestRepository, presentersRepository, viewsRepository, contributionsRepository, pathToRequestMappersRepository ,tokenConstruct);
         }
     }
 }

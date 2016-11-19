@@ -1,4 +1,4 @@
-package org.akab.engine.core.client.history;
+package org.akab.engine.core.api.client.History;
 
 import org.akab.engine.core.api.client.History.TokenizedPath;
 
@@ -14,7 +14,6 @@ public class UrlTokenizedPath implements TokenizedPath{
         this.path=path;
     }
 
-    @Override
     public void addParameter(String name, String value) {
         parameters.put(name, value);
     }

@@ -1,5 +1,6 @@
 package org.akab.engine.core.api.client;
 
+import org.akab.engine.core.api.client.History.PathToRequestMapperRegistry;
 import org.akab.engine.core.api.client.extension.ContributionsRegistry;
 import org.akab.engine.core.api.client.mvp.PresenterRegistry;
 import org.akab.engine.core.api.client.request.RequestRegistry;
@@ -22,4 +23,7 @@ public interface ModuleConfiguration {
     default void registerInitialTasks(InitialTaskRegistry registry){
     }
 
+    default void registerPathMapper(PathToRequestMapperRegistry registry){
+
+    }
 }

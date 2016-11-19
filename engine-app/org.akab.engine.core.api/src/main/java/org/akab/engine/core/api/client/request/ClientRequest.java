@@ -6,6 +6,8 @@ import org.akab.engine.core.api.client.mvp.presenter.ClientPresenter;
 import org.akab.engine.core.logger.client.CoreLogger;
 import org.akab.engine.core.logger.client.CoreLoggerFactory;
 
+import java.util.Objects;
+
 public abstract class ClientRequest<P extends ClientPresenter> extends BaseRequest<P> {
 
     private static final CoreLogger LOGGER = CoreLoggerFactory.getLogger(ClientRequest.class);
@@ -17,6 +19,8 @@ public abstract class ClientRequest<P extends ClientPresenter> extends BaseReque
                     process((P) getRequestPresenter());
                     applyHistory();
                     state = completed;
+                    if(Objects.nonNull(chainedRequest))
+                        chainedRequest.send();
                 }
             };
 

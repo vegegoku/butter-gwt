@@ -43,6 +43,8 @@ public interface Request<P extends ClientPresenter> {
 
     String getKey();
 
+    void chainRequest(Request request);
+
     void applyState(RequestStateContext context);
 
     class InvalidRequestState extends RuntimeException{

@@ -1,13 +1,13 @@
 package org.akab.engine.core.api.client.request;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.RunAsyncCallback;
 import org.akab.engine.core.api.client.mvp.presenter.ClientPresenter;
 import org.akab.engine.core.api.shared.request.FailedResponse;
 import org.akab.engine.core.api.shared.request.Response;
 import org.akab.engine.core.api.shared.request.ServerArgs;
 import org.akab.engine.core.logger.client.CoreLogger;
 import org.akab.engine.core.logger.client.CoreLoggerFactory;
+
+import java.util.Objects;
 
 public abstract class ServerRequest<P extends ClientPresenter, R extends ServerArgs, S extends Response>
         extends BaseRequest<P> {
@@ -40,7 +40,8 @@ public abstract class ServerRequest<P extends ClientPresenter, R extends ServerA
                     process((P) getRequestPresenter(), serverArgs, (S) context.response);
                     applyHistory();
                     state = completed;
-
+                    if(Objects.nonNull(chainedRequest))
+                        chainedRequest.send();
                 }
             };
     private final RequestState<ServerFailedRequestStateContext> failedOnServer =
