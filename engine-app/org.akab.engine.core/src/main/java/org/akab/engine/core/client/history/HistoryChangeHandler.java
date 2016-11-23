@@ -24,13 +24,18 @@ public class HistoryChangeHandler implements ValueChangeHandler<String> {
     @Override
     public void onValueChange(ValueChangeEvent<String> event) {
         Deque<TokenizedPath> tokens=new UrlPathTokenizer(PATH, PARAMETER_SEPARATOR).tokenize(event.getValue());
-        if(!tokens.isEmpty())
-            chainRequest(mapTokenToRequest(tokens.pop()), tokens);
+
+        if(!tokens.isEmpty()) {
+            Request rootRequest=mapTokenToRequest(tokens.pop());
+            chainRequest(rootRequest, tokens);
+            rootRequest.send();
+        }
+
     }
 
     private void chainRequest(Request rootRequest, Deque<TokenizedPath> tokens) {
         if(Objects.nonNull(tokens.peek()))
-            buildChain(rootRequest, tokens, mapTokenToRequest(tokens.peek()));
+            buildChain(rootRequest, tokens, mapTokenToRequest(tokens.pop()));
     }
 
     private void buildChain(Request rootRequest, Deque<TokenizedPath> tokens, Request chain) {

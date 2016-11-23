@@ -2,6 +2,8 @@ package org.akab.engine.core.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import org.akab.engine.core.api.client.ClientApp;
+import org.akab.engine.core.api.client.ModuleConfiguration;
+import org.akab.engine.core.api.client.ModuleConfigurator;
 import org.akab.engine.core.client.app.CoreModule;
 import org.akab.engine.core.client.events.ClientEventFactory;
 import org.akab.engine.core.client.events.RequestEventProcessor;

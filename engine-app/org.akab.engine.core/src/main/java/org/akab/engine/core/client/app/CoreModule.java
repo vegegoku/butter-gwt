@@ -7,6 +7,7 @@ import org.akab.engine.core.client.events.ClientEventFactory;
 import org.akab.engine.core.client.events.RequestEventProcessor;
 import org.akab.engine.core.client.events.ServerEventFactory;
 import org.akab.engine.core.client.events.SimpleEventsBus;
+import org.akab.engine.core.client.extensions.CoreMainExtensionPoint;
 import org.akab.engine.core.client.extensions.InMemoryContributionRepository;
 import org.akab.engine.core.client.history.HistoryChangeHandler;
 import org.akab.engine.core.client.history.InMemoryPathToRequestMappersRepository;
@@ -18,14 +19,25 @@ import org.akab.engine.core.client.request.ServerRouter;
 
 public class CoreModule {
 
-    public static void init(){
+    public static void init() {
         ClientRouter clientRouter = new ClientRouter(new ClientEventFactory());
-        ServerRouter serverRouter=new ServerRouter(new ServerEventFactory());
+        ServerRouter serverRouter = new ServerRouter(new ServerEventFactory());
 
         RequestEventProcessor requestEventProcessor = new RequestEventProcessor();
         SimpleEventsBus eventBus = new SimpleEventsBus(requestEventProcessor);
 
-        ClientApp clientApp=new ClientApp.ClientAppBuilder().clientRouter(clientRouter).serverRouter(serverRouter).eventsBus(eventBus).presentersRepository(new InMemoryPresentersRepository()).requestRepository(new InMemoryRequestsRepository()).viewsRepository(new InMemoryViewRepository()).contributionsRepository(new InMemoryContributionRepository()).pathToRequestMapperRepository(new InMemoryPathToRequestMappersRepository()).tokenConstruct(new PathTokenConstructor()).build();
+        ClientApp clientApp = new ClientApp.ClientAppBuilder()
+                .clientRouter(clientRouter)
+                .serverRouter(serverRouter)
+                .eventsBus(eventBus)
+                .presentersRepository(new InMemoryPresentersRepository())
+                .requestRepository(new InMemoryRequestsRepository())
+                .viewsRepository(new InMemoryViewRepository())
+                .contributionsRepository(new InMemoryContributionRepository())
+                .pathToRequestMapperRepository(new InMemoryPathToRequestMappersRepository())
+                .tokenConstruct(new PathTokenConstructor())
+                .mainExtensionPoint(new CoreMainExtensionPoint())
+                .build();
 
         History.addValueChangeHandler(new HistoryChangeHandler(clientApp.getPathToRequestMappersRepository()));
     }

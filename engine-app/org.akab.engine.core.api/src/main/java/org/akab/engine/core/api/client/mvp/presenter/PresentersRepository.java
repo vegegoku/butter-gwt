@@ -5,6 +5,7 @@ public interface PresentersRepository {
     void registerPresenter(PresenterHolder presenterHolder);
 
     PresenterHolder getPresenter(String presenterName);
+    String getNameFromConcreteName(String concreteName);
 
     void clear();
 

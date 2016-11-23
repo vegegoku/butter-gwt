@@ -1,6 +1,5 @@
 package org.akab.engine.core.api.client.mvp.presenter;
 
-
 import org.akab.engine.core.api.client.ClientApp;
 import org.akab.engine.core.api.client.mvp.view.View;
 
@@ -33,6 +32,6 @@ public abstract class BaseClientPresenter<V extends View> implements ClientPrese
     }
 
     private String getName(){
-        return BaseClientPresenter.this.getClass().getCanonicalName();
+        return ClientApp.make().getPresentersRepository().getNameFromConcreteName(this.getClass().getCanonicalName());
     }
 }

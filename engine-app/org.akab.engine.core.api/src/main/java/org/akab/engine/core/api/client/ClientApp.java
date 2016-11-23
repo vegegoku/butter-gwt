@@ -3,6 +3,7 @@ package org.akab.engine.core.api.client;
 import com.google.gwt.user.client.History;
 import org.akab.engine.core.api.client.History.*;
 import org.akab.engine.core.api.client.events.EventsBus;
+import org.akab.engine.core.api.client.extension.Contributions;
 import org.akab.engine.core.api.shared.extension.Contribution;
 import org.akab.engine.core.api.client.extension.ContributionsRegistry;
 import org.akab.engine.core.api.client.extension.ContributionsRepository;
@@ -16,6 +17,7 @@ import org.akab.engine.core.api.client.mvp.presenter.PresentersRepository;
 import org.akab.engine.core.api.client.mvp.view.View;
 import org.akab.engine.core.api.client.mvp.view.ViewHolder;
 import org.akab.engine.core.api.client.mvp.view.ViewsRepository;
+import org.akab.engine.core.api.shared.extension.MainExtensionPoint;
 
 import java.util.Deque;
 import java.util.HashSet;
@@ -64,6 +66,7 @@ public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegist
     private static ContributionsRepository contributionsRepository;
     private static PathToRequestMappersRepository pathToRequestMappersRepository;
     private static TokenConstruct tokenConstruct;
+    private static MainExtensionPoint mainExtensionPoint;
 
     private static Set<InitializeTask> initialTasks=new HashSet<>();
 
@@ -71,7 +74,7 @@ public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegist
     }
 
     private ClientApp(RequestRouter<ClientRequest> clientRouter, RequestRouter<ServerRequest> serverRouter , EventsBus eventsBus, RequestsRepository requestRepository,
-                      PresentersRepository presentersRepository, ViewsRepository viewsRepository, ContributionsRepository contributionsRepository, PathToRequestMappersRepository pathToRequestMappersRepository, TokenConstruct tokenConstruct) {
+                      PresentersRepository presentersRepository, ViewsRepository viewsRepository, ContributionsRepository contributionsRepository, PathToRequestMappersRepository pathToRequestMappersRepository, TokenConstruct tokenConstruct, MainExtensionPoint mainExtensionPoint) {
         ClientApp.clientRouter = clientRouter;
         ClientApp.serverRouter=serverRouter;
         ClientApp.eventsBus = eventsBus;
@@ -81,6 +84,7 @@ public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegist
         ClientApp.contributionsRepository=contributionsRepository;
         ClientApp.pathToRequestMappersRepository=pathToRequestMappersRepository;
         ClientApp.tokenConstruct=tokenConstruct;
+        ClientApp.mainExtensionPoint=mainExtensionPoint;
 
     }
 
@@ -125,11 +129,12 @@ public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegist
         configuration.registerViews(this);
         configuration.registerContributions(this);
         configuration.registerInitialTasks(this);
-        configuration.registerPathMapper(this);
+        configuration.registerPathMappers(this);
     }
 
     public void run(){
         initialTasks.stream().forEach(t -> t.execute());
+        Contributions.apply(MainExtensionPoint.class, mainExtensionPoint);
     }
 
 
@@ -149,6 +154,7 @@ public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegist
         private ContributionsRepository contributionsRepository;
         private PathToRequestMappersRepository pathToRequestMappersRepository;
         private TokenConstruct tokenConstruct;
+        private MainExtensionPoint mainExtensionPoint;
 
         public ClientAppBuilder() {
         }
@@ -198,8 +204,14 @@ public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegist
             return this;
         }
 
+        public ClientAppBuilder mainExtensionPoint(MainExtensionPoint mainExtensionPoint) {
+            this.mainExtensionPoint = mainExtensionPoint;
+            return this;
+        }
+
+
         public ClientApp build() {
-            return new ClientApp(clientRouter, serverRouter, eventsBus, requestRepository, presentersRepository, viewsRepository, contributionsRepository, pathToRequestMappersRepository ,tokenConstruct);
+            return new ClientApp(clientRouter, serverRouter, eventsBus, requestRepository, presentersRepository, viewsRepository, contributionsRepository, pathToRequestMappersRepository ,tokenConstruct, mainExtensionPoint);
         }
     }
 }

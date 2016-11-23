@@ -2,10 +2,11 @@ package org.akab.engine.core.api.client.request;
 
 
 import org.akab.engine.core.api.client.mvp.presenter.ClientPresenter;
+import org.akab.engine.core.api.client.mvp.presenter.Presentable;
 import org.akab.engine.core.api.shared.request.FailedResponse;
 import org.akab.engine.core.api.shared.request.Response;
 
-public interface Request<P extends ClientPresenter> {
+public interface Request<P extends Presentable> {
 
     class DefaultRequestStateContext implements RequestStateContext{
 

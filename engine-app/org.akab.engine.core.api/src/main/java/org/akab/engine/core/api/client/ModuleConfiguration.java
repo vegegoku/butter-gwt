@@ -23,7 +23,7 @@ public interface ModuleConfiguration {
     default void registerInitialTasks(InitialTaskRegistry registry){
     }
 
-    default void registerPathMapper(PathToRequestMapperRegistry registry){
+    default void registerPathMappers(PathToRequestMapperRegistry registry){
 
     }
 }

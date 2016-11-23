@@ -2,13 +2,15 @@ package org.akab.engine.core.api.client.request;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
+import com.google.gwt.user.client.Window;
 import org.akab.engine.core.api.client.mvp.presenter.ClientPresenter;
+import org.akab.engine.core.api.client.mvp.presenter.Presentable;
 import org.akab.engine.core.logger.client.CoreLogger;
 import org.akab.engine.core.logger.client.CoreLoggerFactory;
 
 import java.util.Objects;
 
-public abstract class ClientRequest<P extends ClientPresenter> extends BaseRequest<P> {
+public abstract class ClientRequest<P extends Presentable> extends BaseRequest<P> {
 
     private static final CoreLogger LOGGER = CoreLoggerFactory.getLogger(ClientRequest.class);
 
@@ -29,7 +31,6 @@ public abstract class ClientRequest<P extends ClientPresenter> extends BaseReque
     public void startRouting() {
         state = sent;
         clientApp.getClientRouter().routeRequest(this);
-
     }
 
     @Override

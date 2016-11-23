@@ -15,7 +15,6 @@ public class InMemoryRequestsRepository implements RequestsRepository{
 
     @Override
     public void registerRequest(RequestHolder requestHolder) {
-        LOGGER.info("registering request : "+requestHolder.getRequestName()+ " , "+requestHolder.getPresenterName());
         if(isRegisteredRequest(requestHolder.getRequestName()))
             throw new RequestCannotBeRegisteredMoreThanOnce("Request key ["+ requestHolder.getRequestName()+"]");
         requestPresenterWrappers.put(requestHolder.getRequestName(), requestHolder);

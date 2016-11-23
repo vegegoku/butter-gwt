@@ -1,6 +1,6 @@
 package org.akab.engine.core.api.client.request;
 
-import org.akab.engine.core.api.client.mvp.presenter.ClientPresenter;
+import org.akab.engine.core.api.client.mvp.presenter.Presentable;
 import org.akab.engine.core.api.shared.request.FailedResponse;
 import org.akab.engine.core.api.shared.request.Response;
 import org.akab.engine.core.api.shared.request.ServerArgs;
@@ -9,7 +9,7 @@ import org.akab.engine.core.logger.client.CoreLoggerFactory;
 
 import java.util.Objects;
 
-public abstract class ServerRequest<P extends ClientPresenter, R extends ServerArgs, S extends Response>
+public abstract class ServerRequest<P extends Presentable, R extends ServerArgs, S extends Response>
         extends BaseRequest<P> {
 
     private static final CoreLogger LOGGER = CoreLoggerFactory.getLogger(ServerRequest.class);

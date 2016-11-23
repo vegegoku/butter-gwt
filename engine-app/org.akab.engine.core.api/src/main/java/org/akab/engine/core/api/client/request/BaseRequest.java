@@ -4,11 +4,12 @@ import com.google.gwt.user.client.History;
 import org.akab.engine.core.api.client.ClientApp;
 import org.akab.engine.core.api.client.History.TokenConstruct;
 import org.akab.engine.core.api.client.mvp.presenter.ClientPresenter;
+import org.akab.engine.core.api.client.mvp.presenter.Presentable;
 import org.akab.engine.core.api.client.mvp.presenter.PresenterHolder;
 import org.akab.engine.core.logger.client.CoreLogger;
 import org.akab.engine.core.logger.client.CoreLoggerFactory;
 
-public abstract class BaseRequest<P extends ClientPresenter> implements Request<P> {
+public abstract class BaseRequest<P extends Presentable> implements Request<P> {
 
     private static final CoreLogger LOGGER= CoreLoggerFactory.getLogger(BaseRequest.class);
 
@@ -73,7 +74,7 @@ public abstract class BaseRequest<P extends ClientPresenter> implements Request<
 
     protected void applyHistory(){
         constructHistoryToken(clientApp.getTokenConstruct());
-        History.newItem(clientApp.getTokenConstruct().toUrl(), false);
+        History.replaceItem(clientApp.getTokenConstruct().toUrl(), false);
     };
 
     @Override

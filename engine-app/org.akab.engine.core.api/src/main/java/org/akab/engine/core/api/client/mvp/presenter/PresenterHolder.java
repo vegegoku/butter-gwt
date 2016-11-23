@@ -8,10 +8,12 @@ public class PresenterHolder {
     private final String name;
     @NotNull
     private final ClientPresenter presenter;
+    private final String concreteName;
 
     public PresenterHolder(String name, ClientPresenter presenter) {
         this.name = name;
         this.presenter = presenter;
+        this.concreteName=presenter.getClass().getCanonicalName();
     }
 
     public String getName() {
@@ -22,15 +24,21 @@ public class PresenterHolder {
         return presenter.process();
     }
 
+    public String getConcreteName(){
+        return this.concreteName;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
         if (other == null || getClass() != other.getClass()) return false;
-        return name.equals(((PresenterHolder) other).name);
+        return name.equals(((PresenterHolder) other).name) && concreteName.equals(((PresenterHolder) other).concreteName);
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        int result = name.hashCode();
+        result = 31 * result + concreteName.hashCode();
+        return result;
     }
 }
