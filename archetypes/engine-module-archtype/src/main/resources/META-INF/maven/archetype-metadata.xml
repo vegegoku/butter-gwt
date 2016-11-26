@@ -10,7 +10,7 @@
     <fileSet encoding="UTF-8">
       <directory></directory>
       <includes>
-        <include>authenticator.iml</include>
+        <include>*.*</include>
       </includes>
     </fileSet>
   </fileSets>
@@ -48,7 +48,7 @@
         <fileSet encoding="UTF-8">
           <directory></directory>
           <includes>
-            <include>authenticator-shared.iml</include>
+            <include>*.*</include>
           </includes>
         </fileSet>
       </fileSets>
@@ -58,7 +58,7 @@
         <fileSet encoding="UTF-8">
           <directory></directory>
           <includes>
-            <include>authenticator-server.iml</include>
+            <include>*.*</include>
           </includes>
         </fileSet>
       </fileSets>
