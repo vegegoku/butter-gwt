@@ -1,0 +1,12 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+    <g:HTMLPanel>
+        <style is="custom-style">
+                .sample-div{
+                background-color: #CECECE;
+            }
+        </style>
+            <div ui:field="mainDiv" class="sample-div"></div>
+    </g:HTMLPanel>
+</ui:UiBinder>
