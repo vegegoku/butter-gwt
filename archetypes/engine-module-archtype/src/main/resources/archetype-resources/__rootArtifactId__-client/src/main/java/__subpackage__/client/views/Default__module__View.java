@@ -10,6 +10,11 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+import org.akab.engine.core.api.client.annotations.UiView;
+
+import ${package}.${subpackage}.client.presenters.${module}Presenter;
+
+@UiView(presentable = ${module}Presenter.class)
 public class Default${module}View extends Composite implements ${module}View{
 
     interface Default${module}ViewUiBinder extends UiBinder<HTMLPanel, Default${module}View> {

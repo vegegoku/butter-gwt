@@ -101,7 +101,7 @@
         <version>1.0-rc-6</version>
         <extensions>true</extensions>
         <configuration>
-          <moduleName>${package}.${subpackage}.ClientModule</moduleName>
+          <moduleName>${package}.${subpackage}.${module}ClientModule</moduleName>
         </configuration>
       </plugin>
       <plugin>

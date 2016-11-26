@@ -7,6 +7,10 @@ import org.akab.engine.core.api.client.request.ClientRequest;
 import ${package}.${subpackage}.client.presenters.${module}Presenter;
 import org.akab.engine.core.api.shared.extension.MainExtensionPoint;
 
+import org.akab.engine.core.api.client.annotations.Request;
+import ${package}.${subpackage}.client.presenters.${module}Presenter;
+
+@Request(presentable = ${module}Presenter.class)
 public class ${module}SampleClientRequest extends ClientRequest<${module}Presenter> {
 
     private final MainExtensionPoint mainExtensionPoint;

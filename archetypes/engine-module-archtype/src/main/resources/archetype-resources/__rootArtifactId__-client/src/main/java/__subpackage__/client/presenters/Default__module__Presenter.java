@@ -3,10 +3,12 @@
 #set( $symbol_escape = '\' )
 package ${package}.${subpackage}.client.presenters;
 
+import org.akab.engine.core.api.client.annotations.Presenter;
 import org.akab.engine.core.api.client.mvp.presenter.BaseClientPresenter;
 import ${package}.${subpackage}.client.views.${module}View;
 import org.akab.engine.core.api.shared.extension.MainExtensionPoint;
 
+@Presenter(presentable = ${module}Presenter.class)
 public class Default${module}Presenter extends BaseClientPresenter<${module}View> implements ${module}Presenter {
 
     @Override

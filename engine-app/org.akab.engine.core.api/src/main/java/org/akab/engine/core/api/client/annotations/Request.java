@@ -13,5 +13,5 @@ import java.lang.annotation.Target;
 public @interface Request {
 
     @NotNull
-    Class<? extends Presentable> presenter();
+    Class<? extends Presentable> presentable();
 }
