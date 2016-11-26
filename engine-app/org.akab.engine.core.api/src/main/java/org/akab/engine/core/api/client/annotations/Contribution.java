@@ -1,6 +1,6 @@
 package org.akab.engine.core.api.client.annotations;
 
-import org.akab.engine.core.api.client.mvp.presenter.Presentable;
+import org.akab.engine.core.api.shared.extension.ExtensionPoint;
 
 import javax.validation.constraints.NotNull;
 import java.lang.annotation.ElementType;
@@ -10,8 +10,8 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface Request {
+public @interface Contribution {
 
     @NotNull
-    Class<? extends Presentable> presenter();
+    Class<? extends ExtensionPoint> extensionPoint();
 }
