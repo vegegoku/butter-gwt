@@ -60,4 +60,8 @@ buildNumber.properties
 *.iml
 *.iws
 
+.idea/**/*.*
+**/*.iml
+**/*.iws
+
 
