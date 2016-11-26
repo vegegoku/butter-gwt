@@ -50,7 +50,14 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
 .idea/
 *.iml
+*.iws
 
 
