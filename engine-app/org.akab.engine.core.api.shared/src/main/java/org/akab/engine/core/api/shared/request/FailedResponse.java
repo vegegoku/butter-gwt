@@ -2,6 +2,8 @@ package org.akab.engine.core.api.shared.request;
 
 public class FailedResponse extends Response {
 
+    private static final long serialVersionUID = 7146258885910449957L;
+
     private Throwable error;
 
     public FailedResponse() {

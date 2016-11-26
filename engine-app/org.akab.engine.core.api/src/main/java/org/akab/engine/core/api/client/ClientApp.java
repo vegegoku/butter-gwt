@@ -24,8 +24,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegistry, InitialTaskRegistry, ContributionsRegistry,
-        PathToRequestMapperRegistry{
+public class ClientApp
+        implements PresenterRegistry, RequestRegistry, ViewRegistry, InitialTaskRegistry, ContributionsRegistry,
+        PathToRequestMapperRegistry {
 
     @Override
     public void registerPresenter(String name, ClientPresenter presenter) {
@@ -44,7 +45,7 @@ public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegist
 
     @Override
     public void registerContribution(Class<? extends ExtensionPoint> extensionPoint, Contribution contribution) {
-        contributionsRepository.registerContribution(extensionPoint,contribution);
+        contributionsRepository.registerContribution(extensionPoint, contribution);
     }
 
     @Override
@@ -68,33 +69,38 @@ public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegist
     private static TokenConstruct tokenConstruct;
     private static MainExtensionPoint mainExtensionPoint;
 
-    private static Set<InitializeTask> initialTasks=new HashSet<>();
+    private static Set<InitializeTask> initialTasks = new HashSet<>();
 
     private ClientApp() {
     }
 
-    private ClientApp(RequestRouter<ClientRequest> clientRouter, RequestRouter<ServerRequest> serverRouter , EventsBus eventsBus, RequestsRepository requestRepository,
-                      PresentersRepository presentersRepository, ViewsRepository viewsRepository, ContributionsRepository contributionsRepository, PathToRequestMappersRepository pathToRequestMappersRepository, TokenConstruct tokenConstruct, MainExtensionPoint mainExtensionPoint) {
+    private ClientApp(RequestRouter<ClientRequest> clientRouter, RequestRouter<ServerRequest> serverRouter,
+                      EventsBus eventsBus, RequestsRepository requestRepository,
+                      PresentersRepository presentersRepository, ViewsRepository viewsRepository,
+                      ContributionsRepository contributionsRepository,
+                      PathToRequestMappersRepository pathToRequestMappersRepository, TokenConstruct tokenConstruct,
+                      MainExtensionPoint mainExtensionPoint) {
         ClientApp.clientRouter = clientRouter;
-        ClientApp.serverRouter=serverRouter;
+        ClientApp.serverRouter = serverRouter;
         ClientApp.eventsBus = eventsBus;
         ClientApp.requestRepository = requestRepository;
         ClientApp.presentersRepository = presentersRepository;
         ClientApp.viewsRepository = viewsRepository;
-        ClientApp.contributionsRepository=contributionsRepository;
-        ClientApp.pathToRequestMappersRepository=pathToRequestMappersRepository;
-        ClientApp.tokenConstruct=tokenConstruct;
-        ClientApp.mainExtensionPoint=mainExtensionPoint;
+        ClientApp.contributionsRepository = contributionsRepository;
+        ClientApp.pathToRequestMappersRepository = pathToRequestMappersRepository;
+        ClientApp.tokenConstruct = tokenConstruct;
+        ClientApp.mainExtensionPoint = mainExtensionPoint;
 
     }
 
-    public static ClientApp make(){
+    public static ClientApp make() {
         return new ClientApp();
     }
 
     public RequestRouter<ClientRequest> getClientRouter() {
         return clientRouter;
     }
+
     public RequestRouter<ServerRequest> getServerRouter() {
         return serverRouter;
     }
@@ -115,15 +121,15 @@ public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegist
         return viewsRepository;
     }
 
-    public PathToRequestMappersRepository getPathToRequestMappersRepository(){
+    public PathToRequestMappersRepository getPathToRequestMappersRepository() {
         return pathToRequestMappersRepository;
     }
 
-    public TokenConstruct getTokenConstruct(){
+    public TokenConstruct getTokenConstruct() {
         return tokenConstruct;
     }
 
-    public void configureModule(ModuleConfiguration configuration){
+    public void configureModule(ModuleConfiguration configuration) {
         configuration.registerPresenters(this);
         configuration.registerRequests(this);
         configuration.registerViews(this);
@@ -132,15 +138,16 @@ public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegist
         configuration.registerPathMappers(this);
     }
 
-    public void run(){
-        initialTasks.stream().forEach(t -> t.execute());
+    public void run() {
+        initialTasks.forEach(InitializeTask::execute);
         Contributions.apply(MainExtensionPoint.class, mainExtensionPoint);
     }
 
 
-
-    public void applyContributions(Class<? extends ExtensionPoint> extensionPointInterface, ExtensionPoint extensionPoint) {
-        contributionsRepository.findExtensionPointContributions(extensionPointInterface).forEach(c -> c.contribute(extensionPoint));
+    public void applyContributions(Class<? extends ExtensionPoint> extensionPointInterface,
+                                   ExtensionPoint extensionPoint) {
+        contributionsRepository.findExtensionPointContributions(extensionPointInterface)
+                .forEach(c -> c.contribute(extensionPoint));
     }
 
     public static class ClientAppBuilder {
@@ -194,7 +201,8 @@ public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegist
             return this;
         }
 
-        public ClientAppBuilder pathToRequestMapperRepository(PathToRequestMappersRepository pathToRequestMappersRepository) {
+        public ClientAppBuilder pathToRequestMapperRepository(
+                PathToRequestMappersRepository pathToRequestMappersRepository) {
             this.pathToRequestMappersRepository = pathToRequestMappersRepository;
             return this;
         }
@@ -211,7 +219,9 @@ public class ClientApp implements PresenterRegistry, RequestRegistry, ViewRegist
 
 
         public ClientApp build() {
-            return new ClientApp(clientRouter, serverRouter, eventsBus, requestRepository, presentersRepository, viewsRepository, contributionsRepository, pathToRequestMappersRepository ,tokenConstruct, mainExtensionPoint);
+            return new ClientApp(clientRouter, serverRouter, eventsBus, requestRepository, presentersRepository,
+                    viewsRepository, contributionsRepository, pathToRequestMappersRepository, tokenConstruct,
+                    mainExtensionPoint);
         }
     }
 }

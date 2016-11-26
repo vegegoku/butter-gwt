@@ -24,6 +24,5 @@ public interface ModuleConfiguration {
     }
 
     default void registerPathMappers(PathToRequestMapperRegistry registry){
-
     }
 }

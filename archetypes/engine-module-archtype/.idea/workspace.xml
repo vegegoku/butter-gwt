@@ -2,36 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9fd261f8-141a-43ca-bca1-5abb379afae9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api.shared/src/main/java/org/akab/engine/core/api/shared/extension/MainContext.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api.shared/src/main/java/org/akab/engine/core/api/shared/extension/MainExtensionPoint.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/mvp/presenter/Presentable.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core/src/main/java/org/akab/engine/core/client/extensions/CoreMainContext.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core/src/main/java/org/akab/engine/core/client/extensions/CoreMainExtensionPoint.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/archetype-resources/__rootArtifactId__-client/src/main/java/client/ClientModule.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/META-INF/maven/archetype-metadata.xml" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/maven/archetype-metadata.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/archetype-resources/__rootArtifactId__-client/pom.xml" afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/__rootArtifactId__-client/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/archetype-resources/__rootArtifactId__-client/src/main/module.gwt.xml" afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/__rootArtifactId__-client/src/main/module.gwt.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/resources/projects/basic/archetype.properties" afterPath="$PROJECT_DIR$/src/test/resources/projects/basic/archetype.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/.idea/misc.xml" afterPath="$PROJECT_DIR$/../../engine-app/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../engine-app/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/engine-app-client/src/main/java/org/akab/engine/app/App.java" afterPath="$PROJECT_DIR$/../../engine-app/engine-app-client/src/main/java/org/akab/engine/app/App.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api.shared/src/main/java/org/akab/engine/core/api/shared/extension/MainContext.java" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api.shared/src/main/java/org/akab/engine/core/api/shared/extension/MainContext.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api.shared/src/main/java/org/akab/engine/core/api/shared/request/FailedResponse.java" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api.shared/src/main/java/org/akab/engine/core/api/shared/request/FailedResponse.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/ClientApp.java" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/ClientApp.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/ModuleConfiguration.java" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/ModuleConfiguration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/mvp/presenter/BaseClientPresenter.java" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/mvp/presenter/BaseClientPresenter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/mvp/presenter/PresenterHolder.java" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/mvp/presenter/PresenterHolder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/mvp/presenter/PresentersRepository.java" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/mvp/presenter/PresentersRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/request/BaseRequest.java" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/request/BaseRequest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/request/ClientRequest.java" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/request/ClientRequest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/request/Request.java" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/request/Request.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/request/ServerProcess.java" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/request/ServerProcess.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/request/ServerRequest.java" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/request/ServerRequest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core/src/main/java/org/akab/engine/core/client/Core.java" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core/src/main/java/org/akab/engine/core/client/Core.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core/src/main/java/org/akab/engine/core/client/app/CoreModule.java" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core/src/main/java/org/akab/engine/core/client/app/CoreModule.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core/src/main/java/org/akab/engine/core/client/history/HistoryChangeHandler.java" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core/src/main/java/org/akab/engine/core/client/history/HistoryChangeHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core/src/main/java/org/akab/engine/core/client/mvp/presenter/InMemoryPresentersRepository.java" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core/src/main/java/org/akab/engine/core/client/mvp/presenter/InMemoryPresentersRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core/src/main/java/org/akab/engine/core/client/request/InMemoryRequestsRepository.java" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core/src/main/java/org/akab/engine/core/client/request/InMemoryRequestsRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/events/EventsBus.java" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/events/EventsBus.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/mvp/view/View.java" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core.api/src/main/java/org/akab/engine/core/api/client/mvp/view/View.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core/src/main/java/org/akab/engine/core/client/extensions/CoreMainExtensionPoint.java" afterPath="$PROJECT_DIR$/../../engine-app/org.akab.engine.core/src/main/java/org/akab/engine/core/client/extensions/CoreMainExtensionPoint.java" />
     </list>
     <ignored path="engine-module-archetype.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -51,6 +31,11 @@
     <favorites_list name="engine-module-archetype" />
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="akabme@gmail.com" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="GradleLocalSettings">
@@ -72,12 +57,14 @@
         <option value="$PROJECT_DIR$/src/main/resources/archetype-resources/__rootArtifactId__-client/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/META-INF/maven/archetype-metadata.xml" />
         <option value="$PROJECT_DIR$/src/test/resources/projects/basic/archetype.properties" />
-        <option value="$PROJECT_DIR$/src/main/resources/archetype-resources/__rootArtifactId__-client/src/main/java/__subpackage__/client/presenters/__module__Presenter.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/archetype-resources/__rootArtifactId__-client/src/main/java/__subpackage__/client/presenters/Default__module__Presenter.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/archetype-resources/__rootArtifactId__-client/src/main/java/__subpackage__/client/requests/__module__SampleClientRequest.java" />
         <option value="$PROJECT_DIR$/src/main/resources/archetype-resources/__rootArtifactId__-client/src/main/java/__subpackage__/client/views/__module__View.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/archetype-resources/__rootArtifactId__-client/src/main/java/__subpackage__/client/views/Default__module__View.ui.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/archetype-resources/__rootArtifactId__-client/src/main/java/__subpackage__/client/requests/__module__SampleClientRequest.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/archetype-resources/__rootArtifactId__-client/src/main/java/__subpackage__/client/presenters/Default__module__Presenter.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/archetype-resources/__rootArtifactId__-client/src/main/java/__subpackage__/client/contributions/__module__ContributionToMain.java" />
         <option value="$PROJECT_DIR$/src/main/resources/archetype-resources/__rootArtifactId__-client/src/main/java/__subpackage__/client/views/Default__module__View.java" />
         <option value="$PROJECT_DIR$/src/main/resources/archetype-resources/__rootArtifactId__-client/src/main/java/__subpackage__/client/ClientModule.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/archetype-resources/__rootArtifactId__-client/src/main/java/__subpackage__/client/presenters/__module__Presenter.java" />
       </list>
     </option>
   </component>
@@ -110,8 +97,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -124,417 +109,21 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archetype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archtype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="basic" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archetype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archtype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="maven" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archetype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archtype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="archetype-resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archetype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archtype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="archetype-resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="__rootArtifactId__-shared" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archetype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archtype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="archetype-resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="__rootArtifactId__-shared" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="shared" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archetype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archtype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="archetype-resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="__rootArtifactId__-server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archetype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archtype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="archetype-resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="__rootArtifactId__-client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archetype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archtype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="archetype-resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="__rootArtifactId__-client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archetype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archtype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="archetype-resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="__rootArtifactId__-client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archetype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archtype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="archetype-resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="__rootArtifactId__-client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archetype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archtype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="archetype-resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="__rootArtifactId__-client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="requests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archetype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine-module-archtype" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="archetype-resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="__rootArtifactId__-client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="presenters" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
-    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Diff &amp; Merge" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/archetype-resources/__rootArtifactId__-client/src/main/resources/__package__.__subpackage__.client.views" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/archetype-resources/__rootArtifactId__-client/src/main/java/client/views" />
     </key>
@@ -545,6 +134,34 @@
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
       <option name="PROGRAM_PARAMETERS" />
       <predefined_log_file id="idea.log" enabled="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="ENABLE_ADVANCED_PROFILING" value="true" />
+        <option name="GAPID_ENABLED" value="false" />
+        <option name="GAPID_DISABLE_PCS" value="false" />
+        <option name="SUPPORT_LIB_ENABLED" value="true" />
+        <option name="INSTRUMENTATION_ENABLED" value="true" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
       <method />
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
@@ -755,6 +372,14 @@
       <option name="presentableId" value="Default" />
       <updated>1479505371856</updated>
     </task>
+    <task id="LOCAL-00001" summary="adding sample classes">
+      <created>1479898845551</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1479898845551</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -772,10 +397,10 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32212582" sideWeight="0.49806094" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3329718" sideWeight="0.49806094" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2565097" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29030472" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -801,10 +426,27 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="adding sample classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding sample classes" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/archetype-resources/__rootArtifactId__-client/src/main/java/__subpackage__/client/presenters/__module__Presenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="10" column="1" lean-forward="false" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>

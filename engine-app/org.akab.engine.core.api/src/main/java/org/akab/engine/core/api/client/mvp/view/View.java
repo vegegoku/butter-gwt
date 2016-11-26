@@ -1,4 +1,7 @@
 package org.akab.engine.core.api.client.mvp.view;
 
-public interface View {
+import com.google.gwt.user.client.ui.IsWidget;
+
+public interface View extends IsWidget{
+
 }
