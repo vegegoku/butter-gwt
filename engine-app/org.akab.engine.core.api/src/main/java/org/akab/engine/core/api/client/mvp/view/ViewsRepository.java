@@ -3,9 +3,9 @@ package org.akab.engine.core.api.client.mvp.view;
 
 public interface ViewsRepository {
 
-    void registerView(ViewHolder viewHolder);
+    void registerView(LazyViewLoader lazyViewLoader);
 
-    ViewHolder getView(String presenterName);
+    View getView(String presenterName);
 
     void clear();
 

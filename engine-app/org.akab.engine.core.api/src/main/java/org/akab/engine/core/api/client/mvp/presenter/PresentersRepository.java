@@ -2,9 +2,9 @@ package org.akab.engine.core.api.client.mvp.presenter;
 
 public interface PresentersRepository {
 
-    void registerPresenter(PresenterHolder presenterHolder);
+    void registerPresenter(LazyPresenterLoader lazyPresenterLoader);
 
-    PresenterHolder getPresenter(String presenterName);
+    Presentable getPresenter(String presenterName);
     String getNameFromConcreteName(String concreteName);
 
     void clear();

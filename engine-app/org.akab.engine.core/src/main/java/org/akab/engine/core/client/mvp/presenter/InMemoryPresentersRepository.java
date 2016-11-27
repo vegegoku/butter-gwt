@@ -1,6 +1,7 @@
 package org.akab.engine.core.client.mvp.presenter;
 
-import org.akab.engine.core.api.client.mvp.presenter.PresenterHolder;
+import org.akab.engine.core.api.client.mvp.presenter.LazyPresenterLoader;
+import org.akab.engine.core.api.client.mvp.presenter.Presentable;
 import org.akab.engine.core.api.client.mvp.presenter.PresentersRepository;
 
 import java.util.HashMap;
@@ -10,7 +11,7 @@ public class InMemoryPresentersRepository implements PresentersRepository {
 
     private static final Logger logger= Logger.getLogger(InMemoryPresentersRepository.class.getName());
 
-    private final HashMap<String, PresenterHolder> presenters=new HashMap<>();
+    private final HashMap<String, LazyPresenterLoader> presenters=new HashMap<>();
     private final HashMap<String, String> names=new HashMap<>();
 
     @Override
@@ -19,18 +20,18 @@ public class InMemoryPresentersRepository implements PresentersRepository {
     }
 
     @Override
-    public void registerPresenter(PresenterHolder presenterHolder) {
-        if(isRegisteredPresenter(presenterHolder.getName()))
-            throw new PresenterCannotBeRegisteredMoreThanOnce(presenterHolder.getName());
-        presenters.put(presenterHolder.getName(), presenterHolder);
-        names.put(presenterHolder.getConcreteName(), presenterHolder.getName());
+    public void registerPresenter(LazyPresenterLoader lazyPresenterLoader) {
+        if(isRegisteredPresenter(lazyPresenterLoader.getName()))
+            throw new PresenterCannotBeRegisteredMoreThanOnce(lazyPresenterLoader.getName());
+        presenters.put(lazyPresenterLoader.getName(), lazyPresenterLoader);
+        names.put(lazyPresenterLoader.getConcreteName(), lazyPresenterLoader.getName());
 
     }
 
     @Override
-    public PresenterHolder getPresenter(String presenterName) {
+    public Presentable getPresenter(String presenterName) {
         if(isRegisteredPresenter(presenterName))
-            return presenters.get(presenterName);
+            return presenters.get(presenterName).getPresenter();
         throw new PresenterNotFoundException(presenterName);
     }
 

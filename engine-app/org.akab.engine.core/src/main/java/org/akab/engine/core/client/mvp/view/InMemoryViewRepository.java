@@ -1,25 +1,26 @@
 package org.akab.engine.core.client.mvp.view;
 
-import org.akab.engine.core.api.client.mvp.view.ViewHolder;
+import org.akab.engine.core.api.client.mvp.view.LazyViewLoader;
+import org.akab.engine.core.api.client.mvp.view.View;
 import org.akab.engine.core.api.client.mvp.view.ViewsRepository;
 
 import java.util.HashMap;
 
 public class InMemoryViewRepository implements ViewsRepository {
 
-    private final HashMap<String, ViewHolder> views=new HashMap<>();
+    private final HashMap<String, LazyViewLoader> views=new HashMap<>();
 
     @Override
-    public void registerView(ViewHolder viewHolder) {
-        if(isRegisteredPresenterView(viewHolder.getPresenterName()))
-            throw new ViewsRepository.ViewCannotBeRegisteredMoreThanOnce(viewHolder.getPresenterName());
-        views.put(viewHolder.getPresenterName(), viewHolder);
+    public void registerView(LazyViewLoader lazyViewLoader) {
+        if(isRegisteredPresenterView(lazyViewLoader.getPresenterName()))
+            throw new ViewsRepository.ViewCannotBeRegisteredMoreThanOnce(lazyViewLoader.getPresenterName());
+        views.put(lazyViewLoader.getPresenterName(), lazyViewLoader);
     }
 
     @Override
-    public ViewHolder getView(String presenterName) {
+    public View getView(String presenterName) {
         if(isRegisteredPresenterView(presenterName))
-            return views.get(presenterName);
+            return views.get(presenterName).getView();
         throw new ViewsRepository.ViewNotFoundException(presenterName);
     }
 

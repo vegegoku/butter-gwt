@@ -1,6 +1,5 @@
 package org.akab.engine.core.api.client;
 
-import com.google.gwt.user.client.History;
 import org.akab.engine.core.api.client.History.*;
 import org.akab.engine.core.api.client.events.EventsBus;
 import org.akab.engine.core.api.client.extension.Contributions;
@@ -12,16 +11,13 @@ import org.akab.engine.core.api.client.mvp.PresenterRegistry;
 import org.akab.engine.core.api.client.request.*;
 import org.akab.engine.core.api.client.mvp.ViewRegistry;
 import org.akab.engine.core.api.client.mvp.presenter.ClientPresenter;
-import org.akab.engine.core.api.client.mvp.presenter.PresenterHolder;
+import org.akab.engine.core.api.client.mvp.presenter.LazyPresenterLoader;
 import org.akab.engine.core.api.client.mvp.presenter.PresentersRepository;
-import org.akab.engine.core.api.client.mvp.view.View;
-import org.akab.engine.core.api.client.mvp.view.ViewHolder;
+import org.akab.engine.core.api.client.mvp.view.LazyViewLoader;
 import org.akab.engine.core.api.client.mvp.view.ViewsRepository;
 import org.akab.engine.core.api.shared.extension.MainExtensionPoint;
 
-import java.util.Deque;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 public class ClientApp
@@ -29,8 +25,8 @@ public class ClientApp
         PathToRequestMapperRegistry {
 
     @Override
-    public void registerPresenter(String name, ClientPresenter presenter) {
-        presentersRepository.registerPresenter(new PresenterHolder(name, presenter));
+    public void registerPresenter(LazyPresenterLoader lazyPresenterLoader) {
+        presentersRepository.registerPresenter(lazyPresenterLoader);
     }
 
     @Override
@@ -39,8 +35,8 @@ public class ClientApp
     }
 
     @Override
-    public void registerView(String presenterName, View view) {
-        viewsRepository.registerView(new ViewHolder(presenterName, view));
+    public void registerView(LazyViewLoader lazyViewLoader) {
+        viewsRepository.registerView(lazyViewLoader);
     }
 
     @Override

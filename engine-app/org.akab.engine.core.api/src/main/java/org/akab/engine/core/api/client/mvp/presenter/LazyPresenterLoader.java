@@ -1,28 +1,33 @@
 package org.akab.engine.core.api.client.mvp.presenter;
 
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
-public class PresenterHolder {
+public abstract class LazyPresenterLoader {
 
     @NotNull
     private final String name;
     @NotNull
-    private final ClientPresenter presenter;
+    private Presentable presenter;
+
     private final String concreteName;
 
-    public PresenterHolder(String name, ClientPresenter presenter) {
+    public LazyPresenterLoader(String name, String concreteName) {
         this.name = name;
-        this.presenter = presenter;
-        this.concreteName=presenter.getClass().getCanonicalName();
+        this.concreteName=concreteName;
     }
 
     public String getName() {
         return name;
     }
 
-    public ClientPresenter getPresenter() {
-        return presenter.process();
+    public Presentable getPresenter() {
+        if(Objects.isNull(presenter))
+            presenter=make();
+        return presenter;
     }
+
+    protected abstract Presentable make();
 
     public String getConcreteName(){
         return this.concreteName;
@@ -32,13 +37,13 @@ public class PresenterHolder {
     public boolean equals(Object other) {
         if (this == other) return true;
         if (other == null || getClass() != other.getClass()) return false;
-        return name.equals(((PresenterHolder) other).name) && concreteName.equals(((PresenterHolder) other).concreteName);
+        return name.equals(((LazyPresenterLoader) other).name) && getConcreteName().equals(((LazyPresenterLoader) other).getConcreteName());
     }
 
     @Override
     public int hashCode() {
         int result = name.hashCode();
-        result = 31 * result + concreteName.hashCode();
+        result = 31 * result + getConcreteName().hashCode();
         return result;
     }
 }

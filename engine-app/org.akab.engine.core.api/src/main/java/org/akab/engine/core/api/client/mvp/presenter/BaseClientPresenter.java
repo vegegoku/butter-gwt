@@ -19,6 +19,7 @@ public abstract class BaseClientPresenter<V extends View> implements ClientPrese
 
     public BaseClientPresenter() {
         this.state = NEW;
+        process();
     }
 
     @Override
@@ -28,7 +29,7 @@ public abstract class BaseClientPresenter<V extends View> implements ClientPrese
     }
 
     private V loadView(){
-        return (V) ClientApp.make().getViewsRepository().getView(getName()).getView();
+        return (V) ClientApp.make().getViewsRepository().getView(getName());
     }
 
     private String getName(){
