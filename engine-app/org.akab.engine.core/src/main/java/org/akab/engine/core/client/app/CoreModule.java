@@ -39,6 +39,7 @@ public class CoreModule {
                 .mainExtensionPoint(new CoreMainExtensionPoint())
                 .build();
 
-        History.addValueChangeHandler(new HistoryChangeHandler(clientApp.getPathToRequestMappersRepository()));
+        History.addValueChangeHandler(new HistoryChangeHandler(clientApp.getPathToRequestMappersRepository(),
+                clientApp.getTokenConstruct()));
     }
 }

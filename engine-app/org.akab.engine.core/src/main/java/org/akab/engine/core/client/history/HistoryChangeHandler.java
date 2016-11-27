@@ -2,8 +2,8 @@ package org.akab.engine.core.client.history;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.user.client.History;
 import org.akab.engine.core.api.client.History.PathToRequestMappersRepository;
+import org.akab.engine.core.api.client.History.TokenConstruct;
 import org.akab.engine.core.api.client.History.TokenizedPath;
 import org.akab.engine.core.api.client.History.UrlPathTokenizer;
 import org.akab.engine.core.api.client.request.Request;
@@ -17,9 +17,11 @@ public class HistoryChangeHandler implements ValueChangeHandler<String> {
     public static final String PARAMETER_SEPARATOR="&";
 
     private final PathToRequestMappersRepository mappersRepository;
+    private final TokenConstruct tokenConstruct;
 
-    public HistoryChangeHandler(PathToRequestMappersRepository repository) {
+    public HistoryChangeHandler(PathToRequestMappersRepository repository, TokenConstruct tokenConstruct) {
         this.mappersRepository=repository;
+        this.tokenConstruct = tokenConstruct;
     }
 
     @Override
@@ -29,9 +31,9 @@ public class HistoryChangeHandler implements ValueChangeHandler<String> {
         if(!tokens.isEmpty()) {
             Request rootRequest=mapTokenToRequest(tokens.pop());
             chainRequest(rootRequest, tokens);
+            tokenConstruct.clear();
             rootRequest.send();
         }
-
 
     }
 
