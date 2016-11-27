@@ -14,5 +14,6 @@ public class App implements EntryPoint {
 		LOGGER.info("App");
 		ClientApp.make().run();
 
+
 	}
 }
