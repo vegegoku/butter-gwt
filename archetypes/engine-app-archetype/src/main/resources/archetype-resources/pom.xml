@@ -33,8 +33,7 @@
         <version>3.1.0</version>
       </dependency>
       <dependency>
-        <groupId></groupId>
-        <artifactId></artifactId><groupId>org.akab.engine</groupId>
+        <groupId>org.akab.engine</groupId>
         <artifactId>core-annotation-processors</artifactId>
         <version>1.0-SNAPSHOT</version>g
       </dependency>
