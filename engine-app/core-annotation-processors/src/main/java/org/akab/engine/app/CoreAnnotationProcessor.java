@@ -1,9 +1,11 @@
 package org.akab.engine.app;
 
+import com.google.auto.service.AutoService;
 import org.akab.engine.annotations.processor.utils.BaseProcessor;
 import org.akab.engine.annotations.processor.utils.ProcessorElement;
 import org.akab.engine.core.api.client.annotations.ClientModule;
 
+import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.ElementKind;
@@ -14,6 +16,7 @@ import java.io.Writer;
 import java.util.HashSet;
 import java.util.Set;
 
+@AutoService(Processor.class)
 public class CoreAnnotationProcessor extends BaseProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
