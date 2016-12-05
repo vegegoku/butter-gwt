@@ -5,7 +5,7 @@ import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import org.akab.engine.core.api.client.events.ServerRequestEventFactory;
 import org.akab.engine.core.api.client.request.RequestRouter;
-import org.akab.engine.core.api.shared.request.Response;
+import org.akab.engine.core.api.shared.request.ServerResponse;
 import org.akab.engine.core.api.client.request.ServerRequest;
 import org.akab.engine.core.api.shared.service.ServerService;
 import org.akab.engine.core.api.shared.service.ServerServiceAsync;
@@ -35,15 +35,15 @@ public class ServerRouter implements RequestRouter<ServerRequest> {
 
             @Override
             public void onSuccess() {
-                serverService.executeRequest(request.arguments(), new AsyncCallback<Response>() {
+                serverService.executeRequest(request.arguments(), new AsyncCallback<ServerResponse>() {
                     @Override
                     public void onFailure(Throwable throwable) {
                         requestEventFactory.makeFailed(request, throwable).fire();
                     }
 
                     @Override
-                    public void onSuccess(Response response) {
-                        requestEventFactory.makeSuccess(request, response).fire();
+                    public void onSuccess(ServerResponse serverResponse) {
+                        requestEventFactory.makeSuccess(request, serverResponse).fire();
                     }
                 });
             }

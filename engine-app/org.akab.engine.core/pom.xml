@@ -71,6 +71,17 @@
 			<artifactId>core-api</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>org.akab.engine</groupId>
+			<artifactId>core-api-shared</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.akab.engine</groupId>
+			<artifactId>core-api-shared</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<classifier>sources</classifier>
+		</dependency>
 	</dependencies>
 
 	<build>

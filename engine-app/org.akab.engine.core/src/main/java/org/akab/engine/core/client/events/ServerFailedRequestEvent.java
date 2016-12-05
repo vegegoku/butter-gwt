@@ -3,7 +3,7 @@ package org.akab.engine.core.client.events;
 import org.akab.engine.core.api.client.ClientApp;
 import org.akab.engine.core.api.client.events.Event;
 import org.akab.engine.core.api.client.events.EventProcessor;
-import org.akab.engine.core.api.shared.request.FailedResponse;
+import org.akab.engine.core.api.shared.request.FailedServerResponse;
 import org.akab.engine.core.api.client.request.Request;
 import org.akab.engine.core.api.client.request.ServerRequest;
 import org.akab.engine.core.logger.client.CoreLogger;
@@ -33,7 +33,7 @@ public class ServerFailedRequestEvent extends ServerFailedRequestGwtEvent implem
     }
 
     private Request.ServerFailedRequestStateContext makeFailedContext() {
-        return new Request.ServerFailedRequestStateContext( new FailedResponse(error));
+        return new Request.ServerFailedRequestStateContext( new FailedServerResponse(error));
     }
 
     @Override

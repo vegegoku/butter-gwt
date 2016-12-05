@@ -1,7 +1,6 @@
 package org.akab.engine.core.api.shared.server;
 
-/**
- * Created by u343 on 12/1/16.
- */
 public interface InterceptorsRegistry {
+    void registerInterceptor(String requestName, String entryPointName, RequestInterceptor interceptor);
+    void registerGlobalInterceptor(String entryPointName, GlobalInterceptor interceptor);
 }

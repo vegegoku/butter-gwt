@@ -2,10 +2,10 @@ package org.akab.engine.core.api.shared.service;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
-import org.akab.engine.core.api.shared.request.Response;
-import org.akab.engine.core.api.shared.request.ServerArgs;
+import org.akab.engine.core.api.shared.request.ServerResponse;
+import org.akab.engine.core.api.shared.request.ServerRequest;
 
 @RemoteServiceRelativePath("serverService")
 public interface ServerService extends RemoteService{
-    Response executeRequest(ServerArgs arguments) throws Exception;
+    ServerResponse executeRequest(ServerRequest request) throws Exception;
 }

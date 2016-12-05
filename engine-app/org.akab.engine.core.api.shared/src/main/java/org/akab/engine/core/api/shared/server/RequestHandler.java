@@ -1,8 +1,8 @@
 package org.akab.engine.core.api.shared.server;
 
-import org.akab.engine.core.api.shared.request.Response;
-import org.akab.engine.core.api.shared.request.ServerArgs;
+import org.akab.engine.core.api.shared.request.ServerResponse;
+import org.akab.engine.core.api.shared.request.ServerRequest;
 
-public interface RequestHandler<R extends ServerArgs, S extends Response> {
-    R handleRequest(ServerArgs arguments);
+public interface RequestHandler<R extends ServerRequest, S extends ServerResponse> {
+    S handleRequest(R arguments);
 }

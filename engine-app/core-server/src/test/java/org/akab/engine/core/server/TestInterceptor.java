@@ -1,7 +1,12 @@
 package org.akab.engine.core.server;
 
-/**
- * Created by u343 on 12/4/16.
- */
-public class TestInterceptor {
+import org.akab.engine.core.api.shared.request.ServerRequest;
+import org.akab.engine.core.api.shared.server.RequestInterceptor;
+
+public class TestInterceptor implements RequestInterceptor<TestRequest, TestServerEntryPointContext> {
+    @Override
+    public void intercept(TestRequest request, TestServerEntryPointContext context) {
+        request.appendTestWord("-intercepted");
+        request.appendTestWord(context.getEntryContextParameter());
+    }
 }

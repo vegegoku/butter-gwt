@@ -6,12 +6,12 @@ import org.akab.engine.core.api.shared.server.*;
 
 import java.util.Collection;
 
-class RpcRequestExecutor implements RequestExecutor {
+class DefaultRequestExecutor implements RequestExecutor {
 
     private final HandlersRepository handlersRepository;
     private final InterceptorsRepository interceptorsRepository;
 
-    public RpcRequestExecutor(HandlersRepository handlersRepository, InterceptorsRepository interceptorsRepository) {
+    public DefaultRequestExecutor(HandlersRepository handlersRepository, InterceptorsRepository interceptorsRepository) {
         this.handlersRepository = handlersRepository;
         this.interceptorsRepository = interceptorsRepository;
     }

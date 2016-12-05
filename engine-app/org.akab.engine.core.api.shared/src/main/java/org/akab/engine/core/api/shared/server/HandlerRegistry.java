@@ -1,7 +1,9 @@
 package org.akab.engine.core.api.shared.server;
 
-/**
- * Created by u343 on 11/30/16.
- */
+import org.akab.engine.core.api.shared.request.ServerRequest;
+
 public interface HandlerRegistry {
+
+    void registerHandler(String request, RequestHandler handler);
+
 }
