@@ -6,13 +6,13 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import org.akab.engine.core.api.client.events.ServerRequestEventFactory;
 import org.akab.engine.core.api.client.request.RequestRouter;
 import org.akab.engine.core.api.shared.request.ServerResponse;
-import org.akab.engine.core.api.client.request.ServerRequest;
+import org.akab.engine.core.api.client.request.ClientServerRequest;
 import org.akab.engine.core.api.shared.service.ServerService;
 import org.akab.engine.core.api.shared.service.ServerServiceAsync;
 import org.akab.engine.core.logger.client.CoreLogger;
 import org.akab.engine.core.logger.client.CoreLoggerFactory;
 
-public class ServerRouter implements RequestRouter<ServerRequest> {
+public class ServerRouter implements RequestRouter<ClientServerRequest> {
 
     private static final CoreLogger LOGGER = CoreLoggerFactory.getLogger(ServerRouter.class);
 
@@ -25,7 +25,7 @@ public class ServerRouter implements RequestRouter<ServerRequest> {
     }
 
     @Override
-    public void routeRequest(final ServerRequest request) {
+    public void routeRequest(final ClientServerRequest request) {
 
         com.google.gwt.core.client.GWT.runAsync(new RunAsyncCallback() {
             @Override

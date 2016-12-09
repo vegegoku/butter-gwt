@@ -6,7 +6,7 @@ import org.akab.engine.core.api.shared.server.*;
 
 import java.util.Collection;
 
-class DefaultRequestExecutor implements RequestExecutor {
+public class DefaultRequestExecutor implements RequestExecutor {
 
     private final HandlersRepository handlersRepository;
     private final InterceptorsRepository interceptorsRepository;

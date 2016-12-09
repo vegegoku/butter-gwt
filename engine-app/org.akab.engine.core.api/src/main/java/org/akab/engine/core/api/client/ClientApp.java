@@ -10,7 +10,6 @@ import org.akab.engine.core.api.shared.extension.ExtensionPoint;
 import org.akab.engine.core.api.client.mvp.PresenterRegistry;
 import org.akab.engine.core.api.client.request.*;
 import org.akab.engine.core.api.client.mvp.ViewRegistry;
-import org.akab.engine.core.api.client.mvp.presenter.ClientPresenter;
 import org.akab.engine.core.api.client.mvp.presenter.LazyPresenterLoader;
 import org.akab.engine.core.api.client.mvp.presenter.PresentersRepository;
 import org.akab.engine.core.api.client.mvp.view.LazyViewLoader;
@@ -55,7 +54,7 @@ public class ClientApp
     }
 
     private static RequestRouter<ClientRequest> clientRouter;
-    private static RequestRouter<ServerRequest> serverRouter;
+    private static RequestRouter<ClientServerRequest> serverRouter;
     private static EventsBus eventsBus;
     private static RequestsRepository requestRepository;
     private static PresentersRepository presentersRepository;
@@ -70,7 +69,7 @@ public class ClientApp
     private ClientApp() {
     }
 
-    private ClientApp(RequestRouter<ClientRequest> clientRouter, RequestRouter<ServerRequest> serverRouter,
+    private ClientApp(RequestRouter<ClientRequest> clientRouter, RequestRouter<ClientServerRequest> serverRouter,
                       EventsBus eventsBus, RequestsRepository requestRepository,
                       PresentersRepository presentersRepository, ViewsRepository viewsRepository,
                       ContributionsRepository contributionsRepository,
@@ -97,7 +96,7 @@ public class ClientApp
         return clientRouter;
     }
 
-    public RequestRouter<ServerRequest> getServerRouter() {
+    public RequestRouter<ClientServerRequest> getServerRouter() {
         return serverRouter;
     }
 
@@ -149,7 +148,7 @@ public class ClientApp
     public static class ClientAppBuilder {
 
         private static RequestRouter<ClientRequest> clientRouter;
-        private static RequestRouter<ServerRequest> serverRouter;
+        private static RequestRouter<ClientServerRequest> serverRouter;
         private EventsBus eventsBus;
         private RequestsRepository requestRepository;
         private PresentersRepository presentersRepository;
@@ -167,7 +166,7 @@ public class ClientApp
             return this;
         }
 
-        public ClientAppBuilder serverRouter(RequestRouter<ServerRequest> serverRouter) {
+        public ClientAppBuilder serverRouter(RequestRouter<ClientServerRequest> serverRouter) {
             this.serverRouter = serverRouter;
             return this;
         }

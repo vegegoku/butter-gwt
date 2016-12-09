@@ -20,7 +20,6 @@
 				<groupId>com.google.gwt</groupId>
 				<artifactId>gwt</artifactId>
 				<version>${gwtVersion}</version>
-				<scope>import</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -70,6 +69,7 @@
 			<groupId>org.akab.engine</groupId>
 			<artifactId>core-api</artifactId>
 			<version>1.0-SNAPSHOT</version>
+			<classifier>sources</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.akab.engine</groupId>

@@ -5,15 +5,15 @@ import org.akab.engine.core.api.client.events.Event;
 import org.akab.engine.core.api.client.events.EventProcessor;
 import org.akab.engine.core.api.client.request.Request;
 import org.akab.engine.core.api.shared.request.ServerResponse;
-import org.akab.engine.core.api.client.request.ServerRequest;
+import org.akab.engine.core.api.client.request.ClientServerRequest;
 
 public class ServerSuccessRequestEvent extends ServerSuccessRequestGwtEvent implements Event {
 
-    protected final ServerRequest request;
+    protected final ClientServerRequest request;
     private final ServerResponse serverResponse;
     private final ClientApp clientApp=ClientApp.make();
 
-    public ServerSuccessRequestEvent(ServerRequest request, ServerResponse serverResponse) {
+    public ServerSuccessRequestEvent(ClientServerRequest request, ServerResponse serverResponse) {
         this.request = request;
         this.serverResponse = serverResponse;
     }

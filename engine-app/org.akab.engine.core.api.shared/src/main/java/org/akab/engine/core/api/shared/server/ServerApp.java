@@ -50,6 +50,13 @@ public class ServerApp implements HandlerRegistry, InterceptorsRegistry{
         interceptorsRepository.addGlobalInterceptor(entryPointName, interceptor);
     }
 
+    public void configureModule(ServerModuleConfiguration configuration) {
+        configuration.registerHandlers(this);
+        configuration.registerInterceptors(this);
+        configuration.registerGlobalInterceptors(this);
+
+    }
+
     public static class ServerAppBuilder{
 
         private RequestExecutor requestExecutor;

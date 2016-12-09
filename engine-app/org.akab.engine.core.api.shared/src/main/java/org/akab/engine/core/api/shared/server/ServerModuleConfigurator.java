@@ -1,7 +1,9 @@
 package org.akab.engine.core.api.shared.server;
 
-/**
- * Created by u343 on 12/9/16.
- */
-public interface ServerModuleConfigurator {
+public final class ServerModuleConfigurator {
+
+    public void configureModule(ServerModuleConfiguration configuration){
+        ServerApp.make().configureModule(configuration);
+    }
+
 }

@@ -8,10 +8,10 @@ import org.akab.engine.core.logger.client.CoreLoggerFactory;
 
 import java.util.Objects;
 
-public abstract class ServerRequest<P extends Presentable, R extends org.akab.engine.core.api.shared.request.ServerRequest, S extends ServerResponse>
+public abstract class ClientServerRequest<P extends Presentable, R extends org.akab.engine.core.api.shared.request.ServerRequest, S extends ServerResponse>
         extends BaseRequest<P> {
 
-    private static final CoreLogger LOGGER = CoreLoggerFactory.getLogger(ServerRequest.class);
+    private static final CoreLogger LOGGER = CoreLoggerFactory.getLogger(ClientServerRequest.class);
 
     private R serverArgs;
 
