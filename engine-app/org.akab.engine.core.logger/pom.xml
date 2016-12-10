@@ -21,7 +21,6 @@
 				<groupId>com.google.gwt</groupId>
 				<artifactId>gwt</artifactId>
 				<version>${gwtVersion}</version>
-				<scope>import</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

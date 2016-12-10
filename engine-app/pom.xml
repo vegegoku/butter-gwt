@@ -113,5 +113,6 @@
         <module>core-annotation-processors</module>
         <module>processor-testing</module>
         <module>processor-utils</module>
+        <module>core-server</module>
     </modules>
 </project>

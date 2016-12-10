@@ -4,18 +4,18 @@ import org.akab.engine.core.api.client.ClientApp;
 import org.akab.engine.core.api.client.events.Event;
 import org.akab.engine.core.api.client.events.EventProcessor;
 import org.akab.engine.core.api.client.request.Request;
-import org.akab.engine.core.api.shared.request.Response;
-import org.akab.engine.core.api.client.request.ServerRequest;
+import org.akab.engine.core.api.shared.request.ServerResponse;
+import org.akab.engine.core.api.client.request.ClientServerRequest;
 
 public class ServerSuccessRequestEvent extends ServerSuccessRequestGwtEvent implements Event {
 
-    protected final ServerRequest request;
-    private final Response response;
+    protected final ClientServerRequest request;
+    private final ServerResponse serverResponse;
     private final ClientApp clientApp=ClientApp.make();
 
-    public ServerSuccessRequestEvent(ServerRequest request, Response response) {
+    public ServerSuccessRequestEvent(ClientServerRequest request, ServerResponse serverResponse) {
         this.request = request;
-        this.response=response;
+        this.serverResponse = serverResponse;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class ServerSuccessRequestEvent extends ServerSuccessRequestGwtEvent impl
     }
 
     private Request.ServerSuccessRequestStateContext makeSuccessContext() {
-        return new Request.ServerSuccessRequestStateContext(response);
+        return new Request.ServerSuccessRequestStateContext(serverResponse);
     }
 
 

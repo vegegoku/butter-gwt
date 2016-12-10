@@ -1,10 +1,9 @@
 package org.akab.engine.core.api.client.request;
 
 
-import org.akab.engine.core.api.client.mvp.presenter.ClientPresenter;
 import org.akab.engine.core.api.client.mvp.presenter.Presentable;
-import org.akab.engine.core.api.shared.request.FailedResponse;
-import org.akab.engine.core.api.shared.request.Response;
+import org.akab.engine.core.api.shared.request.FailedServerResponse;
+import org.akab.engine.core.api.shared.request.ServerResponse;
 
 public interface Request<P extends Presentable> {
 
@@ -22,18 +21,18 @@ public interface Request<P extends Presentable> {
 
     class ServerSuccessRequestStateContext implements RequestStateContext{
 
-        final Response response;
+        final ServerResponse serverResponse;
 
-        public ServerSuccessRequestStateContext(Response response) {
-            this.response=response;
+        public ServerSuccessRequestStateContext(ServerResponse serverResponse) {
+            this.serverResponse = serverResponse;
         }
     }
 
     class ServerFailedRequestStateContext implements RequestStateContext{
 
-        final FailedResponse response;
+        final FailedServerResponse response;
 
-        public ServerFailedRequestStateContext(FailedResponse response) {
+        public ServerFailedRequestStateContext(FailedServerResponse response) {
             this.response=response;
         }
     }

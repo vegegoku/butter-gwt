@@ -1,18 +1,17 @@
 package org.akab.engine.core.api.client.request;
 
 import org.akab.engine.core.api.client.mvp.presenter.Presentable;
-import org.akab.engine.core.api.shared.request.FailedResponse;
-import org.akab.engine.core.api.shared.request.Response;
-import org.akab.engine.core.api.shared.request.ServerArgs;
+import org.akab.engine.core.api.shared.request.FailedServerResponse;
+import org.akab.engine.core.api.shared.request.ServerResponse;
 import org.akab.engine.core.logger.client.CoreLogger;
 import org.akab.engine.core.logger.client.CoreLoggerFactory;
 
 import java.util.Objects;
 
-public abstract class ServerRequest<P extends Presentable, R extends ServerArgs, S extends Response>
+public abstract class ClientServerRequest<P extends Presentable, R extends org.akab.engine.core.api.shared.request.ServerRequest, S extends ServerResponse>
         extends BaseRequest<P> {
 
-    private static final CoreLogger LOGGER = CoreLoggerFactory.getLogger(ServerRequest.class);
+    private static final CoreLogger LOGGER = CoreLoggerFactory.getLogger(ClientServerRequest.class);
 
     private R serverArgs;
 
@@ -28,7 +27,7 @@ public abstract class ServerRequest<P extends Presentable, R extends ServerArgs,
                         applyState(context.nextContext);
                     } else {
                         throw new InvalidRequestState(
-                                "Request cannot be processed until a response is recieved from the server");
+                                "Request cannot be processed until a serverResponse is recieved from the server");
                     }
                 }
             };
@@ -37,7 +36,7 @@ public abstract class ServerRequest<P extends Presentable, R extends ServerArgs,
             new RequestState<ServerSuccessRequestStateContext>() {
                 @Override
                 public void execute(ServerSuccessRequestStateContext context) {
-                    process((P) getRequestPresenter(), serverArgs, (S) context.response);
+                    process((P) getRequestPresenter(), serverArgs, (S) context.serverResponse);
                     applyHistory();
                     state = completed;
                     if(Objects.nonNull(chainedRequest))
@@ -62,7 +61,7 @@ public abstract class ServerRequest<P extends Presentable, R extends ServerArgs,
     protected abstract void process(P presenter, R serverArgs, S response);
 
 
-    protected void onFailedServerCall(P presenter, R serverArgs, FailedResponse failedResponse) {
+    protected void onFailedServerCall(P presenter, R serverArgs, FailedServerResponse failedResponse) {
         LOGGER.error("Could not execute request on server!.", failedResponse.getError());
     }
 
