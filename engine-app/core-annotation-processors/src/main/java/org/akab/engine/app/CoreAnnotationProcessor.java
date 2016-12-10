@@ -21,8 +21,10 @@ import javax.tools.Diagnostic;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -68,7 +70,15 @@ public class CoreAnnotationProcessor extends BaseProcessor {
             throw new RuntimeException("Invalid presenter");
         return presentersAsStream()
                 .collect(Collectors.toMap(e -> e,
-                        e -> (DeclaredType) ((TypeElement) e).getInterfaces().get(0)));
+                        e -> (DeclaredType) ((TypeElement) e).getInterfaces().get(0)
+                        , throwingOnDuplicateKey()
+                        , LinkedHashMap::new));
+    }
+
+    private BinaryOperator<DeclaredType> throwingOnDuplicateKey() {
+        return (u, v) -> {
+            throw new IllegalStateException("Duplicate key " + u);
+        };
     }
 
     private boolean isImplementsPresentable(Element e) {
