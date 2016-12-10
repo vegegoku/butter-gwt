@@ -74,4 +74,28 @@ public class CoreAnnotationProcessorTest {
             Truth.assertThat(e).hasMessage("java.lang.RuntimeException: Invalid presenter");
         }
     }
+
+    @Test
+    public void givenClassAnnotatedWithUiView_WhenProcess_ShouldAddRegistrationLineToModuleConfiguration() throws Exception {
+        assertProcessing(BASE_PACKAGE + "AnnotatedClassWithUiView.java",
+                BASE_PACKAGE + "AnnotatedClassWithClientModuleWithUiViewRegistration.java",
+                BASE_PACKAGE + "PresenterInterface.java")
+                .withProcessor(processor())
+                .generates(getExpectedResultFileContent("UiViewRegistrationModuleConfiguration.java"));
+
+    }
+
+    @Test
+    public void givenClassAnnotatedWithUiViewAndNotImplementsViewInterface_WhenProcess_ShouldThrowException() throws Exception {
+        try {
+            assertProcessing(BASE_PACKAGE + "AnnotatedClassWithClientModuleWithUiViewRegistration.java",
+                    BASE_PACKAGE + "InvalidViewClass.java",
+                    BASE_PACKAGE + "PresenterInterface.java")
+                    .withProcessor(processor())
+                    .compilesWithoutErrors();
+            Truth.THROW_ASSERTION_ERROR.fail("Should throw RuntimeException with message Invalid view");
+        } catch (RuntimeException e) {
+            Truth.assertThat(e).hasMessage("java.lang.RuntimeException: Invalid view");
+        }
+    }
 }

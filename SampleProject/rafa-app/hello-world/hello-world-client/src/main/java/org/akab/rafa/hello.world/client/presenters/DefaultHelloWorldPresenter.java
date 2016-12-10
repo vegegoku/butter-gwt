@@ -5,7 +5,7 @@ import org.akab.engine.core.api.client.mvp.presenter.BaseClientPresenter;
 import org.akab.engine.core.api.shared.extension.MainExtensionPoint;
 import org.akab.rafa.hello.world.client.views.HelloWorldView;
 
-@Presenter(presentable = HelloWorldPresenter.class)
+@Presenter
 public class DefaultHelloWorldPresenter extends BaseClientPresenter<HelloWorldView> implements HelloWorldPresenter {
 
     @Override

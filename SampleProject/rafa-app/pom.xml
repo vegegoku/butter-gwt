@@ -105,6 +105,5 @@
     <module>rafa-app-client</module>
     <module>rafa-app-server</module>
     <module>hello-world</module>
-    <module>test</module>
   </modules>
 </project>

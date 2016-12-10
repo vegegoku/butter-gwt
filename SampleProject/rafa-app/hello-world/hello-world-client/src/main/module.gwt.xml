@@ -3,7 +3,7 @@
   <inherits name="com.google.gwt.user.User" />
   <inherits name="com.google.gwt.user.theme.clean.Clean" />
 
-  <source path="" />
+  <source path="client" />
 
   <entry-point class="org.akab.rafa.hello.world.client.HelloWorldClientModule" />
 
