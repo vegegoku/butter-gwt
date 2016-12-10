@@ -12,9 +12,7 @@ public class ServerAppListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        LOGGER.info("ServerAppListener is running ------------------------ > ");
         new ServerConfigurationLoader().loadModules();
-        LOGGER.info("ServerAppListener is done ------------------------ > ");
     }
 
     @Override

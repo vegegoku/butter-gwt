@@ -78,12 +78,7 @@ public class HelloWorldClientModule implements EntryPoint {
             @Override
             public void registerInitialTasks(InitialTaskRegistry registry) {
 
-                registry.registerInitialTask(new InitializeTask() {
-                    @Override
-                    public void execute() {
-                        new SampleServerRequest().send();
-                    }
-                });
+                registry.registerInitialTask(() -> new SampleServerRequest().send());
 
             }
 
