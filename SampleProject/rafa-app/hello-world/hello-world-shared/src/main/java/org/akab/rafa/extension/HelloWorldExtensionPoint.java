@@ -1,4 +1,4 @@
-package org.akab.rafa;
+package org.akab.rafa.extension;
 
 import org.akab.engine.core.api.shared.extension.ExtensionPoint;
 

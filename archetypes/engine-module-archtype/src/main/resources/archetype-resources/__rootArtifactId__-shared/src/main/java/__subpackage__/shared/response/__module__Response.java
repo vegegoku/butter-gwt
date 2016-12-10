@@ -1,16 +1,18 @@
-package org.akab.rafa;
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+package ${package}.${subpackage}.shared.response;
 
 import org.akab.engine.core.api.shared.request.ServerResponse;
 
-
-public class HelloResponse extends ServerResponse {
+public class ${module}Response extends ServerResponse {
 
     private String serverMessage;
 
-    public HelloResponse() {
+    public ${module}Response() {
     }
 
-    public HelloResponse(String serverMessage) {
+    public ${module}Response(String serverMessage) {
         this.serverMessage = serverMessage;
     }
 
