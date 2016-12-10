@@ -25,7 +25,6 @@ public class InMemoryPresentersRepository implements PresentersRepository {
             throw new PresenterCannotBeRegisteredMoreThanOnce(lazyPresenterLoader.getName());
         presenters.put(lazyPresenterLoader.getName(), lazyPresenterLoader);
         names.put(lazyPresenterLoader.getConcreteName(), lazyPresenterLoader.getName());
-
     }
 
     @Override
