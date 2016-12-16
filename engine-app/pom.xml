@@ -103,9 +103,6 @@
         </pluginManagement>
     </build>
     <modules>
-        <module>engine-app-client</module>
-        <module>engine-app-shared</module>
-        <module>engine-app-server</module>
         <module>org.akab.engine.core.api</module>
         <module>org.akab.engine.core</module>
         <module>org.akab.engine.core.logger</module>
