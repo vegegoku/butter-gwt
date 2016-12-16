@@ -24,4 +24,10 @@ public class SingleTargetProcessor extends BaseTargetProcessor {
                 .processedWith(processor).compilesWithoutError();
     }
 
+    @Override
+    public CompileTester.UnsuccessfulCompilationClause failsToCompile() {
+        return Truth.assert_().about(javaSource()).that(JavaFileObjects.forResource(inputClassName))
+                .processedWith(processor).failsToCompile();
+    }
+
 }

@@ -1,7 +1,7 @@
 package org.akab.engine.core.api.shared.server;
 
 public interface ServerModuleConfiguration {
-    void registerHandlers(HandlerRegistry registry);
-    void registerInterceptors(InterceptorsRegistry registry);
-    void registerGlobalInterceptors(InterceptorsRegistry registry);
+    default void registerHandlers(HandlerRegistry registry){};
+    default void registerInterceptors(InterceptorsRegistry registry){};
+    default void registerGlobalInterceptors(InterceptorsRegistry registry){};
 }

@@ -1,6 +1,12 @@
 package org.akab.engine.core.api.shared.server;
 
-import org.akab.engine.core.api.shared.request.ServerRequest;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-public interface GlobalInterceptor<E extends ServerEntryPointContext> extends RequestInterceptor<ServerRequest, E> {
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface GlobalInterceptor {
+
 }

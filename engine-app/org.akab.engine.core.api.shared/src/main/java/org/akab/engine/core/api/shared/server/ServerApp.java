@@ -46,7 +46,7 @@ public class ServerApp implements HandlerRegistry, InterceptorsRegistry{
     }
 
     @Override
-    public void registerGlobalInterceptor(String entryPointName, GlobalInterceptor interceptor) {
+    public void registerGlobalInterceptor(String entryPointName, GlobalRequestInterceptor interceptor) {
         interceptorsRepository.addGlobalInterceptor(entryPointName, interceptor);
     }
 

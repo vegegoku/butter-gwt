@@ -5,7 +5,7 @@
 
   <servlet>
     <servlet-name>ServerRPC</servlet-name>
-    <servlet-class>org.akab.engine.app.ServerServiceImpl</servlet-class>
+    <servlet-class>org.akab.engine.core.annotation.processor.client.ServerServiceImpl</servlet-class>
   </servlet>
 
   <servlet-mapping>

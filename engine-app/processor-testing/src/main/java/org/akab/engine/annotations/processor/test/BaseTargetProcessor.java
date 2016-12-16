@@ -25,6 +25,7 @@ public abstract class BaseTargetProcessor {
     }
 
     public abstract CompileTester.SuccessfulCompilationClause compilesWithoutErrors();
+    public abstract CompileTester.UnsuccessfulCompilationClause failsToCompile();
 
     public void generatesResource(String basePackage, String fileName, String content) {
         compilesWithoutErrors()

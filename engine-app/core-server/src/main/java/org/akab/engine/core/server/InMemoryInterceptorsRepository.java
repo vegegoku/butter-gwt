@@ -1,6 +1,6 @@
 package org.akab.engine.core.server;
 
-import org.akab.engine.core.api.shared.server.GlobalInterceptor;
+import org.akab.engine.core.api.shared.server.GlobalRequestInterceptor;
 import org.akab.engine.core.api.shared.server.InterceptorsRepository;
 import org.akab.engine.core.api.shared.server.RequestInterceptor;
 
@@ -10,7 +10,7 @@ public class InMemoryInterceptorsRepository implements InterceptorsRepository {
 
     private final Map<String, Map<String, Set<RequestInterceptor>>> interceptors = new HashMap<>();
 
-    private final Map<String, Set<GlobalInterceptor>> globalInterceptors=new HashMap<>();
+    private final Map<String, Set<GlobalRequestInterceptor>> globalInterceptors=new HashMap<>();
 
     @Override
     public void addInterceptor(String requestName, String entryPointName, RequestInterceptor interceptor) {
@@ -32,17 +32,17 @@ public class InMemoryInterceptorsRepository implements InterceptorsRepository {
     }
 
     @Override
-    public void addGlobalInterceptor(String entryPointName, GlobalInterceptor interceptor) {
+    public void addGlobalInterceptor(String entryPointName, GlobalRequestInterceptor interceptor) {
         if(globalInterceptors.containsKey(entryPointName))
             globalInterceptors.get(entryPointName).add(interceptor);
         else
-            globalInterceptors.put(entryPointName, new HashSet<GlobalInterceptor>(){{
+            globalInterceptors.put(entryPointName, new HashSet<GlobalRequestInterceptor>(){{
                 add(interceptor);
             }});
     }
 
     @Override
-    public Collection<GlobalInterceptor> findGlobalInterceptors(String entryPointName) {
+    public Collection<GlobalRequestInterceptor> findGlobalInterceptors(String entryPointName) {
         if(globalInterceptors.containsKey(entryPointName))
             return globalInterceptors.get(entryPointName);
         return new HashSet<>();

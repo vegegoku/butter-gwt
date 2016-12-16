@@ -27,7 +27,7 @@ public class DefaultRequestExecutor implements RequestExecutor {
         return interceptorsRepository.findInterceptors(request.getClass().getCanonicalName(),context.getClass().getCanonicalName());
     }
 
-    private Collection<GlobalInterceptor> getGlobalInterceptors(ServerEntryPointContext context) {
+    private Collection<GlobalRequestInterceptor> getGlobalInterceptors(ServerEntryPointContext context) {
         return interceptorsRepository.findGlobalInterceptors(context.getClass().getCanonicalName());
     }
 }

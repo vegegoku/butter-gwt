@@ -4,12 +4,12 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import java.lang.annotation.Annotation;
-import java.util.Objects;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -19,16 +19,20 @@ public class ProcessorElement {
     private Elements elementUtils;
     private Types typeUtils;
 
-    private ImportsWriter importsWriter=new ImportsWriter();
+    private ImportsWriter importsWriter = new ImportsWriter();
 
     public ProcessorElement(Element element, Elements elementUtils, Types typeUtils) {
         this.element = element;
-        this.elementUtils=elementUtils;
-        this.typeUtils=typeUtils;
+        this.elementUtils = elementUtils;
+        this.typeUtils = typeUtils;
     }
 
-    public ProcessorElement make(Element element){
+    public ProcessorElement make(Element element) {
         return new ProcessorElement(element, elementUtils, typeUtils);
+    }
+
+    public TypeMirror asType() {
+        return element.asType();
     }
 
     public String elementPackage() {
@@ -39,7 +43,7 @@ public class ProcessorElement {
         return (TypeElement) element;
     }
 
-    public String asTypeString(){
+    public String asTypeString() {
         return element.asType().toString();
     }
 
@@ -51,32 +55,37 @@ public class ProcessorElement {
         return element.getSimpleName().toString();
     }
 
-    public <A extends Annotation> A getAnnotation(Class<A> annotation){
+    public String fullQualifiedNoneGenericName() {
+        return elementPackage() + "." + simpleName();
+    }
+
+    public <A extends Annotation> A getAnnotation(Class<A> annotation) {
         return element.getAnnotation(annotation);
     }
 
-    public Stream<? extends Element> fieldsStream(){
-        return element.getEnclosedElements().stream().filter(element -> element.getKind()== ElementKind.FIELD);
+    public Stream<? extends Element> fieldsStream() {
+        return element.getEnclosedElements().stream().filter(element -> element.getKind() == ElementKind.FIELD);
     }
 
-    public <A extends Annotation> Stream<? extends Element> fieldsAnnotatedWithStream(Class<A> annotationClass){
-        return element.getEnclosedElements().stream().filter(element -> element.getKind()== ElementKind.FIELD).filter(element -> fieldAnnotatedWith(element, annotationClass));
+    public <A extends Annotation> Stream<? extends Element> fieldsAnnotatedWithStream(Class<A> annotationClass) {
+        return element.getEnclosedElements().stream().filter(element -> element.getKind() == ElementKind.FIELD)
+                .filter(element -> fieldAnnotatedWith(element, annotationClass));
     }
 
     private <A extends Annotation> boolean fieldAnnotatedWith(Element element, Class<A> annotationClass) {
         return Objects.nonNull(element.getAnnotation(annotationClass));
     }
 
-    public ImportsWriter asImports(){
+    public ImportsWriter asImports() {
         StringTokenizer st = new StringTokenizer(element.asType().toString(), "<>,");
-        if(st.hasMoreTokens())
+        if (st.hasMoreTokens())
             return asImports(st);
         return importsWriter.addImport(asImportToken(element.asType().toString()));
     }
 
     private ImportsWriter asImports(StringTokenizer st) {
         String token = st.nextToken();
-        if (st.hasMoreTokens()){
+        if (st.hasMoreTokens()) {
             importsWriter.addImport(asImportToken(token));
             return asImports(st);
         }
@@ -84,8 +93,8 @@ public class ProcessorElement {
     }
 
     private String asImportToken(String token) {
-        if(notPrimitiveOrLangImport(token))
-            return "import " + token.replace(" ","") + ";\n";
+        if (notPrimitiveOrLangImport(token))
+            return "import " + token.replace(" ", "") + ";\n";
         else
             return "";
     }
@@ -95,16 +104,16 @@ public class ProcessorElement {
     }
 
     public String asSimpleType() {
-       if(isInnerClass())
-           return element.getEnclosingElement().getSimpleName()+"."+getSimpleType();
-       return getSimpleType();
+        if (isInnerClass())
+            return element.getEnclosingElement().getSimpleName() + "." + getSimpleType();
+        return getSimpleType();
     }
 
     private boolean isInnerClass() {
-        return element.getKind()==ElementKind.CLASS && element.getEnclosingElement().getKind()== ElementKind.CLASS;
+        return element.getKind() == ElementKind.CLASS && element.getEnclosingElement().getKind() == ElementKind.CLASS;
     }
 
-    private String getSimpleType(){
+    private String getSimpleType() {
         StringTokenizer st = new StringTokenizer(element.asType().toString(), "<>,");
         if (st.hasMoreTokens())
             return removePackageFromName(st, element.asType().toString());
@@ -122,11 +131,86 @@ public class ProcessorElement {
         return input.replace(token.substring(0, token.lastIndexOf(".") + 1), "");
     }
 
-    public Set<String> modifiers(){
+    public Set<String> modifiers() {
         return element.getModifiers().stream().map(m -> m.toString()).collect(Collectors.toSet());
     }
 
-    public boolean hasModifier(Modifier modifier){
+    public boolean hasModifier(Modifier modifier) {
         return element.getModifiers().contains(modifier);
     }
+
+    public boolean isImplementsInterface(Class<?> clazz) {
+        return typeUtils.isAssignable(element.asType(),
+                (TypeMirror) elementUtils.getTypeElement(clazz.getCanonicalName()).asType());
+    }
+
+    public boolean isImplementsGenericInterface(Class<?> targetInterface) {
+        return asTypeElement().getInterfaces().stream().filter(i -> isSameInterface(i, targetInterface)).count() > 0;
+    }
+
+    private boolean isSameInterface(TypeMirror i, Class<?> targetInterface) {
+        return targetInterface.getCanonicalName().equals(make(typeUtils.asElement(i)).fullQualifiedNoneGenericName());
+    }
+
+    public ProcessorElement getInterface(Class<?> targetInterface) {
+        return make(typeUtils.asElement(
+                asTypeElement().getInterfaces().stream().filter(i -> isSameInterface(i, targetInterface))
+                        .collect(Collectors.toSet()).stream().findFirst().get()));
+    }
+
+    public TypeMirror getInterfaceType(Class<?> targetInterface) {
+        return asTypeElement().getInterfaces().stream().filter(i -> isSameInterface(i, targetInterface))
+                .collect(Collectors.toSet()).stream().findFirst().get();
+    }
+
+    public List<String> genericInterfaceImports(Class<?> targetInterface) {
+        List<String> generics = new LinkedList<>();
+        StringTokenizer st =
+                new StringTokenizer(typeUtils.capture(getInterfaceType(targetInterface)).toString(), "<>,");
+        st.nextElement();
+        while (st.hasMoreElements()) {
+            generics.add(st.nextToken());
+        }
+
+        return generics;
+    }
+
+    public Set<String> genericInterfaceImports(Class<?> targetInterface, Class<?> superImportType) {
+        Set<String> generics = new HashSet<>();
+        StringTokenizer st =
+                new StringTokenizer(typeUtils.capture(getInterfaceType(targetInterface)).toString(), "<>,");
+        st.nextElement();
+        while (st.hasMoreElements()) {
+            String token=st.nextToken();
+            Element importElement=elementUtils.getTypeElement(token);
+            Element requiredImport=elementUtils.getTypeElement(superImportType.getCanonicalName());
+
+            if(typeUtils.isSubtype(importElement.asType(),requiredImport.asType())){
+                generics.add(st.nextToken());
+            }
+
+        }
+
+        return generics;
+    }
+
+    public List<ProcessorElement> genericInterfaceImportsElements(Class<?> targetInterface) {
+        List<ProcessorElement> generics = new LinkedList<>();
+        StringTokenizer st =
+                new StringTokenizer(typeUtils.capture(getInterfaceType(targetInterface)).toString(), "<>,");
+        st.nextToken();
+        while (st.hasMoreElements()) {
+            generics.add(make(elementUtils.getTypeElement(st.nextToken())));
+        }
+        return generics;
+    }
+
+    public String genericInterfaceImportsString(Class<?> targetInterface) {
+        StringBuilder sb = new StringBuilder();
+        genericInterfaceImports(targetInterface).forEach(i -> sb.append("\nimport " + i + ";"));
+
+        return sb.toString();
+    }
+
+
 }

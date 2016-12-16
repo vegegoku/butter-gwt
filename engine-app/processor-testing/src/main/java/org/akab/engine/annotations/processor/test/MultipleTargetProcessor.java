@@ -26,6 +26,12 @@ public class MultipleTargetProcessor extends BaseTargetProcessor {
                 .processedWith(processor).compilesWithoutError();
     }
 
+    @Override
+    public CompileTester.UnsuccessfulCompilationClause failsToCompile() {
+        return Truth.assert_().about(javaSources()).that(Arrays.asList(asJavaFileObjectsArray()))
+                .processedWith(processor).failsToCompile();
+    }
+
     private JavaFileObject[] asJavaFileObjectsArray() {
         JavaFileObject[] result = new JavaFileObject[inputClassesNames.length];
         for (int i = 0; i < inputClassesNames.length; i++)
