@@ -107,10 +107,10 @@
         <module>org.akab.engine.core</module>
         <module>org.akab.engine.core.logger</module>
         <module>org.akab.engine.core.api.shared</module>
+        <module>org.akab.engine.core.server</module>
         <module>core-annotation-processors</module>
+        <module>core-server-annotation-processing</module>
         <module>processor-testing</module>
         <module>processor-utils</module>
-        <module>core-server</module>
-        <module>core-server-annotation-processing</module>
     </modules>
 </project>
