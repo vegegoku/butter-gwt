@@ -18,6 +18,6 @@ public class ${module}ClientModule implements EntryPoint {
 
 	public void onModuleLoad() {
 		LOGGER.info("Initializing ${module} client module ...");
-		new ModuleConfigurator().configureModule(new ${module}ClientModuleConfiguration());
+		new ModuleConfigurator().configureModule(new ${module}ModuleConfiguration());
 	}
 }
