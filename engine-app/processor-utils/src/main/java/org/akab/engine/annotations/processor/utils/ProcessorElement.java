@@ -4,7 +4,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
@@ -163,53 +162,12 @@ public class ProcessorElement {
                 .collect(Collectors.toSet()).stream().findFirst().get();
     }
 
-    public List<String> genericInterfaceImports(Class<?> targetInterface) {
-        List<String> generics = new LinkedList<>();
-        StringTokenizer st =
-                new StringTokenizer(typeUtils.capture(getInterfaceType(targetInterface)).toString(), "<>,");
-        st.nextElement();
-        while (st.hasMoreElements()) {
-            generics.add(st.nextToken());
-        }
-
-        return generics;
+    public String getInterfaceFullQualifiedGenericName(Class<?> targetInterface){
+        return typeUtils.capture(getInterfaceType(targetInterface)).toString();
     }
 
-    public Set<String> genericInterfaceImports(Class<?> targetInterface, Class<?> superImportType) {
-        Set<String> generics = new HashSet<>();
-        StringTokenizer st =
-                new StringTokenizer(typeUtils.capture(getInterfaceType(targetInterface)).toString(), "<>,");
-        st.nextElement();
-        while (st.hasMoreElements()) {
-            String token=st.nextToken();
-            Element importElement=elementUtils.getTypeElement(token);
-            Element requiredImport=elementUtils.getTypeElement(superImportType.getCanonicalName());
-
-            if(typeUtils.isSubtype(importElement.asType(),requiredImport.asType())){
-                generics.add(st.nextToken());
-            }
-
-        }
-
-        return generics;
-    }
-
-    public List<ProcessorElement> genericInterfaceImportsElements(Class<?> targetInterface) {
-        List<ProcessorElement> generics = new LinkedList<>();
-        StringTokenizer st =
-                new StringTokenizer(typeUtils.capture(getInterfaceType(targetInterface)).toString(), "<>,");
-        st.nextToken();
-        while (st.hasMoreElements()) {
-            generics.add(make(elementUtils.getTypeElement(st.nextToken())));
-        }
-        return generics;
-    }
-
-    public String genericInterfaceImportsString(Class<?> targetInterface) {
-        StringBuilder sb = new StringBuilder();
-        genericInterfaceImports(targetInterface).forEach(i -> sb.append("\nimport " + i + ";"));
-
-        return sb.toString();
+    public String getFullQualifiedGenericName(){
+        return typeUtils.capture(element.asType()).toString();
     }
 
 

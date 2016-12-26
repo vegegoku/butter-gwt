@@ -16,7 +16,6 @@ public class ServerModuleAnnotationProcessorTest {
 
 
     public static final String BASE_PACKAGE = "org/akab/engine/core/annotation/processor/server/";
-    public static final String PACKAGE_INFO=BASE_PACKAGE+"package-info.java";
 
     private Processor serverModuleAnnotationProcessor;
 
