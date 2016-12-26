@@ -1,7 +1,4 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
-package ${package};
+package com.progressoft.security;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import org.akab.engine.core.api.shared.request.ServerResponse;
@@ -17,8 +14,8 @@ public class ServerServiceImpl extends RemoteServiceServlet implements ServerSer
     private static final Logger LOGGER=Logger.getLogger(ServerServiceImpl.class.getName());
 
     @Override
-    public ServerResponse executeRequest(ServerRequest request) throws Exception {
-        LOGGER.info("Server call recieved for request : "+request.toString());
+    public ServerResponse executeRequest(ServerRequest arguments) throws Exception {
+        LOGGER.info("Server call recieved for request : "+arguments.toString());
         return null;
     }
 }
