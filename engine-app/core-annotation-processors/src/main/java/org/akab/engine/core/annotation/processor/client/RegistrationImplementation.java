@@ -1,6 +1,6 @@
 package org.akab.engine.core.annotation.processor.client;
 
-public interface MethodImplementation {
+public interface RegistrationImplementation {
     String methodBody();
 
     String imports();

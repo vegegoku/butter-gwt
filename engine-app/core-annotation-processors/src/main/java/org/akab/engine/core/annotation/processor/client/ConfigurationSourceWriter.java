@@ -50,21 +50,21 @@ class ConfigurationSourceWriter {
         return "}";
     }
 
-    public static class Builder {
+    static class Builder {
         private List<ElementRegistration> registrations = new ArrayList<>();
         private ProcessorElement element;
 
-        public Builder withProcessorElement(ProcessorElement element) {
+        Builder withProcessorElement(ProcessorElement element) {
             this.element = element;
             return this;
         }
 
-        public Builder withElementRegistration(ElementRegistration registration) {
+        Builder withElementRegistration(ElementRegistration registration) {
             this.registrations.add(registration);
             return this;
         }
 
-        public ConfigurationSourceWriter build() {
+        ConfigurationSourceWriter build() {
             return new ConfigurationSourceWriter(element, registrations);
         }
     }

@@ -7,15 +7,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class MethodWriter {
+class MethodWriter {
 
     private List<Modifier> modifiers;
     private String returnType;
     private String name;
     private Map<String, String> arguments;
-    private MethodImplementation implementation;
+    private RegistrationImplementation implementation;
 
-    public MethodWriter(List<Modifier> modifiers, String returnType, String name, Map<String, String> arguments, MethodImplementation implementation) {
+    MethodWriter(List<Modifier> modifiers, String returnType, String name, Map<String, String> arguments, RegistrationImplementation implementation) {
         this.modifiers = modifiers;
         this.returnType = returnType;
         this.name = name;
@@ -23,7 +23,7 @@ public class MethodWriter {
         this.implementation = implementation;
     }
 
-    public String writeMethod() {
+    String writeMethod() {
         return "\t" + appendModifiers()
                 + appendReturnType()
                 + appendName() + "(" + appendArgs() + ")" + "{\n"
@@ -57,14 +57,14 @@ public class MethodWriter {
         private String returnType;
         private String name;
         private Map<String, String> arguments = new HashMap<>();
-        private MethodImplementation implementation;
+        private RegistrationImplementation implementation;
 
-        public Builder modifier(Modifier modifier) {
+        Builder modifier(Modifier modifier) {
             this.modifiers.add(modifier);
             return this;
         }
 
-        public Builder returnType(String returnType) {
+        Builder returnType(String returnType) {
             this.returnType = returnType;
             return this;
         }
@@ -74,17 +74,17 @@ public class MethodWriter {
             return this;
         }
 
-        public Builder argument(String type, String name) {
+        Builder argument(String type, String name) {
             this.arguments.put(type, name);
             return this;
         }
 
-        public Builder implementation(MethodImplementation implementation) {
+        Builder implementation(RegistrationImplementation implementation) {
             this.implementation = implementation;
             return this;
         }
 
-        public MethodWriter build() {
+        MethodWriter build() {
             return new MethodWriter(modifiers, returnType, name, arguments, implementation);
         }
     }

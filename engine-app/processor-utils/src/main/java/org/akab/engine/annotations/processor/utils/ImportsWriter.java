@@ -16,7 +16,7 @@ public class ImportsWriter {
     }
 
     public ImportsWriter addAll(Stream<String> importItems){
-        importItems.forEach(importItem -> addImport(importItem));
+        importItems.forEach(this::addImport);
         return this;
     }
 
@@ -26,7 +26,7 @@ public class ImportsWriter {
 
     public String asImportsString(){
         StringBuilder sb=new StringBuilder();
-        imports.stream().forEach(importItm -> sb.append(importItm).append("\n"));
+        imports.forEach(importItm -> sb.append(importItm).append("\n"));
         return sb.toString();
     }
 }

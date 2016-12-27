@@ -17,7 +17,6 @@ public class HelloWorldSampleClientRequest extends ClientRequest<HelloWorldPrese
     public HelloWorldSampleClientRequest(MainExtensionPoint mainExtensionPoint, String welcomeMessage) {
         this.mainExtensionPoint=mainExtensionPoint;
         this.welcomeMessage=welcomeMessage;
-
     }
 
     @Override
@@ -27,6 +26,7 @@ public class HelloWorldSampleClientRequest extends ClientRequest<HelloWorldPrese
 
     @Override
     protected void constructHistoryToken(TokenConstruct tokenConstruct) {
-        tokenConstruct.appendOnce(PathToken.make("somePath").appendParameter("welcomeMessage", welcomeMessage));
+        tokenConstruct.appendOnce(
+                new SampleBuilder() PathToken.make("somePath").appendParameter("welcomeMessage", welcomeMessage));
     }
 }

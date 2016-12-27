@@ -11,7 +11,4 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Request {
-
-    @NotNull
-    Class<? extends Presentable> presentable();
 }

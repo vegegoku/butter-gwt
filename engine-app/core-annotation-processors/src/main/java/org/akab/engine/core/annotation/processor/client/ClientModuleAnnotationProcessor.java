@@ -1,36 +1,24 @@
 package org.akab.engine.core.annotation.processor.client;
 
-import com.google.auto.common.MoreElements;
 import com.google.auto.service.AutoService;
 import org.akab.engine.annotations.processor.utils.BaseProcessor;
 import org.akab.engine.annotations.processor.utils.ProcessorElement;
-import org.akab.engine.core.annotation.processor.client.presenter.PresenterRegistration;
-import org.akab.engine.core.annotation.processor.client.presenter.PresenterRegistrationImplementation;
-import org.akab.engine.core.annotation.processor.client.uiview.ViewRegistration;
-import org.akab.engine.core.annotation.processor.client.uiview.ViewRegistrationImplementation;
-import org.akab.engine.core.api.client.annotations.ClientModule;
-import org.akab.engine.core.api.client.annotations.Presenter;
-import org.akab.engine.core.api.client.annotations.UiView;
-import org.akab.engine.core.api.client.mvp.presenter.Presentable;
-import org.akab.engine.core.api.client.mvp.view.View;
+import org.akab.engine.core.annotation.processor.client.registration.PathRegistrationFactory;
+import org.akab.engine.core.annotation.processor.client.registration.ContributionRegistrationFactory;
+import org.akab.engine.core.annotation.processor.client.registration.InitialTasksRegistrationFactory;
+import org.akab.engine.core.annotation.processor.client.registration.PresentersRegistrationFactory;
+import org.akab.engine.core.annotation.processor.client.registration.RequestsRegistrationFactory;
+import org.akab.engine.core.annotation.processor.client.registration.UiViewsRegistrationFactory;
+import org.akab.engine.core.api.client.annotations.*;
 
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.*;
-import javax.lang.model.type.DeclaredType;
-import javax.lang.model.type.TypeMirror;
 import javax.tools.Diagnostic;
 import java.io.IOException;
 import java.io.Writer;
-import java.lang.annotation.Annotation;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.BinaryOperator;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.*;
 
 @AutoService(Processor.class)
 public class ClientModuleAnnotationProcessor extends BaseProcessor {
@@ -56,95 +44,23 @@ public class ClientModuleAnnotationProcessor extends BaseProcessor {
     }
 
     private ConfigurationSourceWriter createConfigurationWriter(ProcessorElement element) {
-        return new ConfigurationSourceWriter.Builder()
-                .withProcessorElement(element)
-                .withElementRegistration(presenterRegistration())
-                .withElementRegistration(uiViewRegistration()).build();
+        List<RegistrationFactory> registrationFactories = generateRegistrationFactories(element);
+        ConfigurationSourceWriter.Builder builder = new ConfigurationSourceWriter.Builder()
+                .withProcessorElement(element);
+        registrationFactories.forEach(r -> builder.withElementRegistration(r.registration()));
+        return builder.build();
     }
 
-    private ElementRegistration presenterRegistration() {
-        if (!isTherePresenters())
-            return NullElementRegistration.NULL_REGISTRATION;
-
-        Map<Element, DeclaredType> presenters = presenters();
-        return new PresenterRegistration(new PresenterRegistrationImplementation(presenters));
-    }
-
-    private boolean isTherePresenters() {
-        return presentersAsStream().count() > 0;
-    }
-
-    private Map<Element, DeclaredType> presenters() {
-        if (presentersAsStream().anyMatch(e -> !isImplementsPresentable(e)))
-            throw new RuntimeException("Invalid presenter");
-        return presentersAsStream()
-                .collect(Collectors.toMap(e -> e,
-                        e -> (DeclaredType) ((TypeElement) e).getInterfaces().get(0)
-                        , throwingOnDuplicateKey()
-                        , LinkedHashMap::new));
-    }
-
-    private boolean isImplementsPresentable(Element e) {
-        return isImplementsInterface(e, Presentable.class);
-    }
-
-    private Stream<? extends Element> presentersAsStream() {
-        return elementsAsStream(Presenter.class);
-    }
-
-    private ElementRegistration uiViewRegistration() {
-        if (!isThereViews())
-            return NullElementRegistration.NULL_REGISTRATION;
-
-        Map<Element, DeclaredType> views = views();
-        return new ViewRegistration(new ViewRegistrationImplementation(views));
-    }
-
-    private boolean isThereViews() {
-        return elementsAsStream(UiView.class).count() > 0;
-    }
-
-    private Map<Element, DeclaredType> views() {
-        if (viewsAsStream().anyMatch(e -> !isImplementsView(e)))
-            throw new RuntimeException("Invalid view");
-
-        return viewsAsStream().collect(Collectors.toMap(e -> e,
-                e -> {
-                    AnnotationMirror annotationMirror = MoreElements.getAnnotationMirror(e, UiView.class).get();
-                    return getProviderInterface(annotationMirror);
-                }
-                , throwingOnDuplicateKey()
-                , LinkedHashMap::new));
-    }
-
-    private Stream<? extends Element> viewsAsStream() {
-        return elementsAsStream(UiView.class);
-    }
-
-    private boolean isImplementsView(Element e) {
-        return isImplementsInterface(e, View.class);
-    }
-
-    private DeclaredType getProviderInterface(AnnotationMirror providerAnnotation) {
-        Map<? extends ExecutableElement, ? extends AnnotationValue> valueIndex =
-                providerAnnotation.getElementValues();
-
-        AnnotationValue value = valueIndex.values().iterator().next();
-        return (DeclaredType) value.getValue();
-    }
-
-    private BinaryOperator<DeclaredType> throwingOnDuplicateKey() {
-        return (u, v) -> {
-            throw new IllegalStateException("Duplicate key " + u);
-        };
-    }
-
-    private boolean isImplementsInterface(Element e, Class<?> clazz) {
-        return typeUtils.isAssignable(e.asType(), (TypeMirror) elementUtils.getTypeElement(clazz.getCanonicalName()).asType());
-    }
-
-    private Stream<? extends Element> elementsAsStream(Class<? extends Annotation> annotation) {
-        return roundEnv.getElementsAnnotatedWith(annotation).stream().filter(e -> validateElementKind(e, ElementKind.CLASS));
+    private List<RegistrationFactory> generateRegistrationFactories(ProcessorElement element) {
+        RegistrationHelper helper = new RegistrationHelper(roundEnv, element);
+        return Arrays.asList(
+                new PresentersRegistrationFactory(helper),
+                new RequestsRegistrationFactory(helper),
+                new UiViewsRegistrationFactory(helper),
+                new InitialTasksRegistrationFactory(helper),
+                new ContributionRegistrationFactory(helper),
+                new PathRegistrationFactory(helper)
+        );
     }
 
     @Override
@@ -153,6 +69,11 @@ public class ClientModuleAnnotationProcessor extends BaseProcessor {
         annotations.add(ClientModule.class.getCanonicalName());
         annotations.add(Presenter.class.getCanonicalName());
         annotations.add(UiView.class.getCanonicalName());
+        annotations.add(Request.class.getCanonicalName());
+        annotations.add(InitialTask.class.getCanonicalName());
+        annotations.add(Contribute.class.getCanonicalName());
+        annotations.add(Path.class.getCanonicalName());
+        annotations.add(PathParameter.class.getCanonicalName());
         return annotations;
     }
 

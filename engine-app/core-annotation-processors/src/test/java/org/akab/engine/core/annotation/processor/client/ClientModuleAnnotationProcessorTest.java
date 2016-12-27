@@ -23,12 +23,6 @@ public class ClientModuleAnnotationProcessorTest {
         }
     }
 
-    private void assertProcessedClassWith(String className, String resultClassName) throws IOException {
-        assertProcessing(BASE_PACKAGE + className)
-                .withProcessor(processor())
-                .generates(getExpectedResultFileContent(resultClassName));
-    }
-
     @Test
     public void givenNotAnnotatedClassShouldDoNothing() throws Exception {
         assertProcessing(BASE_PACKAGE + "NotAnnotatedClass.java")
@@ -38,7 +32,9 @@ public class ClientModuleAnnotationProcessorTest {
 
     @Test
     public void givenAnnotatedClassWithClientModule_ShouldGenerateClassImplementsModuleConfigurations() throws Exception {
-        assertProcessedClassWith("AnnotatedClassWithClientModuleWithNameTest.java", "TestModuleConfiguration.java");
+        assertProcessing(BASE_PACKAGE + "AnnotatedClassWithClientModuleWithNameTest.java")
+                .withProcessor(processor())
+                .generates(getExpectedResultFileContent("TestModuleConfiguration.java"));
     }
 
     @Test
@@ -70,7 +66,7 @@ public class ClientModuleAnnotationProcessorTest {
                     .compilesWithoutErrors();
             Truth.THROW_ASSERTION_ERROR.fail("Should throw RuntimeException with message Invalid presenter");
         } catch (RuntimeException e) {
-            Truth.assertThat(e).hasMessage("java.lang.RuntimeException: Invalid presenter");
+            Truth.assertThat(e).hasMessage("java.lang.RuntimeException: Invalid declaration for annotation Presenter");
         }
     }
 
@@ -94,7 +90,119 @@ public class ClientModuleAnnotationProcessorTest {
                     .compilesWithoutErrors();
             Truth.THROW_ASSERTION_ERROR.fail("Should throw RuntimeException with message Invalid view");
         } catch (RuntimeException e) {
-            Truth.assertThat(e).hasMessage("java.lang.RuntimeException: Invalid view");
+            Truth.assertThat(e).hasMessage("java.lang.RuntimeException: Invalid declaration for annotation UiView");
         }
+    }
+
+    @Test
+    public void givenClassAnnotatedWithRequest_WhenProcess_ShouldAddRegistrationLineToModuleConfiguration() throws Exception {
+        assertProcessing(BASE_PACKAGE + "AnnotatedClassWithRequest.java",
+                BASE_PACKAGE + "AnnotatedClassWithClientModuleWithRequestRegistrations.java",
+                BASE_PACKAGE + "PresenterInterface.java")
+                .withProcessor(processor())
+                .generates(getExpectedResultFileContent("RequestRegistrationsModuleConfiguration.java"));
+    }
+
+    @Test
+    public void givenClassAnnotatedWithRequestAndNotImplementsRequestInterface_WhenProcess_ShouldThrowException() throws Exception {
+        try {
+            assertProcessing(BASE_PACKAGE + "AnnotatedClassWithClientModuleWithRequestRegistrations.java",
+                    BASE_PACKAGE + "InvalidRequestClass.java",
+                    BASE_PACKAGE + "PresenterInterface.java")
+                    .withProcessor(processor())
+                    .compilesWithoutErrors();
+            Truth.THROW_ASSERTION_ERROR.fail("Should throw RuntimeException with message Invalid request");
+        } catch (RuntimeException e) {
+            Truth.assertThat(e).hasMessage("java.lang.RuntimeException: Invalid declaration for annotation Request");
+        }
+    }
+
+    @Test
+    public void givenClassAnnotatedWithInitialTask_WhenProcess_ShouldAddRegistrationLineToModuleConfiguration() throws Exception {
+        assertProcessing(BASE_PACKAGE + "AnnotatedClassWithInitialTask.java",
+                BASE_PACKAGE + "AnnotatedClassWithClientModuleWithInitialTaskRegistrations.java")
+                .withProcessor(processor())
+                .generates(getExpectedResultFileContent("InitialTaskRegistrationsModuleConfiguration.java"));
+    }
+
+    @Test
+    public void givenClassAnnotatedWithInitialTaskAndNotImplementsRequiredInterface_WhenProcess_ShouldThrowException() throws Exception {
+        try {
+            assertProcessing(BASE_PACKAGE + "AnnotatedClassWithClientModuleWithInitialTaskRegistrations.java",
+                    BASE_PACKAGE + "InvalidInitialTaskClass.java")
+                    .withProcessor(processor())
+                    .compilesWithoutErrors();
+            Truth.THROW_ASSERTION_ERROR.fail("Should throw RuntimeException with message Invalid initial task");
+        } catch (RuntimeException e) {
+            Truth.assertThat(e).hasMessage("java.lang.RuntimeException: Invalid declaration for annotation InitialTask");
+        }
+    }
+
+    @Test
+    public void givenClassAnnotatedWithContribution_WhenProcess_ShouldAddRegistrationLineToModuleConfiguration() throws Exception {
+        assertProcessing(BASE_PACKAGE + "AnnotatedClassWithContribution.java",
+                BASE_PACKAGE + "AnnotatedClassWithClientModuleWithContributionRegistrations.java")
+                .withProcessor(processor())
+                .generates(getExpectedResultFileContent("ContributionRegistrationsModuleConfiguration.java"));
+    }
+
+    @Test
+    public void givenClassAnnotatedWithContributionAndNotImplementsRequiredInterface_WhenProcess_ShouldThrowException() throws Exception {
+        try {
+            assertProcessing(BASE_PACKAGE + "AnnotatedClassWithClientModuleWithContributionRegistrations.java",
+                    BASE_PACKAGE + "InvalidContributionClass.java")
+                    .withProcessor(processor())
+                    .compilesWithoutErrors();
+            Truth.THROW_ASSERTION_ERROR.fail("Should throw RuntimeException with message Invalid contribution");
+        } catch (RuntimeException e) {
+            Truth.assertThat(e).hasMessage("java.lang.RuntimeException: Invalid declaration for annotation Contribute");
+        }
+    }
+
+    @Test
+    public void givenClassAnnotatedWithPathAndNoParameters_WhenProcess_ShouldAddRegistrationLineToModuleConfiguration() throws Exception {
+        assertProcessing(BASE_PACKAGE + "AnnotatedClassWithPathAndNoParamters.java",
+                BASE_PACKAGE + "AnnotatedClassWithClientModuleWithPathRegistrations.java",
+                BASE_PACKAGE + "PresenterInterface.java")
+                .withProcessor(processor())
+                .generates(getExpectedResultFileContent("PathRegistrationsModuleConfiguration.java"));
+    }
+
+    @Test
+    public void givenClassAnnotatedWithPathAndPathParameter_WhenProcess_ShouldAddRegistrationLineToModuleConfiguration() throws Exception {
+        assertProcessing(BASE_PACKAGE + "AnnotatedClassWithPathAndPathParameter.java",
+                BASE_PACKAGE + "AnnotatedClassWithClientModuleWithPathAndParameterRegistrations.java",
+                BASE_PACKAGE + "PresenterInterface.java")
+                .withProcessor(processor())
+                .generates(getExpectedResultFileContent("PathAndParameterRegistrationsModuleConfiguration.java"));
+    }
+
+    @Test
+    public void givenClassAnnotatedWithPathAndCustomConverter_WhenProcess_ShouldAddRegistrationLineToModuleConfiguration() throws Exception {
+        assertProcessing(BASE_PACKAGE + "AnnotatedClassWithPathAndCustomMapper.java",
+                BASE_PACKAGE + "AnnotatedClassWithClientModuleWithPathAndCustomMapperRegistrations.java",
+                BASE_PACKAGE + "PresenterInterface.java",
+                BASE_PACKAGE + "SampleMapper.java")
+                .withProcessor(processor())
+                .generates(getExpectedResultFileContent("PathAndCustomMapperRegistrationsModuleConfiguration.java"));
+    }
+
+    @Test
+    public void givenClassAnnotatedWithPathAndParameterWithName_WhenProcess_ShouldAddRegistrationLineToModuleConfiguration() throws Exception {
+        assertProcessing(BASE_PACKAGE + "AnnotatedClassWithPathAndParameterWithName.java",
+                BASE_PACKAGE + "AnnotatedClassWithClientModuleWithPathAndParameterWithNameRegistrations.java",
+                BASE_PACKAGE + "PresenterInterface.java")
+                .withProcessor(processor())
+                .generates(getExpectedResultFileContent("PathAndParameterWithNameRegistrationsModuleConfiguration.java"));
+    }
+
+    @Test
+    public void givenClassAnnotatedWithPathAndParameterWithConverter_WhenProcess_ShouldAddRegistrationLineToModuleConfiguration() throws Exception {
+        assertProcessing(BASE_PACKAGE + "AnnotatedClassWithPathAndParameterWithConverter.java",
+                BASE_PACKAGE + "AnnotatedClassWithClientModuleWithPathAndParameterWithConverterRegistrations.java",
+                BASE_PACKAGE + "PresenterInterface.java",
+                BASE_PACKAGE + "BigDecimalConverter.java")
+                .withProcessor(processor())
+                .generates(getExpectedResultFileContent("PathAndParameterWithConverterRegistrationsModuleConfiguration.java"));
     }
 }

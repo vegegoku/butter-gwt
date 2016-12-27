@@ -5,6 +5,7 @@ import org.akab.engine.core.api.client.History.PathToRequestMapperRegistry;
 import org.akab.engine.core.api.client.History.RequestFromPath;
 import org.akab.engine.core.api.client.History.TokenizedPath;
 import org.akab.engine.core.api.client.InitialTaskRegistry;
+import org.akab.engine.core.api.client.InitializeTask;
 import org.akab.engine.core.api.client.ModuleConfiguration;
 import org.akab.engine.core.api.client.ModuleConfigurator;
 import org.akab.engine.core.api.client.annotations.ClientModule;
@@ -78,7 +79,12 @@ public class HelloWorldClientModule implements EntryPoint {
                     @Override
                     public void registerInitialTasks(InitialTaskRegistry registry) {
 
-                        registry.registerInitialTask(() -> new SampleServerRequest().send());
+                        registry.registerInitialTask(new InitializeTask() {
+                            @Override
+                            public void execute() {
+                                new SampleServerRequest().send();
+                            }
+                        });
 
                     }
 

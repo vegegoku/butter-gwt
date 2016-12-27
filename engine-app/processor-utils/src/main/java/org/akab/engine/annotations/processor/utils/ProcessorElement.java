@@ -4,7 +4,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
@@ -132,7 +132,7 @@ public class ProcessorElement {
     }
 
     public Set<String> modifiers() {
-        return element.getModifiers().stream().map(m -> m.toString()).collect(Collectors.toSet());
+        return element.getModifiers().stream().map(Modifier::toString).collect(Collectors.toSet());
     }
 
     public boolean hasModifier(Modifier modifier) {
@@ -146,6 +146,16 @@ public class ProcessorElement {
 
     public boolean isImplementsGenericInterface(Class<?> targetInterface) {
         return asTypeElement().getInterfaces().stream().filter(i -> isSameInterface(i, targetInterface)).count() > 0;
+    }
+
+    public boolean isSubtypeOfGenericClass(Class<?> targetClass) {
+        return typeUtils.directSupertypes(asTypeElement().asType()).stream()
+                .filter(s -> !superClass(s).getKind().equals(TypeKind.NONE))
+                .anyMatch(s -> make(typeUtils.asElement(superClass(s))).fullQualifiedNoneGenericName().equals(targetClass.getCanonicalName()));
+    }
+
+    private TypeMirror superClass(TypeMirror type) {
+        return ((TypeElement) typeUtils.asElement(type)).getSuperclass();
     }
 
     private boolean isSameInterface(TypeMirror i, Class<?> targetInterface) {
@@ -181,11 +191,11 @@ public class ProcessorElement {
                 new StringTokenizer(typeUtils.capture(getInterfaceType(targetInterface)).toString(), "<>,");
         st.nextElement();
         while (st.hasMoreElements()) {
-            String token=st.nextToken();
-            Element importElement=elementUtils.getTypeElement(token);
-            Element requiredImport=elementUtils.getTypeElement(superImportType.getCanonicalName());
+            String token = st.nextToken();
+            Element importElement = elementUtils.getTypeElement(token);
+            Element requiredImport = elementUtils.getTypeElement(superImportType.getCanonicalName());
 
-            if(typeUtils.isSubtype(importElement.asType(),requiredImport.asType())){
+            if (typeUtils.isSubtype(importElement.asType(), requiredImport.asType())) {
                 generics.add(st.nextToken());
             }
 
@@ -213,4 +223,7 @@ public class ProcessorElement {
     }
 
 
+    public List<? extends TypeMirror> directSupertypes(TypeMirror typeMirror) {
+        return typeUtils.directSupertypes(typeMirror);
+    }
 }

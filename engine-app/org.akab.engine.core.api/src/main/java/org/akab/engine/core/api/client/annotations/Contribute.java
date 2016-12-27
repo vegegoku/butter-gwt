@@ -11,7 +11,4 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Contribute {
-
-    @NotNull
-    Class<? extends ExtensionPoint> extensionPoint();
 }
