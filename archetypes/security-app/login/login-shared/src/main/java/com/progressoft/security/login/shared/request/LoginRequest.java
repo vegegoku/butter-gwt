@@ -2,14 +2,14 @@ package com.progressoft.security.login.shared.request;
 
 import org.akab.engine.core.api.shared.request.ServerRequest;
 
-public class LoginArgs extends ServerRequest {
+public class LoginRequest extends ServerRequest {
 
     private String message;
 
-    public LoginArgs() {
+    public LoginRequest() {
     }
 
-    public LoginArgs(String message) {
+    public LoginRequest(String message) {
         this.message = message;
     }
 

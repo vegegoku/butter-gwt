@@ -5,14 +5,14 @@ package ${package}.${subpackage}.shared.request;
 
 import org.akab.engine.core.api.shared.request.ServerRequest;
 
-public class ${module}Args extends ServerRequest {
+public class ${module}Request extends ServerRequest {
 
     private String message;
 
-    public ${module}Args() {
+    public ${module}Request() {
     }
 
-    public ${module}Args(String message) {
+    public ${module}Request(String message) {
         this.message = message;
     }
 

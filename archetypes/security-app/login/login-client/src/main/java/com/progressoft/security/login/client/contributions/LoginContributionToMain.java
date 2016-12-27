@@ -5,7 +5,7 @@ import org.akab.engine.core.api.shared.extension.Contribution;
 import org.akab.engine.core.api.shared.extension.MainExtensionPoint;
 import com.progressoft.security.login.client.requests.LoginSampleClientRequest;
 
-@Contribute(extensionPoint = MainExtensionPoint.class)
+@Contribute
 public class LoginContributionToMain implements Contribution<MainExtensionPoint> {
     @Override
     public void contribute(MainExtensionPoint extensionPoint) {

@@ -2,7 +2,7 @@
 <module>
   <inherits name="com.google.gwt.user.User" />
   <inherits name="com.google.gwt.user.theme.clean.Clean" />
-
+  <inherits name="gwt.material.design.GwtMaterialWithJQuery" />
   <source path="" />
 
   <entry-point class="com.progressoft.security.login.client.LoginClientModule" />
