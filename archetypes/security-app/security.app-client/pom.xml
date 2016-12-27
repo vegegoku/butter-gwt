@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.progressoft.security</groupId>
+    <artifactId>security.app</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>security.app-client</artifactId>
+  <packaging>gwt-app</packaging>
+
+  <prerequisites>
+    <maven>${mavenVersion}</maven>
+  </prerequisites>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.akab.engine</groupId>
+      <artifactId>core-api-shared</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.akab.engine</groupId>
+      <artifactId>core-api-shared</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-dev</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.akab.engine</groupId>
+      <artifactId>core</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.akab.engine</groupId>
+      <artifactId>core</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.akab.engine</groupId>
+      <artifactId>core-api</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.akab.engine</groupId>
+      <artifactId>core-api</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.akab.engine</groupId>
+      <artifactId>core-logger</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.akab.engine</groupId>
+      <artifactId>core-logger</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <classifier>sources</classifier>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>net.ltgt.gwt.maven</groupId>
+        <artifactId>gwt-maven-plugin</artifactId>
+        <configuration>
+          <moduleName>com.progressoft.security.AppClientModule</moduleName>
+          <moduleShortName>app</moduleShortName>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
