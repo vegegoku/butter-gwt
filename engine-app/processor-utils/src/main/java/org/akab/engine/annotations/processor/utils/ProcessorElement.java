@@ -162,26 +162,9 @@ public class ProcessorElement {
         return targetInterface.getCanonicalName().equals(make(typeUtils.asElement(i)).fullQualifiedNoneGenericName());
     }
 
-    public ProcessorElement getInterface(Class<?> targetInterface) {
-        return make(typeUtils.asElement(
-                asTypeElement().getInterfaces().stream().filter(i -> isSameInterface(i, targetInterface))
-                        .collect(Collectors.toSet()).stream().findFirst().get()));
-    }
-
     public TypeMirror getInterfaceType(Class<?> targetInterface) {
         return asTypeElement().getInterfaces().stream().filter(i -> isSameInterface(i, targetInterface))
                 .collect(Collectors.toSet()).stream().findFirst().get();
-    }
-
-    public List<ProcessorElement> genericInterfaceImportsElements(Class<?> targetInterface) {
-        List<ProcessorElement> generics = new LinkedList<>();
-        StringTokenizer st =
-                new StringTokenizer(typeUtils.capture(getInterfaceType(targetInterface)).toString(), "<>,");
-        st.nextToken();
-        while (st.hasMoreElements()) {
-            generics.add(make(elementUtils.getTypeElement(st.nextToken())));
-        }
-        return generics;
     }
 
     public String getInterfaceFullQualifiedGenericName(Class<?> targetInterface){
@@ -192,8 +175,4 @@ public class ProcessorElement {
         return typeUtils.capture(element.asType()).toString();
     }
 
-
-    public List<? extends TypeMirror> directSupertypes(TypeMirror typeMirror) {
-        return typeUtils.directSupertypes(typeMirror);
-    }
 }

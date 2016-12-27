@@ -1,5 +1,6 @@
 package org.akab.engine.core.api.client.mvp.presenter;
 
+import com.google.gwt.user.client.Window;
 import org.akab.engine.core.api.client.ClientApp;
 import org.akab.engine.core.api.client.mvp.view.View;
 
@@ -8,7 +9,7 @@ public abstract class BaseClientPresenter<V extends View> implements ClientPrese
     private final PresenterState INITIALIZED= () -> {};
 
     private final PresenterState NEW = ()-> {
-        BaseClientPresenter.this.view=loadView();
+        view=loadView();
         initView(BaseClientPresenter.this.view);
         state=INITIALIZED;
     };

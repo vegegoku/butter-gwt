@@ -1,5 +1,7 @@
 package org.akab.engine.core.api.client.mvp.presenter;
 
+import com.google.gwt.user.client.Window;
+
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 

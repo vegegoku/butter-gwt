@@ -35,7 +35,7 @@ public class FullClassName {
     }
 
     public String asImport() {
-        return new String(simpleFullName());
+        return simpleFullName();
     }
 
     public String asSimpleGenericName() {
