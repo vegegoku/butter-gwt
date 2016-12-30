@@ -63,6 +63,7 @@ public class ClientApp
     private static PathToRequestMappersRepository pathToRequestMappersRepository;
     private static TokenConstruct tokenConstruct;
     private static MainExtensionPoint mainExtensionPoint;
+    private static UrlHistory urlHistory;
 
     private static Set<InitializeTask> initialTasks = new HashSet<>();
 
@@ -74,7 +75,7 @@ public class ClientApp
                       PresentersRepository presentersRepository, ViewsRepository viewsRepository,
                       ContributionsRepository contributionsRepository,
                       PathToRequestMappersRepository pathToRequestMappersRepository, TokenConstruct tokenConstruct,
-                      MainExtensionPoint mainExtensionPoint) {
+                      UrlHistory urlHistory, MainExtensionPoint mainExtensionPoint) {
         ClientApp.clientRouter = clientRouter;
         ClientApp.serverRouter = serverRouter;
         ClientApp.eventsBus = eventsBus;
@@ -85,6 +86,7 @@ public class ClientApp
         ClientApp.pathToRequestMappersRepository = pathToRequestMappersRepository;
         ClientApp.tokenConstruct = tokenConstruct;
         ClientApp.mainExtensionPoint = mainExtensionPoint;
+        ClientApp.urlHistory = urlHistory;
 
     }
 
@@ -145,6 +147,10 @@ public class ClientApp
                 .forEach(c -> c.contribute(extensionPoint));
     }
 
+    public void applyUrlHistory(){
+        urlHistory.apply(getTokenConstruct().toUrl());
+    }
+
     public static class ClientAppBuilder {
 
         private static RequestRouter<ClientRequest> clientRouter;
@@ -157,6 +163,7 @@ public class ClientApp
         private PathToRequestMappersRepository pathToRequestMappersRepository;
         private TokenConstruct tokenConstruct;
         private MainExtensionPoint mainExtensionPoint;
+        private UrlHistory urlHistory;
 
         public ClientAppBuilder() {
         }
@@ -207,6 +214,11 @@ public class ClientApp
             return this;
         }
 
+        public ClientAppBuilder urlHistory(UrlHistory urlHistory) {
+            this.urlHistory = urlHistory;
+            return this;
+        }
+
         public ClientAppBuilder mainExtensionPoint(MainExtensionPoint mainExtensionPoint) {
             this.mainExtensionPoint = mainExtensionPoint;
             return this;
@@ -216,7 +228,7 @@ public class ClientApp
         public ClientApp build() {
             return new ClientApp(clientRouter, serverRouter, eventsBus, requestRepository, presentersRepository,
                     viewsRepository, contributionsRepository, pathToRequestMappersRepository, tokenConstruct,
-                    mainExtensionPoint);
+                    urlHistory, mainExtensionPoint);
         }
     }
 }

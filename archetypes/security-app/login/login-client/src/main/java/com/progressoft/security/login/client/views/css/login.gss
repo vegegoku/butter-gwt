@@ -1,0 +1,11 @@
+body{
+background-color:#f9f9f9;
+}
+
+.mainPanel{
+ padding-top:60px;
+}
+
+.loginCard{
+    background-color:#fcfcfc;
+}

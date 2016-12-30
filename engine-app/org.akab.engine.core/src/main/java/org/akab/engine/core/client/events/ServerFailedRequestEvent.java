@@ -3,6 +3,7 @@ package org.akab.engine.core.client.events;
 import org.akab.engine.core.api.client.ClientApp;
 import org.akab.engine.core.api.client.events.Event;
 import org.akab.engine.core.api.client.events.EventProcessor;
+import org.akab.engine.core.api.client.events.EventsBus;
 import org.akab.engine.core.api.shared.request.FailedServerResponse;
 import org.akab.engine.core.api.client.request.Request;
 import org.akab.engine.core.api.client.request.ClientServerRequest;
@@ -24,7 +25,7 @@ public class ServerFailedRequestEvent extends ServerFailedRequestGwtEvent implem
 
     @Override
     public void fire() {
-        clientApp.getEventsBus().publishEvent(this);
+        clientApp.getEventsBus().publishEvent(new GWTRequestEvent(this));
     }
 
     @Override
@@ -39,5 +40,18 @@ public class ServerFailedRequestEvent extends ServerFailedRequestGwtEvent implem
     @Override
     protected void dispatch(EventProcessor eventProcessor) {
         eventProcessor.process(this);
+    }
+
+    private class GWTRequestEvent implements EventsBus.RequestEvent<ServerFailedRequestGwtEvent> {
+
+        private final ServerFailedRequestGwtEvent event;
+        public GWTRequestEvent(ServerFailedRequestGwtEvent event) {
+            this.event=event;
+        }
+
+        @Override
+        public ServerFailedRequestGwtEvent asEvent() {
+            return event;
+        }
     }
 }

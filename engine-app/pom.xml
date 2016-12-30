@@ -112,5 +112,6 @@
         <module>core-server-annotation-processing</module>
         <module>processor-testing</module>
         <module>processor-utils</module>
+        <module>org.akab.engine.core.testing</module>
     </modules>
 </project>

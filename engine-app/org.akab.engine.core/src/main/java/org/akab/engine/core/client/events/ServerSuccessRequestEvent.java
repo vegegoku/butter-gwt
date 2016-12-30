@@ -3,6 +3,7 @@ package org.akab.engine.core.client.events;
 import org.akab.engine.core.api.client.ClientApp;
 import org.akab.engine.core.api.client.events.Event;
 import org.akab.engine.core.api.client.events.EventProcessor;
+import org.akab.engine.core.api.client.events.EventsBus;
 import org.akab.engine.core.api.client.request.Request;
 import org.akab.engine.core.api.shared.request.ServerResponse;
 import org.akab.engine.core.api.client.request.ClientServerRequest;
@@ -20,7 +21,7 @@ public class ServerSuccessRequestEvent extends ServerSuccessRequestGwtEvent impl
 
     @Override
     public void fire() {
-        clientApp.getEventsBus().publishEvent(this);
+        clientApp.getEventsBus().publishEvent(new GWTRequestEvent(this));
     }
 
     @Override
@@ -32,10 +33,21 @@ public class ServerSuccessRequestEvent extends ServerSuccessRequestGwtEvent impl
         return new Request.ServerSuccessRequestStateContext(serverResponse);
     }
 
-
-
     @Override
     protected void dispatch(EventProcessor eventProcessor) {
         eventProcessor.process(this);
+    }
+
+    private class GWTRequestEvent implements EventsBus.RequestEvent<ServerSuccessRequestGwtEvent> {
+
+        private final ServerSuccessRequestGwtEvent event;
+        public GWTRequestEvent(ServerSuccessRequestGwtEvent event) {
+            this.event=event;
+        }
+
+        @Override
+        public ServerSuccessRequestGwtEvent asEvent() {
+            return event;
+        }
     }
 }

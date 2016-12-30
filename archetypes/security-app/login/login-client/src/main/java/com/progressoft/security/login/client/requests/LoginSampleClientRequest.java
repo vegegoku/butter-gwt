@@ -18,6 +18,6 @@ public class LoginSampleClientRequest extends ClientRequest<LoginPresenter> {
 
     @Override
     protected void process(LoginPresenter presenter) {
-        presenter.contributeToMainModule(mainExtensionPoint, "Hello world! from login contribution fgfhfghgh");
+        presenter.contributeToMainModule(mainExtensionPoint);
     }
 }

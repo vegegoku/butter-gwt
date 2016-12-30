@@ -1,11 +1,8 @@
 package org.akab.engine.core.api.client.request;
 
-import com.google.gwt.user.client.History;
 import org.akab.engine.core.api.client.ClientApp;
 import org.akab.engine.core.api.client.History.TokenConstruct;
-import org.akab.engine.core.api.client.mvp.presenter.ClientPresenter;
 import org.akab.engine.core.api.client.mvp.presenter.Presentable;
-import org.akab.engine.core.api.client.mvp.presenter.LazyPresenterLoader;
 import org.akab.engine.core.logger.client.CoreLogger;
 import org.akab.engine.core.logger.client.CoreLoggerFactory;
 
@@ -61,7 +58,7 @@ public abstract class BaseRequest<P extends Presentable> implements Request<P> {
     }
 
     private String getPresenterName() {
-        return clientApp.getRequestRepository().findRequestPresenterWrapper(this.key).getPresenterName();
+        return clientApp.getRequestRepository().findRequestPresenterWrapper(this.getKey()).getPresenterName();
     }
 
     protected void constructHistoryToken(TokenConstruct tokenConstruct){
@@ -70,7 +67,7 @@ public abstract class BaseRequest<P extends Presentable> implements Request<P> {
 
     protected void applyHistory(){
         constructHistoryToken(clientApp.getTokenConstruct());
-        History.replaceItem(clientApp.getTokenConstruct().toUrl(), false);
+        clientApp.applyUrlHistory();
     };
 
     @Override

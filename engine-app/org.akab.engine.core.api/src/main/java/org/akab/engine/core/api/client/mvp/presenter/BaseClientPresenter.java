@@ -33,7 +33,11 @@ public abstract class BaseClientPresenter<V extends View> implements ClientPrese
         return (V) ClientApp.make().getViewsRepository().getView(getName());
     }
 
+    protected String getConcrete(){
+        return this.getClass().getCanonicalName();
+    }
+
     private String getName(){
-        return ClientApp.make().getPresentersRepository().getNameFromConcreteName(this.getClass().getCanonicalName());
+        return ClientApp.make().getPresentersRepository().getNameFromConcreteName(getConcrete());
     }
 }

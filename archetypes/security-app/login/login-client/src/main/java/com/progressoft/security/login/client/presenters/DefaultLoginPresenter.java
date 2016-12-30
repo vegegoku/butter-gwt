@@ -14,12 +14,14 @@ public class DefaultLoginPresenter extends BaseClientPresenter<LoginView> implem
 
     @Override
     public void initView(LoginView view) {
-
+        view.loginTrigger().addClickHandler(clickEvent -> {
+            Window.alert("Login");
+        });
     }
 
     @Override
-    public void contributeToMainModule(MainExtensionPoint mainExtensionPoint, String welcomeMessage) {
-        view.setWelcomeMessage(welcomeMessage);
+    public void contributeToMainModule(MainExtensionPoint mainExtensionPoint) {
         mainExtensionPoint.context().appendWidgetToRoot(view);
     }
+
 }

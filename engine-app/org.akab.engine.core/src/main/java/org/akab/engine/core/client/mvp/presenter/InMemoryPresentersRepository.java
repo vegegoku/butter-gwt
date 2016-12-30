@@ -34,6 +34,12 @@ public class InMemoryPresentersRepository implements PresentersRepository {
         throw new PresenterNotFoundException(presenterName);
     }
 
+    protected LazyPresenterLoader getPresenterLoader(String presenterName) {
+        if(isRegisteredPresenter(presenterName))
+            return presenters.get(presenterName);
+        throw new PresenterNotFoundException(presenterName);
+    }
+
     @Override
     public String getNameFromConcreteName(String concreteName) {
         if(isRegisteredName(concreteName))

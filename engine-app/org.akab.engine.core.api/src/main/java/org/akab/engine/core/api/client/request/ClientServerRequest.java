@@ -17,6 +17,7 @@ public abstract class ClientServerRequest<P extends Presentable, R extends org.a
 
     private final RequestState<ServerResponseRecievedStateContext> sent =
             new RequestState<ServerResponseRecievedStateContext>() {
+
                 @Override
                 public void execute(ServerResponseRecievedStateContext context) {
                     if (context.nextContext instanceof ServerSuccessRequestStateContext) {

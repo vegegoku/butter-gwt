@@ -24,6 +24,12 @@ public class InMemoryViewRepository implements ViewsRepository {
         throw new ViewsRepository.ViewNotFoundException(presenterName);
     }
 
+    protected LazyViewLoader getViewLoader(String presenterName){
+        if(isRegisteredPresenterView(presenterName))
+            return views.get(presenterName);
+        throw new ViewsRepository.ViewNotFoundException(presenterName);
+    }
+
     private boolean isRegisteredPresenterView(String presenterName) {
         return views.containsKey(presenterName);
     }

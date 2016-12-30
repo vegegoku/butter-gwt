@@ -8,7 +8,7 @@ import org.akab.engine.core.logger.client.CoreLogger;
 import org.akab.engine.core.logger.client.CoreLoggerFactory;
 import com.google.web.bindery.event.shared.Event;
 
-public class SimpleEventsBus implements EventsBus{
+public class SimpleEventsBus implements EventsBus<Event<EventProcessor>>{
     private static final CoreLogger LOGGER= CoreLoggerFactory.getLogger(SimpleEventsBus.class);
 
     private final static EventBus simpleGwtEventsBus = new SimpleEventBus();
@@ -20,12 +20,11 @@ public class SimpleEventsBus implements EventsBus{
     }
 
     @Override
-    public void publishEvent(Event<EventProcessor> event) {
+    public void publishEvent(RequestEvent<Event<EventProcessor>> event) {
         try {
-            simpleGwtEventsBus.fireEvent(event);
+            simpleGwtEventsBus.fireEvent(event.asEvent());
         }catch (Exception ex){
             LOGGER.error("could not publish event", ex);
         }
     }
-
 }

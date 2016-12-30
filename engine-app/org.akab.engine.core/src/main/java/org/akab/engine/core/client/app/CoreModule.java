@@ -9,6 +9,7 @@ import org.akab.engine.core.client.events.ServerEventFactory;
 import org.akab.engine.core.client.events.SimpleEventsBus;
 import org.akab.engine.core.client.extensions.CoreMainExtensionPoint;
 import org.akab.engine.core.client.extensions.InMemoryContributionRepository;
+import org.akab.engine.core.client.history.GwtUrlHistory;
 import org.akab.engine.core.client.history.HistoryChangeHandler;
 import org.akab.engine.core.client.history.InMemoryPathToRequestMappersRepository;
 import org.akab.engine.core.client.mvp.presenter.InMemoryPresentersRepository;
@@ -36,6 +37,7 @@ public class CoreModule {
                 .contributionsRepository(new InMemoryContributionRepository())
                 .pathToRequestMapperRepository(new InMemoryPathToRequestMappersRepository())
                 .tokenConstruct(new PathTokenConstructor())
+                .urlHistory(new GwtUrlHistory())
                 .mainExtensionPoint(new CoreMainExtensionPoint())
                 .build();
 
