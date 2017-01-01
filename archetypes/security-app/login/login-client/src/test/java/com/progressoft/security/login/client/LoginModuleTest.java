@@ -32,8 +32,6 @@ public class LoginModuleTest{
     @Before
     public void setUp() throws Exception {
 
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ");
-
         testModule=new TestModule();
         testModule.init(new TestEntryPointContext());
         testModule.configureModule(new LoginModuleConfiguration());
