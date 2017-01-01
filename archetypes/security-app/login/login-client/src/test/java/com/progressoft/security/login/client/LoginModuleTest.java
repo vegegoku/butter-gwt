@@ -10,7 +10,10 @@ import com.progressoft.security.login.shared.request.LoginRequest;
 import com.progressoft.security.login.shared.response.LoginResponse;
 import org.akab.engine.app.test.TestEntryPointContext;
 import org.akab.engine.app.test.TestModule;
-import org.akab.engine.core.api.client.ClientApp;
+import org.akab.engine.app.test.TestPresenterFactory;
+import org.akab.engine.app.test.TestViewFactory;
+import org.akab.engine.core.api.client.mvp.presenter.Presentable;
+import org.akab.engine.core.api.client.mvp.view.View;
 import org.akab.engine.core.api.shared.extension.MainContext;
 import org.akab.engine.core.api.shared.extension.MainExtensionPoint;
 import org.junit.Before;
@@ -22,7 +25,6 @@ import static org.junit.Assert.*;
 @RunWith(GwtMockitoTestRunner.class)
 public class LoginModuleTest{
 
-    private ClientApp clientApp;
     private TestModule testModule;
     private LoginPresenterSpy loginPresenterSpy;
     private LoginViewSpy loginViewSpy;
@@ -30,18 +32,31 @@ public class LoginModuleTest{
     @Before
     public void setUp() throws Exception {
 
-        testModule=new TestModule();
-        clientApp= testModule.init(new TestEntryPointContext());
-        testModule.configureModule(new LoginModuleConfiguration());
-        loginPresenterSpy=new LoginPresenterSpy();
-        loginViewSpy=new LoginViewSpy();
-        testModule.replacePresenter(LoginPresenter.class.getCanonicalName(), loginPresenterSpy);
-        testModule.replaceView(LoginPresenter.class.getCanonicalName(), loginViewSpy);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ");
 
+        testModule=new TestModule();
+        testModule.init(new TestEntryPointContext());
+        testModule.configureModule(new LoginModuleConfiguration());
+
+        testModule.replacePresenter(LoginPresenter.class.getCanonicalName(), new TestPresenterFactory() {
+            @Override
+            public Presentable make() {
+                loginPresenterSpy=new LoginPresenterSpy();
+                return loginPresenterSpy;
+            }
+        });
+
+        testModule.replaceView(LoginPresenter.class.getCanonicalName(), new TestViewFactory() {
+            @Override
+            public View make() {
+                loginViewSpy=new LoginViewSpy();
+                return loginViewSpy;
+            }
+        });
     }
 
     @Test
-    public void testNothing() throws Exception {
+    public void givenLoginModule_whenLoginSampleClientRequestIsSent_thenShouldContributeToMainExtensionPoint() throws Exception {
         new LoginSampleClientRequest(new MainExtensionPoint() {
             @Override
             public MainContext context() {
@@ -59,9 +74,13 @@ public class LoginModuleTest{
             }
         }).send();
 
+        assertTrue(loginPresenterSpy.isContributionCompleted());
+        assertNotNull(loginViewSpy.getDescription());
+    }
 
-        assertNotNull(loginPresenterSpy.getMainExtensionPoint());
-
+    @Test
+    public void givenLoginClientModule_whenLoginServerRequestIsSent_thenServerMessageShouldBeRecieved()
+            throws Exception {
         new LoginServerRequest(){
             @Override
             protected void process(LoginPresenter presenter, LoginRequest serverArgs, LoginResponse response) {
@@ -74,10 +93,5 @@ public class LoginModuleTest{
                 return LoginServerRequest.class.getCanonicalName();
             }
         }.send();
-
-
-        System.out.println(loginViewSpy.getDescription());
-        assertNotNull(loginViewSpy.getDescription());
-
     }
 }

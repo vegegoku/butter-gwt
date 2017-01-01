@@ -22,7 +22,19 @@
         }
 
         .app_title{
-        font-weight:bold !important;
+            font-weight:bold !important;
+        }
+
+        .supportCard{
+            height:100% !important;
+        }
+
+        .supportCardImage{
+            height:auto !important;
+        }
+        .customFooter{
+        padding-left: 0 !important;
+        margin-bottom: 20px;
         }
     </ui:style>
 
@@ -148,14 +160,37 @@
                     </m:MaterialColumn>
 
                     <m:MaterialColumn grid="s12 m10 l8" >
-                        <m:MaterialPanel overflow="AUTO" backgroundColor="GREY_LIGHTEN_5">
-                            <m:MaterialTitle ui:field="supportTitle" title="Support" description=""/>
-                            <m:MaterialTitle ui:field="supportAvailabilityTitle" title="Support Availability" description=""/>
-
-                        </m:MaterialPanel>
+                        <m:MaterialCard backgroundColor="WHITE" addStyleNames="{style.supportCard} {style.login_card}" shadow="0">
+                            <!--<m:MaterialCardImage waves="LIGHT" addStyleNames="{style.supportCardImage}">-->
+                                <!--<m:MaterialImage resource="{bundle.psCorpay}" addStyleNames="{style.supportCardImage}"/>-->
+                            <!--</m:MaterialCardImage>-->
+                            <m:MaterialCardContent textColor="BLACK">
+                                <m:MaterialLabel text="Support" fontSize="1.25em" />
+                                <m:MaterialLabel ui:field="supportTitle" text=""  fontSize="0.9em"/>
+                                <m:MaterialLabel  text="&nbsp;"  fontSize="1.2em"/>
+                                <m:MaterialLabel text="Support Availability" fontSize="1em" />
+                                <m:MaterialLabel ui:field="supportAvailabilityTitle" text="" fontSize="0.9em"/>
+                            </m:MaterialCardContent>
+                        </m:MaterialCard>
                     </m:MaterialColumn>
                 </m:MaterialRow>
             </m:MaterialRow>
         </m:MaterialPanel>
+        <m:MaterialFooter addStyleNames="{style.customFooter}" backgroundColor="BLUE_DARKEN_4">
+            <m:MaterialRow>
+                <m:MaterialColumn grid="s12 m6 l6">
+                    <m:MaterialTitle textColor="WHITE" title="Consultancy Services" description="Provides a range of independent and related ICT, information and business consultancy services to a wide variety of clients."/>
+                    <m:MaterialButton ui:field="btnChat" text="More" waves="LIGHT" backgroundColor="BLUE_LIGHTEN_1"/>
+                </m:MaterialColumn>
+                <m:MaterialColumn grid="s12 m6 l6">
+                    <m:MaterialTitle textColor="WHITE" title="Integration" description="The compatibility between systems is one of the most important issues for almost any organization."/>
+                    <m:MaterialButton ui:field="btnDownloadPhonegap" text="More" waves="LIGHT" backgroundColor="BLUE_LIGHTEN_1"/>
+                </m:MaterialColumn>
+            </m:MaterialRow>
+
+            <m:MaterialFooterCopyright addStyleNames="footer-copyright">
+                <m:MaterialLabel text="© 2017 Copyright Progressoft" />
+            </m:MaterialFooterCopyright>
+        </m:MaterialFooter>
     </g:HTMLPanel>
 </ui:UiBinder>

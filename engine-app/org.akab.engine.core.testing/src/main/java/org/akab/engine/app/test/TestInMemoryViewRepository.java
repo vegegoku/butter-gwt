@@ -1,13 +1,11 @@
 package org.akab.engine.app.test;
 
-import org.akab.engine.core.api.client.mvp.presenter.LazyPresenterLoader;
-import org.akab.engine.core.api.client.mvp.presenter.Presentable;
 import org.akab.engine.core.api.client.mvp.view.LazyViewLoader;
 import org.akab.engine.core.api.client.mvp.view.View;
-import org.akab.engine.core.api.client.mvp.view.ViewsRepository;
 import org.akab.engine.core.client.mvp.view.InMemoryViewRepository;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class TestInMemoryViewRepository extends InMemoryViewRepository{
 
@@ -21,8 +19,8 @@ public class TestInMemoryViewRepository extends InMemoryViewRepository{
         return super.getView(presenterName);
     }
 
-    public void replaceView(String presenterName, View view){
-        replacedViews.put(presenterName, new TestViewLoader(getViewLoader(presenterName), view));
+    public void replaceView(String presenterName, TestViewFactory viewFactory){
+        replacedViews.put(presenterName, new TestViewLoader(getViewLoader(presenterName), viewFactory));
     }
 
     @Override
@@ -34,12 +32,13 @@ public class TestInMemoryViewRepository extends InMemoryViewRepository{
     private class TestViewLoader extends LazyViewLoader {
 
         private final LazyViewLoader lazyViewLoader;
-        private final View view;
+        private final TestViewFactory viewFactory;
+        private View view;
 
-        public TestViewLoader(LazyViewLoader lazyViewLoader, View view) {
+        public TestViewLoader(LazyViewLoader lazyViewLoader, TestViewFactory viewFactory) {
             super(lazyViewLoader.getPresenterName());
             this.lazyViewLoader=lazyViewLoader;
-            this.view = view;
+            this.viewFactory = viewFactory;
         }
 
         @Override
@@ -49,12 +48,14 @@ public class TestInMemoryViewRepository extends InMemoryViewRepository{
 
         @Override
         public View getView() {
+            if(Objects.isNull(view))
+                view=viewFactory.make();
             return view;
         }
 
         @Override
         protected View make() {
-            return view;
+            return getView();
         }
     }
 

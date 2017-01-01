@@ -5,16 +5,16 @@ import org.akab.engine.core.api.shared.extension.MainExtensionPoint;
 
 public class LoginPresenterSpy extends DefaultLoginPresenter{
 
-    private MainExtensionPoint mainExtensionPoint;
+    private boolean contributionCompleted;
 
     @Override
     public void contributeToMainModule(MainExtensionPoint mainExtensionPoint) {
         super.contributeToMainModule(mainExtensionPoint);
-        this.mainExtensionPoint=mainExtensionPoint;
+        this.contributionCompleted=true;
     }
 
-    public MainExtensionPoint getMainExtensionPoint() {
-        return mainExtensionPoint;
+    public boolean isContributionCompleted() {
+        return contributionCompleted;
     }
 
     @Override

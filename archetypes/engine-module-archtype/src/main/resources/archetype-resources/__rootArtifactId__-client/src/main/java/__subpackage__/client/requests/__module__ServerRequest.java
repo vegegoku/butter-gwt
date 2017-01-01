@@ -22,7 +22,7 @@ public class ${module}ServerRequest extends ClientServerRequest<${module}Present
     }
 
     @Override
-    public ${module}Args buildArguments() {
-        return new ${module}Args("client message");
+    public ${module}Request buildArguments() {
+        return new ${module}Request("client message");
     }
 }

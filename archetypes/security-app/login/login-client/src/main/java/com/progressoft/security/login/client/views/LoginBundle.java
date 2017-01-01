@@ -15,6 +15,9 @@ public interface LoginBundle extends ClientBundle{
         String loginCard();
     }
 
+    @Source("css/login.gss")
+    Style style();
+
     @Source("images/pslogo_1.jpg")
     ImageResource pslogo_1();
 
@@ -42,6 +45,5 @@ public interface LoginBundle extends ClientBundle{
     @Source("pages/supportAvailability.txt")
     ExternalTextResource supportAvailability();
 
-    @Source("css/login.gss")
-    Style style();
+
 }

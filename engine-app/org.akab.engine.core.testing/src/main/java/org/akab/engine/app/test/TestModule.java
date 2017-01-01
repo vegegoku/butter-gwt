@@ -16,11 +16,11 @@ public class TestModule {
         return TestClientAppFactory.make(entryPointContext);
     }
 
-    public void replacePresenter(String presenterName, Presentable presenter){
-        ((TestInMemoryPresenterRepository)ClientApp.make().getPresentersRepository()).replacePresenter(presenterName, presenter);
+    public void replacePresenter(String presenterName, TestPresenterFactory presenterFactory){
+        ((TestInMemoryPresenterRepository)ClientApp.make().getPresentersRepository()).replacePresenter(presenterName, presenterFactory);
     }
-    public void replaceView(String presenterName, View view){
-        ((TestInMemoryViewRepository)ClientApp.make().getViewsRepository()).replaceView(presenterName, view);
+    public void replaceView(String presenterName, TestViewFactory viewFactory){
+        ((TestInMemoryViewRepository)ClientApp.make().getViewsRepository()).replaceView(presenterName, viewFactory);
     }
 
     public void configureModule(ModuleConfiguration configuration){

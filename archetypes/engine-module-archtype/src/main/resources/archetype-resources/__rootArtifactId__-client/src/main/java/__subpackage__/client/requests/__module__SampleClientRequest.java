@@ -21,6 +21,6 @@ public class ${module}SampleClientRequest extends ClientRequest<${module}Present
 
     @Override
     protected void process(${module}Presenter presenter) {
-        presenter.contributeToMainModule(mainExtensionPoint, "Hello world! from login contribution request");
+        presenter.contributeToMainModule(mainExtensionPoint, "Hello world! from ${module} contribution request");
     }
 }

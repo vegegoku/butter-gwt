@@ -5,6 +5,7 @@ import org.akab.engine.core.api.client.mvp.presenter.Presentable;
 import org.akab.engine.core.client.mvp.presenter.InMemoryPresentersRepository;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 
 public class TestInMemoryPresenterRepository extends InMemoryPresentersRepository {
@@ -24,19 +25,20 @@ public class TestInMemoryPresenterRepository extends InMemoryPresentersRepositor
         return super.getPresenter(presenterName);
     }
 
-    public void replacePresenter(String presenterName, Presentable presenter){
-        replacedPresenters.put(presenterName, new TestPresenterLoader(super.getPresenterLoader(presenterName), presenter));
+    public void replacePresenter(String presenterName, TestPresenterFactory presenterFactory){
+        replacedPresenters.put(presenterName, new TestPresenterLoader(super.getPresenterLoader(presenterName), presenterFactory));
     }
 
     private class TestPresenterLoader extends LazyPresenterLoader{
 
         private final LazyPresenterLoader lazyPresenterLoader;
-        private final Presentable presenter;
+        private final TestPresenterFactory presenterFactory;
+        private Presentable presenter;
 
-        public TestPresenterLoader(LazyPresenterLoader lazyPresenterLoader, Presentable presenter) {
+        public TestPresenterLoader(LazyPresenterLoader lazyPresenterLoader, TestPresenterFactory presenterFactory) {
             super(lazyPresenterLoader.getName(), lazyPresenterLoader.getConcreteName());
             this.lazyPresenterLoader=lazyPresenterLoader;
-            this.presenter = presenter;
+            this.presenterFactory = presenterFactory;
         }
 
         @Override
@@ -51,12 +53,14 @@ public class TestInMemoryPresenterRepository extends InMemoryPresentersRepositor
 
         @Override
         public Presentable getPresenter() {
+            if(Objects.isNull(presenter))
+                presenter=presenterFactory.make();
             return presenter;
         }
 
         @Override
         protected Presentable make() {
-            return presenter;
+            return getPresenter();
         }
     }
 }

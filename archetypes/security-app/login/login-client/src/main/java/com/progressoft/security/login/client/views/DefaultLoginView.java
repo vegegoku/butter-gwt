@@ -39,10 +39,10 @@ public class DefaultLoginView implements LoginView{
     Widget mainPanel;
 
     @UiField
-    MaterialTitle supportAvailabilityTitle;
+    MaterialLabel supportAvailabilityTitle;
 
     @UiField
-    MaterialTitle supportTitle;
+    MaterialLabel supportTitle;
 
     @UiField
     MaterialButton btnLogin;
@@ -75,7 +75,7 @@ public class DefaultLoginView implements LoginView{
 
                 @Override
                 public void onSuccess(TextResource textResource) {
-                    supportAvailabilityTitle.setDescription(textResource.getText());
+                    supportAvailabilityTitle.setText(textResource.getText());
                 }
             });
         } catch (ResourceException e) {
@@ -94,6 +94,6 @@ public class DefaultLoginView implements LoginView{
     }
 
     protected void setSupportDescription(String text){
-        supportTitle.setDescription(text);
+        supportTitle.setText(text);
     }
 }
