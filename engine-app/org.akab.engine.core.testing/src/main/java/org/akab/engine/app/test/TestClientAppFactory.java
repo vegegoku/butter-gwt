@@ -18,38 +18,44 @@ import org.akab.engine.core.client.request.InMemoryRequestsRepository;
 
 public class TestClientAppFactory {
 
-    public static ClientApp make(ServerEntryPointContext entryPointContext){
+    static TestInMemoryPresenterRepository presentersRepository;
+    static InMemoryRequestsRepository requestRepository;
+    static TestInMemoryViewRepository viewsRepository;
+    static InMemoryContributionRepository contributionsRepository;
+    static InMemoryPathToRequestMappersRepository pathToRequestMappersRepository;
+
+    public static ClientApp make(ServerEntryPointContext entryPointContext) {
 
         TestClientRouter clientRouter = new TestClientRouter();
         TestServerRouter serverRouter = new TestServerRouter(entryPointContext);
         RequestEventProcessor requestEventProcessor = new RequestEventProcessor();
-        TestEventBus eventBus=new TestEventBus(requestEventProcessor);
+        TestEventBus eventBus = new TestEventBus(requestEventProcessor);
 
+        presentersRepository = new TestInMemoryPresenterRepository();
+        requestRepository = new InMemoryRequestsRepository();
+        viewsRepository = new TestInMemoryViewRepository();
+        contributionsRepository = new InMemoryContributionRepository();
+        pathToRequestMappersRepository = new InMemoryPathToRequestMappersRepository();
         ClientApp clientApp = new ClientApp.ClientAppBuilder()
                 .clientRouter(clientRouter)
                 .serverRouter(serverRouter)
                 .eventsBus(eventBus)
-                .presentersRepository(new TestInMemoryPresenterRepository())
-                .requestRepository(new InMemoryRequestsRepository())
-                .viewsRepository(new TestInMemoryViewRepository())
-                .contributionsRepository(new InMemoryContributionRepository())
-                .pathToRequestMapperRepository(new InMemoryPathToRequestMappersRepository())
+                .presentersRepository(presentersRepository)
+                .requestRepository(requestRepository)
+                .viewsRepository(viewsRepository)
+                .contributionsRepository(contributionsRepository)
+                .pathToRequestMapperRepository(pathToRequestMappersRepository)
                 .tokenConstruct(new PathTokenConstructor())
                 .urlHistory(new TestUrlHistory())
-                .mainExtensionPoint(new MainExtensionPoint() {
+                .mainExtensionPoint(() -> new MainContext() {
                     @Override
-                    public MainContext context() {
-                        return new MainContext() {
-                            @Override
-                            public void appendElementToRoot(Element e) {
+                    public void appendElementToRoot(Element e) {
 
-                            }
+                    }
 
-                            @Override
-                            public void appendWidgetToRoot(IsWidget w) {
+                    @Override
+                    public void appendWidgetToRoot(IsWidget w) {
 
-                            }
-                        };
                     }
                 })
                 .build();

@@ -1,0 +1,14 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+    <ui:with field="bundle" type="com.progressoft.security.authentication.client.views.AuthenticationBundle"/>
+    <ui:style>
+        .sample-div{
+            background-color: #CECECE;
+        }
+    </ui:style>
+
+    <g:HTMLPanel>
+        <div ui:field="mainDiv" class="sample-div"></div>
+    </g:HTMLPanel>
+</ui:UiBinder>

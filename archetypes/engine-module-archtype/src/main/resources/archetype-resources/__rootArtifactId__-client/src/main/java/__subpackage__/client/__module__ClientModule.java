@@ -10,7 +10,7 @@ import org.akab.engine.core.api.client.annotations.ClientModule;
 import org.akab.engine.core.logger.client.CoreLogger;
 import org.akab.engine.core.logger.client.CoreLoggerFactory;
 
-import ${package}.${subpackage}.client.views.bundle.${module}Bundle;
+import ${package}.${subpackage}.client.views.${module}Bundle;
 
 @ClientModule(name="${module}")
 public class ${module}ClientModule implements EntryPoint {

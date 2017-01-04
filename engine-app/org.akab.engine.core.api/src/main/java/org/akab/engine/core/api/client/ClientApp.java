@@ -1,5 +1,6 @@
 package org.akab.engine.core.api.client;
 
+import com.google.gwt.user.client.Window;
 import org.akab.engine.core.api.client.History.*;
 import org.akab.engine.core.api.client.events.EventsBus;
 import org.akab.engine.core.api.client.extension.Contributions;
@@ -15,13 +16,19 @@ import org.akab.engine.core.api.client.mvp.presenter.PresentersRepository;
 import org.akab.engine.core.api.client.mvp.view.LazyViewLoader;
 import org.akab.engine.core.api.client.mvp.view.ViewsRepository;
 import org.akab.engine.core.api.shared.extension.MainExtensionPoint;
+import org.akab.engine.core.logger.client.CoreLogger;
+import org.akab.engine.core.logger.client.CoreLoggerFactory;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 public class ClientApp
         implements PresenterRegistry, RequestRegistry, ViewRegistry, InitialTaskRegistry, ContributionsRegistry,
         PathToRequestMapperRegistry {
+
+    private static final CoreLogger LOGGER= CoreLoggerFactory.getLogger(ClientApp.class);
 
     @Override
     public void registerPresenter(LazyPresenterLoader lazyPresenterLoader) {
@@ -50,6 +57,7 @@ public class ClientApp
 
     @Override
     public void registerInitialTask(InitializeTask task) {
+        LOGGER.info("adding initial tasks");
         initialTasks.add(task);
     }
 
@@ -65,7 +73,7 @@ public class ClientApp
     private static MainExtensionPoint mainExtensionPoint;
     private static UrlHistory urlHistory;
 
-    private static Set<InitializeTask> initialTasks = new HashSet<>();
+    private static List<InitializeTask> initialTasks;
 
     private ClientApp() {
     }
@@ -87,6 +95,7 @@ public class ClientApp
         ClientApp.tokenConstruct = tokenConstruct;
         ClientApp.mainExtensionPoint = mainExtensionPoint;
         ClientApp.urlHistory = urlHistory;
+        ClientApp.initialTasks=new LinkedList<>();
 
     }
 
@@ -131,11 +140,13 @@ public class ClientApp
         configuration.registerRequests(this);
         configuration.registerViews(this);
         configuration.registerContributions(this);
+        LOGGER.info("registering initail tasks.");
         configuration.registerInitialTasks(this);
         configuration.registerPathMappers(this);
     }
 
     public void run() {
+        LOGGER.info("No initial tasks : "+initialTasks.isEmpty());
         initialTasks.forEach(InitializeTask::execute);
         Contributions.apply(MainExtensionPoint.class, mainExtensionPoint);
     }

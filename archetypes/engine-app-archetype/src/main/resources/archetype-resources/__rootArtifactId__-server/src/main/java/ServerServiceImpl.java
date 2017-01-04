@@ -6,7 +6,9 @@ package ${package};
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import org.akab.engine.core.api.shared.request.ServerResponse;
 import org.akab.engine.core.api.shared.request.ServerRequest;
+import org.akab.engine.core.api.shared.server.ServerApp;
 import org.akab.engine.core.api.shared.service.ServerService;
+import org.akab.engine.core.server.RpcEntryPointContext;
 
 import java.util.logging.Logger;
 
@@ -19,6 +21,6 @@ public class ServerServiceImpl extends RemoteServiceServlet implements ServerSer
     @Override
     public ServerResponse executeRequest(ServerRequest request) throws Exception {
         LOGGER.info("Server call recieved for request : "+request.toString());
-        return null;
+        return ServerApp.make().executeRequest(request, new RpcEntryPointContext(getThreadLocalRequest(), getThreadLocalResponse()));;
     }
 }
