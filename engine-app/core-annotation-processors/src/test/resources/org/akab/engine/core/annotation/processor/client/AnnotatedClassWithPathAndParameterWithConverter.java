@@ -12,8 +12,7 @@ public class AnnotatedClassWithPathAndParameterWithConverter extends ClientReque
 
     private BigDecimal value;
 
-    public AnnotatedClassWithPathAndParameterWithConverter(
-            @PathParameter(converter = BigDecimalConverter.class) BigDecimal value) {
+    public AnnotatedClassWithPathAndParameterWithConverter(@PathParameter(converter = BigDecimalConverter.class) BigDecimal value) {
         this.value = value;
     }
 

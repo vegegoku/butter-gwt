@@ -11,16 +11,16 @@ import org.akab.engine.core.api.client.request.RequestRouter;
 
 public class TestClientRouter implements RequestRouter<ClientRequest> {
 
-    private final ClientRequestEventFactory eventFactory= request -> new TestClientEvent(request);
+    private static final ClientRequestEventFactory eventFactory = TestClientEvent::new;
 
     @Override
     public void routeRequest(ClientRequest request) {
         eventFactory.make(request).fire();
     }
 
-    public class TestClientEvent implements Event{
+    public static class TestClientEvent implements Event {
         protected final ClientRequest request;
-        private final ClientApp clientApp=ClientApp.make();
+        private final ClientApp clientApp = ClientApp.make();
 
         public TestClientEvent(ClientRequest request) {
             this.request = request;
@@ -32,12 +32,12 @@ public class TestClientRouter implements RequestRouter<ClientRequest> {
         }
 
         @Override
-        public void process(){
+        public void process() {
             request.applyState(new Request.DefaultRequestStateContext());
         }
     }
 
-    public class TestRequestEvent implements EventsBus.RequestEvent<TestClientEvent>{
+    public static class TestRequestEvent implements EventsBus.RequestEvent<TestClientEvent> {
 
         private final TestClientEvent event;
 

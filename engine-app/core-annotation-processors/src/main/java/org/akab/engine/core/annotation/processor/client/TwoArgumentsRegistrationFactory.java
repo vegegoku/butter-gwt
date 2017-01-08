@@ -30,7 +30,7 @@ public abstract class TwoArgumentsRegistrationFactory implements RegistrationFac
 
     protected Map<Element, Element> items() {
         if (elementsAsStream(annotation()).anyMatch(e -> !isValid(e)))
-            throw new RuntimeException("Invalid declaration for annotation " + annotation().getSimpleName());
+            throw new InvalidDeclarationForAnnotationException("Invalid declaration for annotation " + annotation().getSimpleName());
 
         Map<Element, Element> map = new LinkedHashMap<>();
         elementsAsStream(annotation()).forEach(e -> map.put(e, targetType(e)));

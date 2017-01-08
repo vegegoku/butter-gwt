@@ -62,5 +62,19 @@ public class TestInMemoryPresenterRepository extends InMemoryPresentersRepositor
         protected Presentable make() {
             return getPresenter();
         }
+
+        @Override
+        public boolean equals(Object o) {
+            return this == o;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = super.hashCode();
+            result = 31 * result + (lazyPresenterLoader != null ? lazyPresenterLoader.hashCode() : 0);
+            result = 31 * result + (presenterFactory != null ? presenterFactory.hashCode() : 0);
+            result = 31 * result + (presenter != null ? presenter.hashCode() : 0);
+            return result;
+        }
     }
 }

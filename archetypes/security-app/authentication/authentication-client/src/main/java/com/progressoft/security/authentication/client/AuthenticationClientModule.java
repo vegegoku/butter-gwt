@@ -18,7 +18,5 @@ public class AuthenticationClientModule implements EntryPoint {
 		LOGGER.info("Initializing Authentication client module ...");
 		AuthenticationBundle.INSTANCE.style().ensureInjected();
 		new ModuleConfigurator().configureModule(new AuthenticationModuleConfiguration());
-
-
 	}
 }

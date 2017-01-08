@@ -1,7 +1,7 @@
 package org.akab.engine.core.api.client.annotations;
 
-import org.akab.engine.core.api.client.History.RequestFromPath;
-import org.akab.engine.core.api.client.History.TokenizedPath;
+import org.akab.engine.core.api.client.history.RequestFromPath;
+import org.akab.engine.core.api.client.history.TokenizedPath;
 import org.akab.engine.core.api.client.request.Request;
 
 import javax.validation.constraints.NotNull;
@@ -21,6 +21,7 @@ public @interface Path {
 
     final class DefaultPathToRequestMapper implements RequestFromPath {
 
+        @Override
         public Request buildRequest(TokenizedPath path) {
             return null;
         }

@@ -4,16 +4,11 @@ package org.akab.engine.app.test;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.IsWidget;
 import org.akab.engine.core.api.client.ClientApp;
-import org.akab.engine.core.api.client.History.PathTokenConstructor;
+import org.akab.engine.core.api.client.history.PathTokenConstructor;
 import org.akab.engine.core.api.shared.extension.MainContext;
-import org.akab.engine.core.api.shared.extension.MainExtensionPoint;
-import org.akab.engine.core.api.shared.server.HandlersRepository;
 import org.akab.engine.core.api.shared.server.ServerEntryPointContext;
 import org.akab.engine.core.client.events.RequestEventProcessor;
-import org.akab.engine.core.client.extensions.InMemoryContributionRepository;
 import org.akab.engine.core.client.history.InMemoryPathToRequestMappersRepository;
-import org.akab.engine.core.client.mvp.presenter.InMemoryPresentersRepository;
-import org.akab.engine.core.client.mvp.view.InMemoryViewRepository;
 import org.akab.engine.core.client.request.InMemoryRequestsRepository;
 
 public class TestClientAppFactory {
@@ -21,8 +16,11 @@ public class TestClientAppFactory {
     static TestInMemoryPresenterRepository presentersRepository;
     static InMemoryRequestsRepository requestRepository;
     static TestInMemoryViewRepository viewsRepository;
-    static InMemoryContributionRepository contributionsRepository;
+    static TestInMemoryContributionsRepository contributionsRepository;
     static InMemoryPathToRequestMappersRepository pathToRequestMappersRepository;
+
+    private TestClientAppFactory() {
+    }
 
     public static ClientApp make(ServerEntryPointContext entryPointContext) {
 
@@ -34,9 +32,9 @@ public class TestClientAppFactory {
         presentersRepository = new TestInMemoryPresenterRepository();
         requestRepository = new InMemoryRequestsRepository();
         viewsRepository = new TestInMemoryViewRepository();
-        contributionsRepository = new InMemoryContributionRepository();
+        contributionsRepository = new TestInMemoryContributionsRepository();
         pathToRequestMappersRepository = new InMemoryPathToRequestMappersRepository();
-        ClientApp clientApp = new ClientApp.ClientAppBuilder()
+        return new ClientApp.ClientAppBuilder()
                 .clientRouter(clientRouter)
                 .serverRouter(serverRouter)
                 .eventsBus(eventBus)
@@ -50,17 +48,15 @@ public class TestClientAppFactory {
                 .mainExtensionPoint(() -> new MainContext() {
                     @Override
                     public void appendElementToRoot(Element e) {
-
+                        //default empty implementation for fake main extension point.
                     }
 
                     @Override
                     public void appendWidgetToRoot(IsWidget w) {
-
+                        //default empty implementation for fake main extension point.
                     }
                 })
                 .build();
-
-        return clientApp;
     }
 
 }

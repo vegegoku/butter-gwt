@@ -1,17 +1,22 @@
 package org.akab.engine.core.api.client.mvp.presenter;
 
-import com.google.gwt.user.client.Window;
 import org.akab.engine.core.api.client.ClientApp;
 import org.akab.engine.core.api.client.mvp.view.View;
+import org.akab.engine.core.logger.client.CoreLogger;
+import org.akab.engine.core.logger.client.CoreLoggerFactory;
 
 public abstract class BaseClientPresenter<V extends View> implements ClientPresenter<V>{
 
-    private final PresenterState INITIALIZED= () -> {};
+    private static final CoreLogger LOGGER= CoreLoggerFactory.getLogger(BaseClientPresenter.class);
 
-    private final PresenterState NEW = ()-> {
+    private final PresenterState initialized = () ->
+        LOGGER.info("Presenter "+BaseClientPresenter.this.getClass()+" Have already initialized.");
+
+
+    private final PresenterState uninitialized = ()-> {
         view=loadView();
         initView(BaseClientPresenter.this.view);
-        state=INITIALIZED;
+        state= initialized;
     };
 
     private PresenterState state;
@@ -19,7 +24,7 @@ public abstract class BaseClientPresenter<V extends View> implements ClientPrese
     protected V view;
 
     public BaseClientPresenter() {
-        this.state = NEW;
+        this.state = uninitialized;
         process();
     }
 

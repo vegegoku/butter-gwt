@@ -25,8 +25,10 @@ public abstract class LazyViewLoader {
 
     @Override
     public boolean equals(Object other) {
-        if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
+        if (this == other)
+            return true;
+        if (other == null || getClass() != other.getClass())
+            return false;
         return getPresenterName().equals(((LazyViewLoader) other).getPresenterName());
     }
 

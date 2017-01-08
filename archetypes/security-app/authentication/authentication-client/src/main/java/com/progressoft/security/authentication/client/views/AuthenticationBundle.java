@@ -11,10 +11,10 @@ public interface AuthenticationBundle extends ClientBundle{
     AuthenticationBundle INSTANCE=GWT.create(AuthenticationBundle.class);
 
     interface Style extends CssResource {
-        String Authentication();
+        String authentication();
     }
 
-    @Source("css/Authentication.css")
+    @Source("css/Authentication.gss")
     Style style();
 
     @Source("images/gwt.png")
@@ -22,5 +22,4 @@ public interface AuthenticationBundle extends ClientBundle{
 
     @Source("text/welcome.txt")
     ExternalTextResource welcome();
-
 }

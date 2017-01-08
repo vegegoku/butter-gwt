@@ -1,7 +1,7 @@
 package org.akab.engine.core.client.history;
 
-import org.akab.engine.core.api.client.History.PathToRequestMappersRepository;
-import org.akab.engine.core.api.client.History.RequestFromPath;
+import org.akab.engine.core.api.client.history.PathToRequestMappersRepository;
+import org.akab.engine.core.api.client.history.RequestFromPath;
 
 import java.util.HashMap;
 import java.util.Map;

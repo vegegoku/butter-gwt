@@ -1,11 +1,9 @@
 package org.akab.engine.core.api.client.request;
 
-
-import org.akab.engine.core.api.client.mvp.presenter.Presentable;
 import org.akab.engine.core.api.shared.request.FailedServerResponse;
 import org.akab.engine.core.api.shared.request.ServerResponse;
 
-public interface Request<P extends Presentable> {
+public interface Request {
 
     class DefaultRequestStateContext implements RequestStateContext{
 
@@ -50,9 +48,6 @@ public interface Request<P extends Presentable> {
     class InvalidRequestState extends RuntimeException{
 
         private static final long serialVersionUID = 1976356149064117774L;
-
-        public InvalidRequestState() {
-        }
 
         public InvalidRequestState(String message) {
             super(message);

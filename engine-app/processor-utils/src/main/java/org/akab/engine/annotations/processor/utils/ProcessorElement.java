@@ -64,12 +64,12 @@ public class ProcessorElement {
     }
 
     public Stream<? extends Element> fieldsStream() {
-        return element.getEnclosedElements().stream().filter(element -> element.getKind() == ElementKind.FIELD);
+        return element.getEnclosedElements().stream().filter(e -> e.getKind() == ElementKind.FIELD);
     }
 
     public <A extends Annotation> Stream<? extends Element> fieldsAnnotatedWithStream(Class<A> annotationClass) {
-        return element.getEnclosedElements().stream().filter(element -> element.getKind() == ElementKind.FIELD)
-                .filter(element -> fieldAnnotatedWith(element, annotationClass));
+        return element.getEnclosedElements().stream().filter(e -> e.getKind() == ElementKind.FIELD)
+                .filter(e -> fieldAnnotatedWith(e, annotationClass));
     }
 
     private <A extends Annotation> boolean fieldAnnotatedWith(Element element, Class<A> annotationClass) {
@@ -128,7 +128,7 @@ public class ProcessorElement {
     }
 
     private String replacePart(String input, String token) {
-        return input.replace(token.substring(0, token.lastIndexOf(".") + 1), "");
+        return input.replace(token.substring(0, token.lastIndexOf('.') + 1), "");
     }
 
     public Set<String> modifiers() {
@@ -164,7 +164,7 @@ public class ProcessorElement {
 
     public TypeMirror getInterfaceType(Class<?> targetInterface) {
         return asTypeElement().getInterfaces().stream().filter(i -> isSameInterface(i, targetInterface))
-                .collect(Collectors.toSet()).stream().findFirst().get();
+                .collect(Collectors.toSet()).stream().findFirst().orElseThrow(IllegalArgumentException::new);
     }
 
     public String getInterfaceFullQualifiedGenericName(Class<?> targetInterface){

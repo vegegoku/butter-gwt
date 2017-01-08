@@ -1,8 +1,7 @@
 package org.akab.engine.core.annotation.processor.client.path;
 
-import com.sun.tools.javac.code.Type;
-import org.akab.engine.core.api.client.History.RequestFromPath;
-import org.akab.engine.core.api.client.History.TokenizedPath;
+import org.akab.engine.core.api.client.history.RequestFromPath;
+import org.akab.engine.core.api.client.history.TokenizedPath;
 import org.akab.engine.core.api.client.annotations.Path;
 import org.akab.engine.core.api.client.request.Request;
 
@@ -10,6 +9,7 @@ import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.DeclaredType;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
@@ -17,6 +17,7 @@ import java.util.Set;
 
 public class RequestFromPathResolver {
 
+    public static final String IMPORT = "import ";
     private Map.Entry<Element, String> entry;
 
     RequestFromPathResolver(Map.Entry<Element, String> entry) {
@@ -26,14 +27,12 @@ public class RequestFromPathResolver {
     String requestFromPathImplementation() {
         if (isMapperValuePresent())
             return customMapperImplementation();
-
         return anonymousImplementation();
     }
 
     public Set<String> imports() {
         if (isMapperValuePresent())
             return customMapperImports();
-
         return anonymousImports();
     }
 
@@ -45,19 +44,19 @@ public class RequestFromPathResolver {
         return "new " + mapperValue().asElement().getSimpleName().toString() + "()";
     }
 
-    private Type.ClassType mapperValue() {
-        return (Type.ClassType) annotationMirror().getElementValues().entrySet().stream().filter(e -> isMapperValue(e.getKey()))
-                .findAny().get().getValue().getValue();
+    private DeclaredType mapperValue() {
+        return (DeclaredType) annotationMirror().getElementValues().entrySet().stream().filter(e -> isMapperValue(e.getKey()))
+                .findAny().orElseThrow(IllegalArgumentException::new).getValue().getValue();
     }
 
     private AnnotationMirror annotationMirror() {
         return entry.getKey().getAnnotationMirrors()
                 .stream().filter(a -> a.getAnnotationType().toString().equals(Path.class.getCanonicalName()))
-                .findAny().get();
+                .findAny().orElseThrow(IllegalArgumentException::new);
     }
 
     private boolean isMapperValue(ExecutableElement e) {
-        return e.getSimpleName().toString().equals("mapper");
+        return "mapper".equals(e.getSimpleName().toString());
     }
 
     private String anonymousImplementation() {
@@ -70,17 +69,17 @@ public class RequestFromPathResolver {
 
     private Set<String> customMapperImports() {
         Set<String> imports = new HashSet<>();
-        imports.add("import " + mapperValue().asElement().getQualifiedName() + ";\n");
+        imports.add(IMPORT + mapperValue().asElement().asType().toString() + ";\n");
         return imports;
     }
 
     private Set<String> anonymousImports() {
         Set<String> imports = new HashSet<>();
         imports.addAll(pathParametersImports());
-        imports.add("import " + Request.class.getCanonicalName() + ";\n");
-        imports.add("import " + TokenizedPath.class.getCanonicalName() + ";\n");
-        imports.add("import " + RequestFromPath.class.getCanonicalName() + ";\n");
-        imports.add("import " + ((TypeElement) entry.getKey()).getQualifiedName() + ";\n");
+        imports.add(IMPORT + Request.class.getCanonicalName() + ";\n");
+        imports.add(IMPORT + TokenizedPath.class.getCanonicalName() + ";\n");
+        imports.add(IMPORT + RequestFromPath.class.getCanonicalName() + ";\n");
+        imports.add(IMPORT + ((TypeElement) entry.getKey()).getQualifiedName() + ";\n");
         return imports;
     }
 

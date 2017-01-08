@@ -1,7 +1,6 @@
 package org.akab.engine.core.annotation.processor.client;
 
-import org.akab.engine.core.api.client.History.ParameterConverter;
-import org.akab.engine.core.api.client.mvp.presenter.Presentable;
+import org.akab.engine.core.api.client.history.ParameterConverter;
 
 import java.math.BigDecimal;
 

@@ -57,17 +57,13 @@ public class ClientModuleAnnotationProcessorTest {
                 .generates(getExpectedResultFileContent("PresentersRegistrationsModuleConfiguration.java"));
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void givenClassAnnotatedWithPresenterAndNotImplementsPresentableInterface_WhenProcess_ShouldThrowException() throws Exception {
-        try {
             assertProcessing(BASE_PACKAGE + "AnnotatedClassWithClientModuleWithPresenterRegistration.java",
                     BASE_PACKAGE + "InvalidPresenterClass.java")
                     .withProcessor(processor())
-                    .compilesWithoutErrors();
-            Truth.THROW_ASSERTION_ERROR.fail("Should throw RuntimeException with message Invalid presenter");
-        } catch (RuntimeException e) {
-            Truth.assertThat(e).hasMessage("java.lang.RuntimeException: Invalid declaration for annotation Presenter");
-        }
+                    .failsToCompile();
+
     }
 
     @Test
@@ -80,18 +76,14 @@ public class ClientModuleAnnotationProcessorTest {
 
     }
 
-    @Test
-    public void givenClassAnnotatedWithUiViewAndNotImplementsViewInterface_WhenProcess_ShouldThrowException() throws Exception {
-        try {
-            assertProcessing(BASE_PACKAGE + "AnnotatedClassWithClientModuleWithUiViewRegistration.java",
-                    BASE_PACKAGE + "InvalidViewClass.java",
-                    BASE_PACKAGE + "PresenterInterface.java")
-                    .withProcessor(processor())
-                    .compilesWithoutErrors();
-            Truth.THROW_ASSERTION_ERROR.fail("Should throw RuntimeException with message Invalid view");
-        } catch (RuntimeException e) {
-            Truth.assertThat(e).hasMessage("java.lang.RuntimeException: Invalid declaration for annotation UiView");
-        }
+    @Test(expected = RuntimeException.class)
+    public void givenClassAnnotatedWithUiViewAndNotImplementsViewInterface_WhenProcess_ShouldThrowException()
+            throws Exception {
+        assertProcessing(BASE_PACKAGE + "AnnotatedClassWithClientModuleWithUiViewRegistration.java",
+                BASE_PACKAGE + "InvalidViewClass.java",
+                BASE_PACKAGE + "PresenterInterface.java")
+                .withProcessor(processor())
+                .failsToCompile();
     }
 
     @Test
@@ -103,18 +95,13 @@ public class ClientModuleAnnotationProcessorTest {
                 .generates(getExpectedResultFileContent("RequestRegistrationsModuleConfiguration.java"));
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void givenClassAnnotatedWithRequestAndNotImplementsRequestInterface_WhenProcess_ShouldThrowException() throws Exception {
-        try {
             assertProcessing(BASE_PACKAGE + "AnnotatedClassWithClientModuleWithRequestRegistrations.java",
                     BASE_PACKAGE + "InvalidRequestClass.java",
                     BASE_PACKAGE + "PresenterInterface.java")
                     .withProcessor(processor())
-                    .compilesWithoutErrors();
-            Truth.THROW_ASSERTION_ERROR.fail("Should throw RuntimeException with message Invalid request");
-        } catch (RuntimeException e) {
-            Truth.assertThat(e).hasMessage("java.lang.RuntimeException: Invalid declaration for annotation Request");
-        }
+                   .failsToCompile();
     }
 
     @Test
@@ -125,17 +112,14 @@ public class ClientModuleAnnotationProcessorTest {
                 .generates(getExpectedResultFileContent("InitialTaskRegistrationsModuleConfiguration.java"));
     }
 
-    @Test
-    public void givenClassAnnotatedWithInitialTaskAndNotImplementsRequiredInterface_WhenProcess_ShouldThrowException() throws Exception {
-        try {
-            assertProcessing(BASE_PACKAGE + "AnnotatedClassWithClientModuleWithInitialTaskRegistrations.java",
-                    BASE_PACKAGE + "InvalidInitialTaskClass.java")
-                    .withProcessor(processor())
-                    .compilesWithoutErrors();
-            Truth.THROW_ASSERTION_ERROR.fail("Should throw RuntimeException with message Invalid initial task");
-        } catch (RuntimeException e) {
-            Truth.assertThat(e).hasMessage("java.lang.RuntimeException: Invalid declaration for annotation InitialTask");
-        }
+    @Test(expected = RuntimeException.class)
+    public void givenClassAnnotatedWithInitialTaskAndNotImplementsRequiredInterface_WhenProcess_ShouldThrowException()
+            throws Exception {
+        assertProcessing(BASE_PACKAGE + "AnnotatedClassWithClientModuleWithInitialTaskRegistrations.java",
+                BASE_PACKAGE + "InvalidInitialTaskClass.java")
+                .withProcessor(processor())
+                .failsToCompile();
+        Truth.THROW_ASSERTION_ERROR.fail("Should throw RuntimeException with message Invalid initial task");
     }
 
     @Test
@@ -146,17 +130,11 @@ public class ClientModuleAnnotationProcessorTest {
                 .generates(getExpectedResultFileContent("ContributionRegistrationsModuleConfiguration.java"));
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void givenClassAnnotatedWithContributionAndNotImplementsRequiredInterface_WhenProcess_ShouldThrowException() throws Exception {
-        try {
             assertProcessing(BASE_PACKAGE + "AnnotatedClassWithClientModuleWithContributionRegistrations.java",
                     BASE_PACKAGE + "InvalidContributionClass.java")
-                    .withProcessor(processor())
-                    .compilesWithoutErrors();
-            Truth.THROW_ASSERTION_ERROR.fail("Should throw RuntimeException with message Invalid contribution");
-        } catch (RuntimeException e) {
-            Truth.assertThat(e).hasMessage("java.lang.RuntimeException: Invalid declaration for annotation Contribute");
-        }
+                    .withProcessor(processor()).failsToCompile();
     }
 
     @Test

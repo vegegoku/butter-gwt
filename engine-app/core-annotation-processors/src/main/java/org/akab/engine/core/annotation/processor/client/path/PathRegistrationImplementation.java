@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class PathRegistrationImplementation implements RegistrationImplementation {
+    public static final String REGISTRATION_PAGE = "\tregistry.registerMapper";
     private Map<Element, String> items;
 
     public PathRegistrationImplementation(Map<Element, String> items) {
@@ -18,13 +19,9 @@ public class PathRegistrationImplementation implements RegistrationImplementatio
     @Override
     public String methodBody() {
         return items.entrySet().stream().map(entry ->
-                writeRegistrationLine()
+                REGISTRATION_PAGE
                         + "(" + writeArguments(entry) + ");\n")
                 .collect(Collectors.joining());
-    }
-
-    private String writeRegistrationLine() {
-        return "\tregistry.registerMapper";
     }
 
     private String writeArguments(Map.Entry<Element, String> entry) {

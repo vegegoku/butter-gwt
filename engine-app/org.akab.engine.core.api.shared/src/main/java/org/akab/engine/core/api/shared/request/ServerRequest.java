@@ -9,6 +9,7 @@ public class ServerRequest implements Serializable{
     private String requestKey;
 
     public ServerRequest() {
+        //Have to have this default constructor for GWT RPC serialization.
     }
 
     public String getRequestKey() {

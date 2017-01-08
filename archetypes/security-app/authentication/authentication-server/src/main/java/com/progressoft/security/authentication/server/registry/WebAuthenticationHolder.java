@@ -15,6 +15,11 @@ public class WebAuthenticationHolder implements AuthenticationHolder {
         this.session = session;
     }
 
+    public WebAuthenticationHolder(HttpSession session, Principal principal) {
+        this.session = session;
+        this.session.setAttribute(PRINCIPLE, principal);
+    }
+
     public boolean isEmpty() {
         return isNull(session.getAttribute(PRINCIPLE));
     }

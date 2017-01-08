@@ -5,7 +5,7 @@ import com.progressoft.security.authentication.shared.extension.Principal;
 
 public class DefaultAuthenticationCompletedContext implements AuthenticationCompletedContext {
 
-    private Principal principal;
+    private final Principal principal;
 
     public DefaultAuthenticationCompletedContext(
             Principal principal) {

@@ -7,6 +7,7 @@ public class FailedServerResponse extends ServerResponse {
     private Throwable error;
 
     public FailedServerResponse() {
+        //Have to have this default constructor for GWT RPC serialization.
     }
 
     public FailedServerResponse(Throwable error) {

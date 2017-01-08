@@ -2,7 +2,7 @@ package org.akab.engine.core.client.app;
 
 import com.google.gwt.user.client.History;
 import org.akab.engine.core.api.client.ClientApp;
-import org.akab.engine.core.api.client.History.PathTokenConstructor;
+import org.akab.engine.core.api.client.history.PathTokenConstructor;
 import org.akab.engine.core.client.events.ClientEventFactory;
 import org.akab.engine.core.client.events.RequestEventProcessor;
 import org.akab.engine.core.client.events.ServerEventFactory;
@@ -19,6 +19,10 @@ import org.akab.engine.core.client.request.InMemoryRequestsRepository;
 import org.akab.engine.core.client.request.ServerRouter;
 
 public class CoreModule {
+
+    private CoreModule(){
+
+    }
 
     public static void init() {
         ClientRouter clientRouter = new ClientRouter(new ClientEventFactory());

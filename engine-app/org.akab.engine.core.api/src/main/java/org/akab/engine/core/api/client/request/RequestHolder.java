@@ -1,12 +1,8 @@
 package org.akab.engine.core.api.client.request;
 
-import javax.validation.constraints.NotNull;
-
 public class RequestHolder {
 
-    @NotNull
     private final String requestName;
-    @NotNull
     private final String presenterName;
 
     public RequestHolder(String requestName, String presenterName) {
@@ -24,9 +20,12 @@ public class RequestHolder {
 
     @Override
     public boolean equals(Object other) {
-        if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
-        if (!getRequestName().equals(((RequestHolder) other).getRequestName())) return false;
+        if (this == other)
+            return true;
+        if (other == null || getClass() != other.getClass())
+            return false;
+        if (!getRequestName().equals(((RequestHolder) other).getRequestName()))
+            return false;
         return getPresenterName().equals(((RequestHolder) other).getPresenterName());
     }
 

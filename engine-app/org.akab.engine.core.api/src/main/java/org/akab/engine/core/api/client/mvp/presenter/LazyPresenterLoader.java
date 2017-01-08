@@ -1,15 +1,10 @@
 package org.akab.engine.core.api.client.mvp.presenter;
 
-import com.google.gwt.user.client.Window;
-
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public abstract class LazyPresenterLoader {
 
-    @NotNull
     private final String name;
-    @NotNull
     private Presentable presenter;
 
     private final String concreteName;
@@ -37,8 +32,10 @@ public abstract class LazyPresenterLoader {
 
     @Override
     public boolean equals(Object other) {
-        if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
+        if (this == other)
+            return true;
+        if (other == null || getClass() != other.getClass())
+            return false;
         return name.equals(((LazyPresenterLoader) other).name) && getConcreteName().equals(((LazyPresenterLoader) other).getConcreteName());
     }
 

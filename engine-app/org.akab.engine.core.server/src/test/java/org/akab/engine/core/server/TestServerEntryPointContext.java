@@ -9,4 +9,9 @@ public class TestServerEntryPointContext implements ServerEntryPointContext{
     public String getEntryContextParameter() {
         return entryContextParameter;
     }
+
+    @Override
+    public String getName() {
+        return TestServerEntryPointContext.class.getCanonicalName();
+    }
 }

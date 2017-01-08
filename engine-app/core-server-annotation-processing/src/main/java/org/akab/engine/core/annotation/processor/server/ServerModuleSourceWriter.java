@@ -8,6 +8,10 @@ import java.util.List;
 
 public class ServerModuleSourceWriter extends JavaSourceWriter {
 
+    public static final String OVERRIDE = "@Override";
+    public static final String REGISTRY = "registry";
+    public static final String CLASS_GET_CANONICAL_NAME = ".class.getCanonicalName()";
+    public static final String NEW_KEYWORD = " new ";
     private final JavaSourceBuilder sourceBuilder;
 
     private final List<ProcessorElement> handlers;
@@ -26,6 +30,7 @@ public class ServerModuleSourceWriter extends JavaSourceWriter {
         this.globalInterceptors=globalInterceptors;
     }
 
+    @Override
     public String write() {
          sourceBuilder.onPackage(processorElement.elementPackage())
                 .imports(AutoService.class.getCanonicalName())
@@ -48,10 +53,10 @@ public class ServerModuleSourceWriter extends JavaSourceWriter {
     private void writeHandlersRegisterMethod() {
         if (!handlers.isEmpty()) {
             MethodBuilder method= sourceBuilder.method("registerHandlers")
-                    .annotate("@Override")
+                    .annotate(OVERRIDE)
                     .withModifier(new ModifierBuilder().asPublic())
                     .returns("void")
-                    .takes(HandlerRegistry.class.getCanonicalName(), "registry");
+                    .takes(HandlerRegistry.class.getCanonicalName(), REGISTRY);
 
             handlers.forEach(h ->
                    method.line(getHandlerRegistrationLine(h)));
@@ -64,16 +69,16 @@ public class ServerModuleSourceWriter extends JavaSourceWriter {
             FullClassName request=new FullClassName(new FullClassName(handler.getInterfaceFullQualifiedGenericName(RequestHandler.class)).allImports().get(1));
             sourceBuilder.imports(request);
 
-        return "registry.registerHandler("+request.asSimpleGenericName()+".class.getCanonicalName(), new "+handler.simpleName()+"())";
+        return "registry.registerHandler("+request.asSimpleGenericName()+ CLASS_GET_CANONICAL_NAME +","+ NEW_KEYWORD +handler.simpleName()+"())";
     }
 
     private void writeInterceptorsRegisterMethod() {
         if (!interceptors.isEmpty()) {
             MethodBuilder method= sourceBuilder.method("registerInterceptors")
-                    .annotate("@Override")
+                    .annotate(OVERRIDE)
                     .withModifier(new ModifierBuilder().asPublic())
                     .returns("void")
-                    .takes(InterceptorsRegistry.class.getCanonicalName(), "registry");
+                    .takes(InterceptorsRegistry.class.getCanonicalName(), REGISTRY);
 
             interceptors.forEach(i ->
                     method.line(getInterceptorRegistrationLine(i)));
@@ -88,16 +93,17 @@ public class ServerModuleSourceWriter extends JavaSourceWriter {
         sourceBuilder.imports(request);
         sourceBuilder.imports(entryPoint);
 
-        return "registry.registerInterceptor("+request.asSimpleGenericName()+".class.getCanonicalName(), "+entryPoint.asSimpleGenericName()+".class.getCanonicalName(), new "+interceptor.simpleName()+"())";
+        return "registry.registerInterceptor("+request.asSimpleGenericName()+".class.getCanonicalName(), "+entryPoint.asSimpleGenericName()+
+                CLASS_GET_CANONICAL_NAME +","+ NEW_KEYWORD +interceptor.simpleName()+"())";
     }
 
     private void writeGlobalInterceptorsRegisterMethod() {
         if (!globalInterceptors.isEmpty()) {
             MethodBuilder method= sourceBuilder.method("registerGlobalInterceptors")
-                    .annotate("@Override")
+                    .annotate(OVERRIDE)
                     .withModifier(new ModifierBuilder().asPublic())
                     .returns("void")
-                    .takes(InterceptorsRegistry.class.getCanonicalName(), "registry");
+                    .takes(InterceptorsRegistry.class.getCanonicalName(), REGISTRY);
 
             globalInterceptors.forEach(g ->
                     method.line(getGlobalInterceptorRegistrationLine(g)));
@@ -110,6 +116,7 @@ public class ServerModuleSourceWriter extends JavaSourceWriter {
         FullClassName entryPoint=new FullClassName(new FullClassName(interceptor.getInterfaceFullQualifiedGenericName(GlobalRequestInterceptor.class)).allImports().get(1));
         sourceBuilder.imports(entryPoint);
 
-        return "registry.registerGlobalInterceptor("+entryPoint.asSimpleGenericName()+".class.getCanonicalName(), new "+interceptor.simpleName()+"())";
+        return "registry.registerGlobalInterceptor("+entryPoint.asSimpleGenericName()+ CLASS_GET_CANONICAL_NAME +","+
+                NEW_KEYWORD +interceptor.simpleName()+"())";
     }
 }

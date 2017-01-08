@@ -12,9 +12,6 @@ public interface PresentersRepository {
     class PresenterCannotBeRegisteredMoreThanOnce extends RuntimeException {
         private static final long serialVersionUID = 956087089156886416L;
 
-        public PresenterCannotBeRegisteredMoreThanOnce() {
-        }
-
         public PresenterCannotBeRegisteredMoreThanOnce(String message) {
             super(message);
         }
@@ -22,9 +19,6 @@ public interface PresentersRepository {
 
     class PresenterNotFoundException extends RuntimeException {
         private static final long serialVersionUID = -6455103815754837305L;
-
-        public PresenterNotFoundException() {
-        }
 
         public PresenterNotFoundException(String message) {
             super(message);

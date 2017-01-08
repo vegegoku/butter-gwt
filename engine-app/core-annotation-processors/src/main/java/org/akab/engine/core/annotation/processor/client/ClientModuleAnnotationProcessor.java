@@ -19,9 +19,12 @@ import javax.tools.Diagnostic;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @AutoService(Processor.class)
 public class ClientModuleAnnotationProcessor extends BaseProcessor {
+    private static final Logger LOGGER=Logger.getLogger(ClientModuleAnnotationProcessor.class.getName());
 
     private RoundEnvironment roundEnv;
 
@@ -39,6 +42,7 @@ public class ClientModuleAnnotationProcessor extends BaseProcessor {
         try (Writer sourceWriter = obtainSourceWriter(element.elementPackage(), element.getAnnotation(ClientModule.class).name() + ConfigurationSourceWriter.MODEL_CONFIGURATION)) {
             sourceWriter.write(createConfigurationWriter(element).write());
         } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Could not generate classes : ", e);
             messager.printMessage(Diagnostic.Kind.ERROR, "could not generate class");
         }
     }

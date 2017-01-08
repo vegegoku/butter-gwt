@@ -1,6 +1,6 @@
 package org.akab.engine.core.api.client.annotations;
 
-import org.akab.engine.core.api.client.History.ParameterConverter;
+import org.akab.engine.core.api.client.history.ParameterConverter;
 
 import javax.validation.constraints.NotNull;
 import java.lang.annotation.ElementType;
@@ -19,6 +19,7 @@ public @interface PathParameter {
     Class<? extends ParameterConverter> converter() default DefaultParameterConverter.class;
 
     final class DefaultParameterConverter implements ParameterConverter {
+        @Override
         public Object convert(String value) {
             return value;
         }

@@ -1,4 +1,6 @@
 package com.progressoft.security.authentication.shared.extension;
 
-public interface Principal {
+import java.io.Serializable;
+
+public interface Principal extends Serializable{
 }

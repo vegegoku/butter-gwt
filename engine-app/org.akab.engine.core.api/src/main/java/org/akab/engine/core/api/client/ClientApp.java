@@ -1,7 +1,6 @@
 package org.akab.engine.core.api.client;
 
-import com.google.gwt.user.client.Window;
-import org.akab.engine.core.api.client.History.*;
+import org.akab.engine.core.api.client.history.*;
 import org.akab.engine.core.api.client.events.EventsBus;
 import org.akab.engine.core.api.client.extension.Contributions;
 import org.akab.engine.core.api.shared.extension.Contribution;
@@ -16,19 +15,50 @@ import org.akab.engine.core.api.client.mvp.presenter.PresentersRepository;
 import org.akab.engine.core.api.client.mvp.view.LazyViewLoader;
 import org.akab.engine.core.api.client.mvp.view.ViewsRepository;
 import org.akab.engine.core.api.shared.extension.MainExtensionPoint;
-import org.akab.engine.core.logger.client.CoreLogger;
-import org.akab.engine.core.logger.client.CoreLoggerFactory;
 
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 public class ClientApp
         implements PresenterRegistry, RequestRegistry, ViewRegistry, InitialTaskRegistry, ContributionsRegistry,
         PathToRequestMapperRegistry {
 
-    private static final CoreLogger LOGGER= CoreLoggerFactory.getLogger(ClientApp.class);
+    private static RequestRouter<ClientRequest> clientRouter;
+    private static RequestRouter<ClientServerRequest> serverRouter;
+    private static EventsBus eventsBus;
+    private static RequestsRepository requestRepository;
+    private static PresentersRepository presentersRepository;
+    private static ViewsRepository viewsRepository;
+    private static ContributionsRepository contributionsRepository;
+    private static PathToRequestMappersRepository pathToRequestMappersRepository;
+    private static TokenConstruct tokenConstruct;
+    private static MainExtensionPoint mainExtensionPoint;
+    private static UrlHistory urlHistory;
+    private static List<InitializeTask> initialTasks;
+
+    private ClientApp() {
+    }
+
+    private ClientApp(RequestRouter<ClientRequest> clientRouter, RequestRouter<ClientServerRequest> serverRouter,
+                      EventsBus eventsBus, RequestsRepository requestRepository,
+                      PresentersRepository presentersRepository, ViewsRepository viewsRepository,
+                      ContributionsRepository contributionsRepository,
+                      PathToRequestMappersRepository pathToRequestMappersRepository, TokenConstruct tokenConstruct,
+                      UrlHistory urlHistory, MainExtensionPoint mainExtensionPoint) {
+        ClientApp.clientRouter = clientRouter;
+        ClientApp.serverRouter = serverRouter;
+        ClientApp.eventsBus = eventsBus;
+        ClientApp.requestRepository = requestRepository;
+        ClientApp.presentersRepository = presentersRepository;
+        ClientApp.viewsRepository = viewsRepository;
+        ClientApp.contributionsRepository = contributionsRepository;
+        ClientApp.pathToRequestMappersRepository = pathToRequestMappersRepository;
+        ClientApp.tokenConstruct = tokenConstruct;
+        ClientApp.mainExtensionPoint = mainExtensionPoint;
+        ClientApp.urlHistory = urlHistory;
+        ClientApp.initialTasks=new LinkedList<>();
+
+    }
 
     @Override
     public void registerPresenter(LazyPresenterLoader lazyPresenterLoader) {
@@ -57,46 +87,7 @@ public class ClientApp
 
     @Override
     public void registerInitialTask(InitializeTask task) {
-        LOGGER.info("adding initial tasks");
         initialTasks.add(task);
-    }
-
-    private static RequestRouter<ClientRequest> clientRouter;
-    private static RequestRouter<ClientServerRequest> serverRouter;
-    private static EventsBus eventsBus;
-    private static RequestsRepository requestRepository;
-    private static PresentersRepository presentersRepository;
-    private static ViewsRepository viewsRepository;
-    private static ContributionsRepository contributionsRepository;
-    private static PathToRequestMappersRepository pathToRequestMappersRepository;
-    private static TokenConstruct tokenConstruct;
-    private static MainExtensionPoint mainExtensionPoint;
-    private static UrlHistory urlHistory;
-
-    private static List<InitializeTask> initialTasks;
-
-    private ClientApp() {
-    }
-
-    private ClientApp(RequestRouter<ClientRequest> clientRouter, RequestRouter<ClientServerRequest> serverRouter,
-                      EventsBus eventsBus, RequestsRepository requestRepository,
-                      PresentersRepository presentersRepository, ViewsRepository viewsRepository,
-                      ContributionsRepository contributionsRepository,
-                      PathToRequestMappersRepository pathToRequestMappersRepository, TokenConstruct tokenConstruct,
-                      UrlHistory urlHistory, MainExtensionPoint mainExtensionPoint) {
-        ClientApp.clientRouter = clientRouter;
-        ClientApp.serverRouter = serverRouter;
-        ClientApp.eventsBus = eventsBus;
-        ClientApp.requestRepository = requestRepository;
-        ClientApp.presentersRepository = presentersRepository;
-        ClientApp.viewsRepository = viewsRepository;
-        ClientApp.contributionsRepository = contributionsRepository;
-        ClientApp.pathToRequestMappersRepository = pathToRequestMappersRepository;
-        ClientApp.tokenConstruct = tokenConstruct;
-        ClientApp.mainExtensionPoint = mainExtensionPoint;
-        ClientApp.urlHistory = urlHistory;
-        ClientApp.initialTasks=new LinkedList<>();
-
     }
 
     public static ClientApp make() {
@@ -140,13 +131,11 @@ public class ClientApp
         configuration.registerRequests(this);
         configuration.registerViews(this);
         configuration.registerContributions(this);
-        LOGGER.info("registering initail tasks.");
         configuration.registerInitialTasks(this);
         configuration.registerPathMappers(this);
     }
 
     public void run() {
-        LOGGER.info("No initial tasks : "+initialTasks.isEmpty());
         initialTasks.forEach(InitializeTask::execute);
         Contributions.apply(MainExtensionPoint.class, mainExtensionPoint);
     }
@@ -164,8 +153,8 @@ public class ClientApp
 
     public static class ClientAppBuilder {
 
-        private static RequestRouter<ClientRequest> clientRouter;
-        private static RequestRouter<ClientServerRequest> serverRouter;
+        private RequestRouter<ClientRequest> clientRouter;
+        private RequestRouter<ClientServerRequest> serverRouter;
         private EventsBus eventsBus;
         private RequestsRepository requestRepository;
         private PresentersRepository presentersRepository;
@@ -177,6 +166,7 @@ public class ClientApp
         private UrlHistory urlHistory;
 
         public ClientAppBuilder() {
+            //this is  builder for the client app.
         }
 
         public ClientAppBuilder clientRouter(RequestRouter<ClientRequest> clientRouter) {

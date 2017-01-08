@@ -11,7 +11,7 @@ import com.google.web.bindery.event.shared.Event;
 public class SimpleEventsBus implements EventsBus<Event<EventProcessor>>{
     private static final CoreLogger LOGGER= CoreLoggerFactory.getLogger(SimpleEventsBus.class);
 
-    private final static EventBus simpleGwtEventsBus = new SimpleEventBus();
+    private static final EventBus simpleGwtEventsBus = new SimpleEventBus();
 
     public SimpleEventsBus(EventProcessor eventProcessor) {
         simpleGwtEventsBus.addHandler(ClientRequestGwtEvent.CLIENT_REQUEST_EVENT_TYPE, eventProcessor);

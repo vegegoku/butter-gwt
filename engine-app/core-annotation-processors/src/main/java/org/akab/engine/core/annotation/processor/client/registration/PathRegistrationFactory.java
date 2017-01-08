@@ -34,10 +34,10 @@ public class PathRegistrationFactory extends SingleArgumentRegistrationFactory {
     protected String pathValue(Element e) {
         AnnotationMirror annotationMirror = e.getAnnotationMirrors().stream()
                 .filter(a -> a.getAnnotationType().toString().equals(annotation().getCanonicalName()))
-                .findAny().get();
+                .findAny().orElseThrow(IllegalArgumentException::new);
         AnnotationValue path = annotationMirror.getElementValues().entrySet()
                 .stream()
-                .filter(entry -> !entry.getKey().getSimpleName().equals("path")).findAny().get().getValue();
+                .filter(entry -> !"path".equals(entry.getKey().getSimpleName())).findAny().orElseThrow(IllegalArgumentException::new).getValue();
 
         return (String) path.getValue();
     }

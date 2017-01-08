@@ -15,9 +15,9 @@ public class ServerApp implements HandlerRegistry, InterceptorsRegistry{
     }
 
     private ServerApp(RequestExecutor requestExecutor , HandlersRepository handlersRepository, InterceptorsRepository interceptorsRepository) {
-        this.requestExecutor=requestExecutor;
-        this.handlersRepository=handlersRepository;
-        this.interceptorsRepository=interceptorsRepository;
+        ServerApp.requestExecutor=requestExecutor;
+        ServerApp.handlersRepository=handlersRepository;
+        ServerApp.interceptorsRepository=interceptorsRepository;
     }
 
     public static ServerApp make(){
@@ -32,6 +32,7 @@ public class ServerApp implements HandlerRegistry, InterceptorsRegistry{
         return requestExecutor.executeRequest(request, context);
     }
 
+    @Override
     public void registerHandler(String request, RequestHandler handler) {
         handlersRepository.registerHandler(request, handler);
     }
@@ -62,9 +63,6 @@ public class ServerApp implements HandlerRegistry, InterceptorsRegistry{
         private RequestExecutor requestExecutor;
         private HandlersRepository handlersRepository;
         private InterceptorsRepository interceptorsRepository;
-
-        public ServerAppBuilder() {
-        }
 
         public ServerAppBuilder executor(RequestExecutor requestExecutor){
             this.requestExecutor=requestExecutor;

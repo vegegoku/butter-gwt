@@ -36,7 +36,7 @@ public class PresenterRegistrationImplementation extends LazyRegistrationImpleme
     }
 
     @Override
-    protected Collection<? extends String> implementationImports() {
+    protected Collection<String> implementationImports() {
         Set<String> imports = new HashSet<>();
         imports.add("import " + LazyPresenterLoader.class.getCanonicalName() + ";\n");
         imports.add("import " + Presentable.class.getCanonicalName() + ";\n");

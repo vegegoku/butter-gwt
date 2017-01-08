@@ -8,7 +8,6 @@ import org.akab.engine.core.api.client.request.ClientServerRequest;
 import org.akab.engine.core.api.client.request.Request;
 import org.akab.engine.core.api.client.request.RequestRouter;
 import org.akab.engine.core.api.shared.request.FailedServerResponse;
-import org.akab.engine.core.api.shared.request.ServerRequest;
 import org.akab.engine.core.api.shared.request.ServerResponse;
 import org.akab.engine.core.api.shared.server.ServerApp;
 import org.akab.engine.core.api.shared.server.ServerEntryPointContext;
@@ -27,15 +26,9 @@ public class TestServerRouter implements RequestRouter<ClientServerRequest> {
         }
     };
 
-    private final TestServerService service=new TestServerService(){
+    private ServerEntryPointContext entryPointContext;
 
-        @Override
-        public ServerResponse executeRequest(ServerRequest request) {
-            return ServerApp.make().executeRequest(request, entryPointContext);
-        }
-    };
-
-    private final ServerEntryPointContext entryPointContext;
+    private final TestServerService service= request -> ServerApp.make().executeRequest(request, entryPointContext);
 
     public TestServerRouter(ServerEntryPointContext entryPointContext) {
         this.entryPointContext = entryPointContext;
@@ -43,12 +36,14 @@ public class TestServerRouter implements RequestRouter<ClientServerRequest> {
 
     @Override
     public void routeRequest(ClientServerRequest request) {
+        ServerResponse response;
         try{
-            ServerResponse response=service.executeRequest(request.arguments());
-            eventFactory.makeSuccess(request, response).fire();
+            response=service.executeRequest(request.arguments());
         }catch (Exception ex){
             eventFactory.makeFailed(request, ex);
+            return;
         }
+        eventFactory.makeSuccess(request, response).fire();
     }
 
     public class TestServerSuccessEvent implements Event{

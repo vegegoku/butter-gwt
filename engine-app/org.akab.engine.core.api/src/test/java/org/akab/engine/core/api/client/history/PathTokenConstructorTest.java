@@ -1,9 +1,5 @@
 package org.akab.engine.core.api.client.history;
 
-import org.akab.engine.core.api.client.History.PathToken;
-import org.akab.engine.core.api.client.History.PathTokenConstructor;
-import org.akab.engine.core.api.client.History.Token;
-import org.akab.engine.core.api.client.History.TokenConstruct;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

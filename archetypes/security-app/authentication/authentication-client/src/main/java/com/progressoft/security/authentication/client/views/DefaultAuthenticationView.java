@@ -27,7 +27,8 @@ public class DefaultAuthenticationView extends Composite implements Authenticati
     }
 
     @Override
-    public void setWelcomeMessage(String welcomeMessage) {
-        mainDiv.setInnerText(welcomeMessage);
+    public void showErrorMessage(String message) {
+
     }
+
 }

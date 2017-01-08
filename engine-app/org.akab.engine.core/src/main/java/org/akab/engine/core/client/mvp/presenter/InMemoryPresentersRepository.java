@@ -9,8 +9,6 @@ import java.util.logging.Logger;
 
 public class InMemoryPresentersRepository implements PresentersRepository {
 
-    private static final Logger logger= Logger.getLogger(InMemoryPresentersRepository.class.getName());
-
     private final HashMap<String, LazyPresenterLoader> presenters=new HashMap<>();
     private final HashMap<String, String> names=new HashMap<>();
 

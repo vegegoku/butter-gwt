@@ -1,6 +1,5 @@
 package org.akab.engine.app.test;
 
-
 import org.akab.engine.core.api.client.events.Event;
 import org.akab.engine.core.api.client.events.EventProcessor;
 import org.akab.engine.core.api.client.events.EventsBus;

@@ -19,6 +19,8 @@ public class UserLoggedInRequest
                            AuthenticationResponse response) {
         if (response.isLoggedIn())
             presenter.onAuthenticationCompleted(response.getPrincipal());
+        else
+            presenter.onNoAuthenticatedUserFound();
     }
 
     @Override

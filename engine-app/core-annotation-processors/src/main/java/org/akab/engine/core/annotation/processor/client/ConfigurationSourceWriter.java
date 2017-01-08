@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 class ConfigurationSourceWriter {
 
     static final String MODEL_CONFIGURATION = "ModuleConfiguration";
+    public static final String CLOSING_PARNTHIES = "}";
 
     private ProcessorElement element;
     private List<ElementRegistration> elementRegistrations;
@@ -25,7 +26,7 @@ class ConfigurationSourceWriter {
                 writeImports() +
                 writeClassHeader() +
                 writeImplementations() +
-                writeEndClass();
+                CLOSING_PARNTHIES;
     }
 
     private String writeImplementations() {
@@ -46,9 +47,7 @@ class ConfigurationSourceWriter {
                 + " implements ModuleConfiguration " + "{\n";
     }
 
-    private String writeEndClass() {
-        return "}";
-    }
+
 
     static class Builder {
         private List<ElementRegistration> registrations = new ArrayList<>();

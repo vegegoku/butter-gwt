@@ -2,6 +2,7 @@ package org.akab.engine.annotations.processor.utils;
 
 public class ModifierBuilder {
 
+    @FunctionalInterface
     interface ModifierWriter {
         String writeModifiers();
     }

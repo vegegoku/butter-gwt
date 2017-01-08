@@ -4,7 +4,7 @@ import javax.lang.model.element.Element;
 
 public class ProcessingException extends RuntimeException {
 
-  Element element;
+  final transient Element element;
 
   public ProcessingException(Element element, String msg, Object... args) {
     super(String.format(msg, args));

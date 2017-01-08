@@ -23,7 +23,7 @@ public abstract class SingleArgumentRegistrationFactory implements RegistrationF
 
     protected Set<? extends Element> elements() {
         if (elementsAsStream().anyMatch(e -> !isValid(e)))
-            throw new RuntimeException("Invalid declaration for annotation " + annotation().getSimpleName());
+            throw new InvalidDeclarationForAnnotationException("Invalid declaration for annotation " + annotation().getSimpleName());
 
         return helper.elementsAnnotatedWith(annotation());
     }
@@ -37,4 +37,6 @@ public abstract class SingleArgumentRegistrationFactory implements RegistrationF
     protected abstract boolean isValid(Element e);
 
     protected abstract Class<? extends Annotation> annotation();
+
+
 }

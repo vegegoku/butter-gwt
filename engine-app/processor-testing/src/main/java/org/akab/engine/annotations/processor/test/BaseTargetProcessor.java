@@ -3,13 +3,11 @@ package org.akab.engine.annotations.processor.test;
 import com.google.testing.compile.CompileTester;
 import com.google.testing.compile.JavaFileObjects;
 
-import javax.annotation.processing.Processor;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardLocation;
 import java.nio.charset.Charset;
 
 public abstract class BaseTargetProcessor {
-    private CompileTester.SuccessfulCompilationClause successfulCompilationClause;
 
     public void generates(String result, String... rest) {
         compilesWithoutErrors()

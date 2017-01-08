@@ -1,13 +1,9 @@
 package org.akab.engine.app.test;
 
-
 import org.akab.engine.core.api.client.ClientApp;
 import org.akab.engine.core.api.client.ModuleConfiguration;
 import org.akab.engine.core.api.client.ModuleConfigurator;
-import org.akab.engine.core.api.client.extension.ContributionsRegistry;
-import org.akab.engine.core.api.client.extension.ContributionsRepository;
-import org.akab.engine.core.api.client.mvp.presenter.Presentable;
-import org.akab.engine.core.api.client.mvp.view.View;
+import org.akab.engine.core.api.shared.extension.Contribution;
 import org.akab.engine.core.api.shared.server.ServerEntryPointContext;
 import org.akab.engine.core.server.ServerConfigurationLoader;
 
@@ -35,7 +31,7 @@ public class TestModule {
         ClientApp.make().run();
     }
 
-    public ContributionsRepository contributionsRepository() {
-        return TestClientAppFactory.contributionsRepository;
+    public <C extends Contribution> C getContribution(Class<C> contributionClass){
+        return TestClientAppFactory.contributionsRepository.getContribution(contributionClass);
     }
 }

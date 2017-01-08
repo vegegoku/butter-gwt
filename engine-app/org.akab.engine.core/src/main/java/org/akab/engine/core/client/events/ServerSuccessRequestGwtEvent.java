@@ -6,7 +6,7 @@ import com.google.web.bindery.event.shared.Event;
 
 public abstract class ServerSuccessRequestGwtEvent extends Event<EventProcessor>{
 
-    final static GwtEvent.Type<EventProcessor> SERVER_SUCCESS_REQUEST_EVENT_TYPE = new GwtEvent.Type<>();
+    static final GwtEvent.Type<EventProcessor> SERVER_SUCCESS_REQUEST_EVENT_TYPE = new GwtEvent.Type<>();
 
     @Override
     public Type<EventProcessor> getAssociatedType() {

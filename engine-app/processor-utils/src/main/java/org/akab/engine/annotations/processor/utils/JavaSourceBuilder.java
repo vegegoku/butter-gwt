@@ -105,7 +105,7 @@ public class JavaSourceBuilder {
     }
 
     private void extend(FullClassName fullClassName) {
-        fullClassName.allImports().forEach(i -> imports(i));
+        fullClassName.allImports().forEach(this::imports);
         extendsWriter.append(" extends ").append(fullClassName.asSimpleGenericName());
     }
 
@@ -115,7 +115,7 @@ public class JavaSourceBuilder {
     }
 
     private void implement(FullClassName fullClassName) {
-        fullClassName.allImports().forEach(i -> imports(i));
+        fullClassName.allImports().forEach(this::imports);
         implementsWriter.append(getImplementsPart(fullClassName));
     }
 
@@ -134,7 +134,7 @@ public class JavaSourceBuilder {
     }
 
     public JavaSourceBuilder imports(FullClassName fullClassName) {
-        fullClassName.allImports().forEach(i -> importsBuilder.addImport(i));
+        fullClassName.allImports().forEach(importsBuilder::addImport);
         return this;
     }
 

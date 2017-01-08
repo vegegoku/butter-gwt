@@ -10,18 +10,12 @@ public interface ViewsRepository {
     void clear();
 
     class ViewCannotBeRegisteredMoreThanOnce extends RuntimeException {
-        public ViewCannotBeRegisteredMoreThanOnce() {
-        }
-
         public ViewCannotBeRegisteredMoreThanOnce(String message) {
             super(message);
         }
     }
 
     class ViewNotFoundException extends RuntimeException {
-        public ViewNotFoundException() {
-        }
-
         public ViewNotFoundException(String message) {
             super(message);
         }

@@ -16,12 +16,13 @@ public class InMemoryInterceptorsRepository implements InterceptorsRepository {
     public void addInterceptor(String requestName, String entryPointName, RequestInterceptor interceptor) {
         if (interceptors.containsKey(requestName))
             interceptors.get(requestName).get(entryPointName).add(interceptor);
-        else
-            interceptors.put(requestName, new HashMap<String, Set<RequestInterceptor>>(){{
-            put(entryPointName, new HashSet<RequestInterceptor>(){{
-                add(interceptor);
-            }});
-        }});
+        else {
+            Map<String, Set<RequestInterceptor>> items = new HashMap<>();
+            Set<RequestInterceptor> requestInterceptors=new HashSet<>();
+            requestInterceptors.add(interceptor);
+            items.put(entryPointName, requestInterceptors);
+            interceptors.put(requestName, items);
+        }
     }
 
     @Override
@@ -35,10 +36,11 @@ public class InMemoryInterceptorsRepository implements InterceptorsRepository {
     public void addGlobalInterceptor(String entryPointName, GlobalRequestInterceptor interceptor) {
         if(globalInterceptors.containsKey(entryPointName))
             globalInterceptors.get(entryPointName).add(interceptor);
-        else
-            globalInterceptors.put(entryPointName, new HashSet<GlobalRequestInterceptor>(){{
-                add(interceptor);
-            }});
+        else {
+            Set<GlobalRequestInterceptor> requestGlobalInterceptor = new HashSet<>();
+            requestGlobalInterceptor.add(interceptor);
+            globalInterceptors.put(entryPointName, requestGlobalInterceptor);
+        }
     }
 
     @Override

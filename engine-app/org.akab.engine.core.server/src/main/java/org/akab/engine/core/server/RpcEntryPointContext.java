@@ -22,4 +22,9 @@ public class RpcEntryPointContext implements ServerEntryPointContext{
     public HttpServletResponse getHttpServletResponse() {
         return httpServletResponse;
     }
+
+    @Override
+    public String getName() {
+        return RpcEntryPointContext.class.getCanonicalName();
+    }
 }

@@ -12,8 +12,6 @@ import org.akab.engine.core.logger.client.CoreLoggerFactory;
 
 public class ServerFailedRequestEvent extends ServerFailedRequestGwtEvent implements Event {
 
-    private static final CoreLogger LOGGER= CoreLoggerFactory.getLogger(ServerFailedRequestEvent.class);
-
     protected final ClientServerRequest request;
     private final Throwable error;
     private final ClientApp clientApp=ClientApp.make();

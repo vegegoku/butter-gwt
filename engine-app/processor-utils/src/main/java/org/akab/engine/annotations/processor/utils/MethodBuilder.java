@@ -7,7 +7,7 @@ public class MethodBuilder {
 
     private final StringBuilder modifiersWriter = new StringBuilder();
     private final StringBuilder returnTypeWriter = new StringBuilder();
-    private final StringBuilder methodBuilder = new StringBuilder();
+    private final StringBuilder methodWriter = new StringBuilder();
     private final StringBuilder parametersWriter = new StringBuilder();
     private final StringBuilder annotationWriter = new StringBuilder();
     private final StringBuilder codeWriter = new StringBuilder();
@@ -33,7 +33,7 @@ public class MethodBuilder {
     }
 
     String write() {
-        return methodBuilder
+        return methodWriter
                 .append(annotationWriter.toString())
                 .append("\n\t")
                 .append(modifiersWriter.toString())

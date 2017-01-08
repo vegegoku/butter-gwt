@@ -9,6 +9,7 @@ public class CoreApi implements EntryPoint {
 
     private static final Logger LOGGER=Logger.getLogger(CoreApi.class.getName());
 
+    @Override
     public void onModuleLoad() {
         LOGGER.log(Level.INFO, "CoreApi");
     }

@@ -12,10 +12,15 @@ public class ServerConfigurationLoader {
     public void loadModules(){
         HandlersRepository handlersRepository=new InMemoryHandlersRepository();
         InterceptorsRepository interceptorsRepository=new InMemoryInterceptorsRepository();
-        new ServerApp.ServerAppBuilder().handlersRepository(handlersRepository).interceptorsRepository(interceptorsRepository).executor(new DefaultRequestExecutor(handlersRepository, interceptorsRepository)).build();
+        ServerApp serverApp= makeServerApp(handlersRepository, interceptorsRepository);
 
         ServiceLoader<ServerModuleConfiguration> loader=ServiceLoader.load(ServerModuleConfiguration.class);
-        loader.forEach(c -> ServerApp.make().configureModule(c));
+        loader.forEach(serverApp::configureModule);
+    }
+
+    private ServerApp makeServerApp(HandlersRepository handlersRepository,
+                                    InterceptorsRepository interceptorsRepository) {
+        return new ServerApp.ServerAppBuilder().handlersRepository(handlersRepository).interceptorsRepository(interceptorsRepository).executor(new DefaultRequestExecutor(handlersRepository, interceptorsRepository)).build();
     }
 
 }

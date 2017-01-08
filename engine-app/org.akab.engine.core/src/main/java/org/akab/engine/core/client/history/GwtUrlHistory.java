@@ -1,7 +1,7 @@
 package org.akab.engine.core.client.history;
 
 import com.google.gwt.user.client.History;
-import org.akab.engine.core.api.client.History.UrlHistory;
+import org.akab.engine.core.api.client.history.UrlHistory;
 
 public class GwtUrlHistory implements UrlHistory{
 

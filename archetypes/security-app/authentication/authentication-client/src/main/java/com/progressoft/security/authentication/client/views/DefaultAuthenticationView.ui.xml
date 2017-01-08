@@ -2,7 +2,7 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 
     <ui:with field="bundle" type="com.progressoft.security.authentication.client.views.AuthenticationBundle"/>
-    <ui:style>
+    <ui:style gss="true">
         .sample-div{
             background-color: #CECECE;
         }

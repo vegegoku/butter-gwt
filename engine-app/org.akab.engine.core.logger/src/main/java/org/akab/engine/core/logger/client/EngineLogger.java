@@ -8,6 +8,7 @@ public class EngineLogger implements EntryPoint {
 
     private static final java.util.logging.Logger LOGGER= java.util.logging.Logger.getLogger(EngineLogger.class.getName());
 
+    @Override
     public void onModuleLoad() {
         LOGGER.log(Level.INFO, "EngineLogger");
     }

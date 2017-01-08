@@ -6,12 +6,12 @@ import java.util.Objects;
 import java.util.StringTokenizer;
 
 public class FullClassName {
-    private final String fullClassName;
+    private final String completeClassName;
 
-    public FullClassName(String fullClassName) {
-        if(Objects.isNull(fullClassName) || fullClassName.trim().isEmpty())
+    public FullClassName(String completeClassName) {
+        if(Objects.isNull(completeClassName) || completeClassName.trim().isEmpty())
             throw new InvalidClassName();
-        this.fullClassName = fullClassName.trim().replace(" ","");
+        this.completeClassName = completeClassName.trim().replace(" ","");
     }
 
     public String asSimpleName() {
@@ -19,7 +19,7 @@ public class FullClassName {
     }
 
     private String getSimpleName(String name) {
-        return name.substring(name.lastIndexOf(".")+1, name.length());
+        return name.substring(name.lastIndexOf('.')+1, name.length());
     }
 
     public String asPackage() {
@@ -27,11 +27,11 @@ public class FullClassName {
     }
 
     private String getPackage(String name) {
-        return name.substring(0, name.lastIndexOf(".")>-1?name.lastIndexOf("."):0);
+        return name.substring(0, name.lastIndexOf('.')>-1?name.lastIndexOf('.'):0);
     }
 
     private String simpleFullName() {
-        return new StringTokenizer(fullClassName, "<,>").nextToken();
+        return new StringTokenizer(completeClassName, "<,>").nextToken();
     }
 
     public String asImport() {
@@ -39,8 +39,8 @@ public class FullClassName {
     }
 
     public String asSimpleGenericName() {
-        String result=this.fullClassName;
-        StringTokenizer st=new StringTokenizer(fullClassName, "<,>");
+        String result=this.completeClassName;
+        StringTokenizer st=new StringTokenizer(completeClassName, "<,>");
         while(st.hasMoreTokens())
             result=result.replace(appendDot(new FullClassName(st.nextToken()).asPackage()),"");
         return result;
@@ -51,7 +51,7 @@ public class FullClassName {
     }
 
     public List<String> allImports() {
-        StringTokenizer st=new StringTokenizer(fullClassName, "<,>");
+        StringTokenizer st=new StringTokenizer(completeClassName, "<,>");
         List<String> imports=new LinkedList<>();
         while (st.hasMoreTokens()){
             String s=new FullClassName(st.nextToken()).asImport();

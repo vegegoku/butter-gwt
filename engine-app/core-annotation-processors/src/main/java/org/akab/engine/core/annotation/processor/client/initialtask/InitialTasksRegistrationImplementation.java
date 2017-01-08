@@ -9,15 +9,14 @@ import java.util.stream.Collectors;
 
 public class InitialTasksRegistrationImplementation implements RegistrationImplementation {
 
+    public static final String REGISTRATION_LINE = "\tregistry.registerInitialTask";
     private Set<? extends Element> items;
 
     public InitialTasksRegistrationImplementation(Set<? extends Element> items) {
         this.items = items;
     }
 
-    private String writeRegistrationLine() {
-        return "\tregistry.registerInitialTask";
-    }
+
 
     private String writeArguments(Element item) {
         return "new " + item.getSimpleName() + "()";
@@ -26,16 +25,16 @@ public class InitialTasksRegistrationImplementation implements RegistrationImple
     @Override
     public String methodBody() {
         return items.stream().map(item ->
-                writeRegistrationLine() + "(" + writeArguments(item) + ");\n")
+                REGISTRATION_LINE + "(" + writeArguments(item) + ");\n")
                 .collect(Collectors.joining());
     }
 
     @Override
     public String imports() {
         Set<String> imports = new HashSet<>();
-        items.forEach(item -> {
-            imports.add("import " + item.asType().toString() + ";\n");
-        });
+        items.forEach(item ->
+            imports.add("import " + item.asType().toString() + ";\n")
+        );
         return imports.stream().map(String::toString).collect(Collectors.joining());
     }
 }

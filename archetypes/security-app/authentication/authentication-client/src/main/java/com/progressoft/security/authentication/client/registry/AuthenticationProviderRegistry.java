@@ -13,4 +13,7 @@ public class AuthenticationProviderRegistry {
         AuthenticationProviderRegistry.providers.put(key, provider);
     }
 
+    public static ClientAuthenticationProvider get(String name) {
+        return providers.get(name);
+    }
 }

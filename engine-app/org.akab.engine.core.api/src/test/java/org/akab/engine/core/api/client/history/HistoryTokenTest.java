@@ -1,13 +1,11 @@
 package org.akab.engine.core.api.client.history;
 
-import org.akab.engine.core.api.client.History.PathToken;
-import org.akab.engine.core.api.client.History.Token;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.akab.engine.core.api.client.History.PathToken.PARAMETERS_SEPARATOR;
-import static org.akab.engine.core.api.client.History.PathToken.PARAMETER_VALUE_SEPARATOR;
-import static org.akab.engine.core.api.client.History.PathToken.PATH;
+import static org.akab.engine.core.api.client.history.PathToken.PARAMETERS_SEPARATOR;
+import static org.akab.engine.core.api.client.history.PathToken.PARAMETER_VALUE_SEPARATOR;
+import static org.akab.engine.core.api.client.history.PathToken.PATH_MARKER;
 import static org.junit.Assert.*;
 
 public class HistoryTokenTest {
@@ -76,7 +74,7 @@ public class HistoryTokenTest {
 
     @Test(expected = PathToken.InvalidParameterNameOrValueException.class)
     public void havingHistoryToken_appendingParameterWithNameContainingPathKeywordValueSeparator_shouldThrowException() throws Exception {
-        token.appendParameter("parameter"+PATH, "value1");
+        token.appendParameter("parameter"+ PATH_MARKER, "value1");
     }
 
     @Test(expected = PathToken.InvalidParameterNameOrValueException.class)
@@ -91,7 +89,7 @@ public class HistoryTokenTest {
 
     @Test(expected = PathToken.InvalidParameterNameOrValueException.class)
     public void havingHistoryToken_appendingParameterWithValueContainingPathKeyWord_shouldThrowException() throws Exception {
-        token.appendParameter("parameter", "value1"+PATH);
+        token.appendParameter("parameter", "value1"+ PATH_MARKER);
     }
 
     @Test

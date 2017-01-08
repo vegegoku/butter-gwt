@@ -3,7 +3,6 @@ package org.akab.engine.core.client.request;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 import org.akab.engine.core.api.client.request.ClientRequest;
-import org.akab.engine.core.api.client.request.Request;
 import org.akab.engine.core.api.client.request.RequestRouter;
 import org.akab.engine.core.api.client.events.ClientRequestEventFactory;
 import org.akab.engine.core.logger.client.CoreLogger;

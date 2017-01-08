@@ -1,10 +1,9 @@
 package org.akab.engine.core.annotation.processor.client.path;
 
-import com.sun.tools.javac.code.Symbol;
-import com.sun.tools.javac.code.Type;
 import org.akab.engine.core.api.client.annotations.PathParameter;
 
 import javax.lang.model.element.*;
+import javax.lang.model.type.DeclaredType;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
@@ -41,7 +40,7 @@ public class PathParametersResolver {
         return pathParametersAsStream(constructor)
                 .map(parameter -> {
                     if (isConverterPresent(parameter))
-                        return "new " + converter(parameter).getSimpleName() + "().convert(" + parameterString(parameter) + ")";
+                        return "new " + converter(parameter).asElement().getSimpleName() + "().convert(" + parameterString(parameter) + ")";
 
                     return parameterString(parameter);
                 })
@@ -51,19 +50,20 @@ public class PathParametersResolver {
     private boolean isConverterPresent(VariableElement parameter) {
         return pathAnnotationMirror(parameter).getElementValues().entrySet()
                 .stream()
-                .anyMatch(entry -> entry.getKey().getSimpleName().toString().equals("converter"));
+                .anyMatch(e -> "converter".equals(e.getKey().getSimpleName().toString()));
     }
 
-    private Symbol.TypeSymbol converter(VariableElement parameter) {
-        AnnotationValue converter = pathAnnotationMirror(parameter).getElementValues().entrySet().stream().filter(entry -> entry.getKey().getSimpleName().toString().equals("converter"))
-                .findAny().get().getValue();
-        return ((Type.ClassType) converter.getValue()).asElement();
+    private DeclaredType converter(VariableElement parameter) {
+        AnnotationValue converter = pathAnnotationMirror(parameter).getElementValues().entrySet().stream().filter(e -> "converter".equals(e.getKey().getSimpleName().toString()))
+                .findAny().orElseThrow(IllegalArgumentException::new).getValue();
+        return (DeclaredType) converter.getValue();
     }
 
     private AnnotationMirror pathAnnotationMirror(VariableElement parameter) {
+
         return parameter.getAnnotationMirrors().stream()
                 .filter(a -> a.getAnnotationType().toString().equals(PathParameter.class.getCanonicalName()))
-                .findAny().get();
+                .findAny().orElseThrow(IllegalArgumentException::new);
     }
 
     private String parameterString(VariableElement parameter) {
@@ -88,18 +88,18 @@ public class PathParametersResolver {
                 .anyMatch(a -> a.getAnnotationType().asElement().toString().equals(PathParameter.class.getCanonicalName()));
     }
 
-    public Collection<? extends String> imports() {
-        return converters().stream().map(c -> "import " + c.getQualifiedName() + ";\n").collect(Collectors.toSet());
+    public Collection<String> imports() {
+        return converters().stream().map(c -> "import " + c.asElement().asType().toString() + ";\n").collect(Collectors.toSet());
     }
 
-    private Set<Symbol.TypeSymbol> converters() {
-        Set<Symbol.TypeSymbol> converters = new HashSet<>();
+    private Set<DeclaredType> converters() {
+        Set<DeclaredType> converters = new HashSet<>();
         constructorsAsStream().forEach(e -> converters.addAll(
                 getConverterAsSet((ExecutableElement) e)));
         return converters;
     }
 
-    private Set<Symbol.TypeSymbol> getConverterAsSet(ExecutableElement e) {
+    private Set<DeclaredType> getConverterAsSet(ExecutableElement e) {
         return pathParametersAsStream(e)
                 .filter(this::isConverterPresent)
                 .map(this::converter)

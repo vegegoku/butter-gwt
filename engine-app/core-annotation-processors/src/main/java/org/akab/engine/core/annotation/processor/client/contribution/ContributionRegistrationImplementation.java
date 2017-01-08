@@ -11,15 +11,13 @@ import java.util.stream.Collectors;
 
 public class ContributionRegistrationImplementation implements RegistrationImplementation {
 
+    public static final String REGISTRATION_LINE = "\tregistry.registerContribution";
     private Map<Element, Element> items;
 
     public ContributionRegistrationImplementation(Map<Element, Element> items) {
         this.items = items;
     }
 
-    private String writeRegistrationLine() {
-        return "\tregistry.registerContribution";
-    }
 
     private String writeArguments(Map.Entry<Element, Element> entry) {
         return "" + getSimpleName(entry.getValue()) + ".class, " +
@@ -29,7 +27,7 @@ public class ContributionRegistrationImplementation implements RegistrationImple
     @Override
     public String methodBody() {
         return items.entrySet().stream().map(entry ->
-                writeRegistrationLine() + "(" + writeArguments(entry) + ");\n")
+                REGISTRATION_LINE + "(" + writeArguments(entry) + ");\n")
                 .collect(Collectors.joining());
     }
 
