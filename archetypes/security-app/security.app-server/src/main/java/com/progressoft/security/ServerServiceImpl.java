@@ -5,20 +5,26 @@ import org.akab.engine.core.api.shared.request.ServerResponse;
 import org.akab.engine.core.api.shared.request.ServerRequest;
 import org.akab.engine.core.api.shared.server.ServerApp;
 import org.akab.engine.core.api.shared.service.ServerService;
+import org.akab.engine.core.logger.client.CoreLogger;
+import org.akab.engine.core.logger.client.CoreLoggerFactory;
 import org.akab.engine.core.server.RpcEntryPointContext;
-
-import java.util.logging.Logger;
 
 public class ServerServiceImpl extends RemoteServiceServlet implements ServerService {
 
     private static final long serialVersionUID = 9016180344293259071L;
 
-    private static final Logger LOGGER=Logger.getLogger(ServerServiceImpl.class.getName());
+    private static final CoreLogger LOGGER= CoreLoggerFactory.getLogger(ServerServiceImpl.class.getName());
 
     @Override
-    public ServerResponse executeRequest(ServerRequest request) throws Exception {
+    public ServerResponse executeRequest(ServerRequest request) {
         LOGGER.info("Server call recieved for request : "+request.toString());
-        return ServerApp
-                .make().executeRequest(request, new RpcEntryPointContext(getThreadLocalRequest(), getThreadLocalResponse()));
+        try {
+            return ServerApp
+                    .make().executeRequest(request,
+                            new RpcEntryPointContext(getThreadLocalRequest(), getThreadLocalResponse()));
+        }catch (Exception e){
+            LOGGER.error("Request failed on server", e);
+            throw e;
+        }
     }
 }

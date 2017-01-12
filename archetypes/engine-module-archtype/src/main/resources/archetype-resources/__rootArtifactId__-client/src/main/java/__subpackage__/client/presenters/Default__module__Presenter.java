@@ -12,11 +12,6 @@ import org.akab.engine.core.api.shared.extension.MainExtensionPoint;
 public class Default${module}Presenter extends BaseClientPresenter<${module}View> implements ${module}Presenter {
 
     @Override
-    public void initView(${module}View view) {
-
-    }
-
-    @Override
     public void contributeToMainModule(MainExtensionPoint mainExtensionPoint, String welcomeMessage) {
         view.setWelcomeMessage(welcomeMessage);
         mainExtensionPoint.context().appendWidgetToRoot(view);

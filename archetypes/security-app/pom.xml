@@ -109,5 +109,6 @@
     <module>security.app-client</module>
     <module>security.app-server</module>
     <module>authentication</module>
+    <module>authentication-login</module>
   </modules>
 </project>

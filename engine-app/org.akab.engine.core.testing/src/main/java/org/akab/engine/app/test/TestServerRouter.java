@@ -40,7 +40,7 @@ public class TestServerRouter implements RequestRouter<ClientServerRequest> {
         try{
             response=service.executeRequest(request.arguments());
         }catch (Exception ex){
-            eventFactory.makeFailed(request, ex);
+            eventFactory.makeFailed(request, ex).fire();
             return;
         }
         eventFactory.makeSuccess(request, response).fire();

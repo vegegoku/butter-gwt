@@ -5,6 +5,8 @@ import com.progressoft.security.authentication.shared.extension.CompletedChainCo
 import org.akab.engine.core.api.client.annotations.Request;
 import org.akab.engine.core.api.client.request.ClientRequest;
 
+import java.util.Objects;
+
 @Request
 public class ChainCompletedSuccessfullyRequest extends ClientRequest<AuthenticationPresenter>{
 
@@ -16,6 +18,11 @@ public class ChainCompletedSuccessfullyRequest extends ClientRequest<Authenticat
 
     @Override
     protected void process(AuthenticationPresenter presenter) {
+        if(Objects.isNull(context.getPrincipal()))
+            throw new InvalidPrincipal();
         presenter.onChainCompletedSuccessfully(context);
+    }
+
+    public class InvalidPrincipal extends RuntimeException{
     }
 }

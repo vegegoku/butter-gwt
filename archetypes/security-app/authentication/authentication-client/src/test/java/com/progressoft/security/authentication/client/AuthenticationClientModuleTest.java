@@ -5,10 +5,16 @@ import com.google.gwtmockito.GwtMockitoTestRunner;
 import com.progressoft.security.authentication.client.contributions.FakeAuthenticationCompletedContribution;
 import com.progressoft.security.authentication.client.contributions.FakeAuthenticationContribution;
 import com.progressoft.security.authentication.client.registry.AuthenticationProviderRegistry;
+import com.progressoft.security.authentication.client.requests.ChainCompletedSuccessfullyRequest;
 import com.progressoft.security.authentication.client.requests.UserLoggedInRequest;
 import com.progressoft.security.authentication.server.ServerAuthenticationContext;
+import com.progressoft.security.authentication.shared.extension.AuthenticationCompletedExtensionPoint;
+import com.progressoft.security.authentication.shared.extension.AuthenticationExtensionPoint;
 import com.progressoft.security.authentication.shared.extension.Principal;
 import org.akab.engine.app.test.ModuleTestCase;
+import org.akab.engine.app.test.TestClientAppFactory;
+import org.akab.engine.core.api.client.extension.ContributionsRegistry;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -19,8 +25,11 @@ import com.progressoft.security.authentication.client.presenters.AuthenticationP
 import com.progressoft.security.authentication.shared.request.AuthenticationRequest;
 import com.progressoft.security.authentication.shared.response.AuthenticationResponse;
 
+import java.util.LinkedList;
+import java.util.List;
+
 @RunWith(GwtMockitoTestRunner.class)
-public class AuthenticationClientModuleTest extends ModuleTestCase{
+public class AuthenticationClientModuleTest extends ModuleTestCase {
 
     private AuthenticationPresenterSpy presenterSpy;
     private AuthenticationViewSpy viewSpy;
@@ -28,10 +37,17 @@ public class AuthenticationClientModuleTest extends ModuleTestCase{
     private FakeAuthenticationContribution authenticationContribution;
 
     @Override
-    public void setUp() throws Exception {
+    public void setUp() {
+
 
         testModule.configureModule(new AuthenticationModuleConfiguration());
-        testModule.configureModule(new AuthenticationTestModuleConfiguration());
+        testModule.configureModule(new AuthenticationTestModuleConfiguration(){
+            @Override
+            public void registerContributions(ContributionsRegistry registry) {
+                registry.registerContribution(AuthenticationExtensionPoint.class, new FakeAuthenticationContribution());
+                registry.registerContribution(AuthenticationCompletedExtensionPoint.class, new FakeAuthenticationCompletedContribution());
+            }
+        });
         testModule.replacePresenter(AuthenticationPresenter.class.getCanonicalName(), () -> {
             presenterSpy = new AuthenticationPresenterSpy();
             return presenterSpy;
@@ -42,9 +58,11 @@ public class AuthenticationClientModuleTest extends ModuleTestCase{
             return viewSpy;
         });
 
-        authenticationCompletedContribution =testModule.getContribution(FakeAuthenticationCompletedContribution.class);
+        authenticationCompletedContribution = testModule.getContribution(FakeAuthenticationCompletedContribution.class);
         authenticationContribution = testModule.getContribution(FakeAuthenticationContribution.class);
 
+        testEntryPointContext.setHttpRequest(httpRequest);
+        testEntryPointContext.setHttpServletResponse(httpResponse);
         ServerAuthenticationContext.reset();
 
     }
@@ -72,14 +90,14 @@ public class AuthenticationClientModuleTest extends ModuleTestCase{
     @Test
     public void givenUserLoggedInRequest_whenThereIsNoUserLoggedIN_thenShouldReceiveResponseWithNegativeValue()
             throws Exception {
-        ServerAuthenticationContext.authenticationHolder = new InMemoryAuthenticationHolder(null);
+        ServerAuthenticationContext.hold(new InMemoryAuthenticationHolder(null));
         sendLoggedInRequest(response -> assertFalse(response.isLoggedIn()));
     }
 
     @Test
     public void givenUserLoggedInRequest_whenThereIsUserLoggedIN_thenShouldReceiveREspouseWithPositiveValue()
             throws Exception {
-        ServerAuthenticationContext.authenticationHolder = new InMemoryAuthenticationHolder(principal());
+        ServerAuthenticationContext.hold(new InMemoryAuthenticationHolder(principal()));
         sendLoggedInRequest(response -> assertTrue(response.isLoggedIn()));
     }
 
@@ -98,14 +116,14 @@ public class AuthenticationClientModuleTest extends ModuleTestCase{
     @Test
     public void givenUserLoggedInRequest_WhenUserIsLoggedIn_thenShouldApplyAuthenticationCompletedContributions()
             throws Exception {
-        ServerAuthenticationContext.authenticationHolder = new InMemoryAuthenticationHolder(principal());
+        ServerAuthenticationContext.hold(new InMemoryAuthenticationHolder(principal()));
         new UserLoggedInRequest().send();
 
         assertNotNull(authenticationCompletedContribution.getContext());
         assertNotNull(authenticationCompletedContribution.getContext().getPrincipal());
     }
 
-    @Test
+    @Test//
     public void givenAuthenticationModule_WhenModuleStarts_ThenAuthenticationPresenterShouldApplyContributionsForAuthenticationExtensionPoint()
             throws Exception {
         assertNotNull(authenticationContribution.getContext());
@@ -143,7 +161,7 @@ public class AuthenticationClientModuleTest extends ModuleTestCase{
         assertNotNull(presenterSpy.getFailedChainContext());
     }
 
-    @Test
+    @Test//
     public void givenAuthenticationProvider_whenAuthenticationFailed_thenAuthenticationProcessShouldRestart()
             throws Exception {
         authenticationContribution.getProvider().chainAuthenticationFailed();
@@ -153,12 +171,10 @@ public class AuthenticationClientModuleTest extends ModuleTestCase{
     }
 
     @Test
-    public void givenASingleAuthenticationProvider_whenProviderAuthenticationIscCompletedSuccessfully_thenAuthenticationShouldBeCompletedAndAllContributionsShouldBeCalled()
+    public void givenASingleAuthenticationProvider_whenProviderAuthenticationIsCompletedSuccessfully_thenAuthenticationShouldBeCompletedAndAllContributionsShouldBeCalled()
             throws Exception {
-        Principal p=new Principal() {
+        Principal p = new Principal() {
         };
-        testEntryPointContext.setHttpRequest(httpRequest);
-        testEntryPointContext.setHttpServletResponse(httpResponse);
         session.setAttribute(isA(String.class), eq(p));
         expect(session.getAttribute("principle")).andReturn(p).anyTimes();
         replay(session);
@@ -168,18 +184,43 @@ public class AuthenticationClientModuleTest extends ModuleTestCase{
 
     }
 
+    @Test(expected = ChainCompletedSuccessfullyRequest.InvalidPrincipal.class)
+
+    public void givenASingleAuthenticationProvider_whenProviderAuthenticationIsCompletedSuccessfullyAndReturnsNullPrincipal_thenAuthenticationThrowException()
+            throws Exception {
+        Principal p = new Principal() {
+        };
+        session.setAttribute(isA(String.class), eq(p));
+        expect(session.getAttribute("principle")).andReturn(p).anyTimes();
+        replay(session);
+        authenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(null);
+
+    }
+
+    @Test
+    public void givenASingleAuthenticationProvider_whenAuthenticationIsCompletedSuccessfullyAndReturnedPrincipalHasNoMoreChains_thenAuthenticationShouldBeCompletedAndAllContributionsShouldBeCalled()
+            throws Exception {
+        Principal p = new Principal() {
+        };
+        session.setAttribute(isA(String.class), eq(p));
+        expect(session.getAttribute("principle")).andReturn(p).anyTimes();
+        replay(session);
+        authenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(p);
+
+        assertNotNull(authenticationCompletedContribution.getContext().getPrincipal());
+    }
+
     @Test
     public void givenASingleAuthenticationProvider_whenProviderAuthenticationIscCompletedSuccessfullyAndFailedToCompleteAuthenticationOnServer_thenShouldShowErrorMessage()
             throws Exception {
 
         Principal p = new Principal() {
+
         };
-        testEntryPointContext.setHttpRequest(httpRequest);
-        testEntryPointContext.setHttpServletResponse(httpResponse);
         session.setAttribute(isA(String.class), eq(p));
         expect(session.getAttribute("principle")).andReturn(null).anyTimes();
         replay(session);
         authenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(p);
-        assertEquals("Failed to complete authentication on server.!", viewSpy.getFailedAuthenticationCompletionMessage());
+        assertEquals(AuthenticationViewSpy.AUTHENTICATION_FAILED, viewSpy.getErrorMessage());
     }
 }

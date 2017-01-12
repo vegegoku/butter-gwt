@@ -1,10 +1,10 @@
 package com.progressoft.security.authentication.client.presenters;
 
+import com.progressoft.security.authentication.shared.extension.ClientAuthenticationProvider;
 import com.progressoft.security.authentication.shared.extension.CompletedChainContext;
 import com.progressoft.security.authentication.shared.extension.FailedChainContext;
 import com.progressoft.security.authentication.shared.extension.Principal;
 import org.akab.engine.core.api.client.mvp.presenter.Presentable;
-import org.akab.engine.core.api.shared.extension.MainExtensionPoint;
 
 public interface AuthenticationPresenter extends Presentable{
 
@@ -22,5 +22,7 @@ public interface AuthenticationPresenter extends Presentable{
 
     void authenticate();
 
-    void onAuthenticationCompletionError();
+    void showErrorMessage();
+
+    void startChain(ClientAuthenticationProvider provider);
 }

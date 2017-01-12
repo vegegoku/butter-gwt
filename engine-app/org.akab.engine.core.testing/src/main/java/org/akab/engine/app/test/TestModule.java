@@ -31,7 +31,8 @@ public class TestModule {
         ClientApp.make().run();
     }
 
-    public <C extends Contribution> C getContribution(Class<C> contributionClass){
+    public <C extends Contribution> C getContribution(Class<C> contributionClass) {
         return TestClientAppFactory.contributionsRepository.getContribution(contributionClass);
     }
+
 }

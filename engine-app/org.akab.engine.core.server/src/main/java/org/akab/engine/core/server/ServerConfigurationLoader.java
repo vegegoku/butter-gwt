@@ -14,8 +14,9 @@ public class ServerConfigurationLoader {
         InterceptorsRepository interceptorsRepository=new InMemoryInterceptorsRepository();
         ServerApp serverApp= makeServerApp(handlersRepository, interceptorsRepository);
 
-        ServiceLoader<ServerModuleConfiguration> loader=ServiceLoader.load(ServerModuleConfiguration.class);
-        loader.forEach(serverApp::configureModule);
+        ServiceLoader.load(ServerModuleConfiguration.class).forEach(serverApp::configureModule);
+
+        ServerEntryPointsLoader.runEntryPoints();
     }
 
     private ServerApp makeServerApp(HandlersRepository handlersRepository,

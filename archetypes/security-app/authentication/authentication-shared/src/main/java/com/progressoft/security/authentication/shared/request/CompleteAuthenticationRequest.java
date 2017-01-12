@@ -8,6 +8,7 @@ public class CompleteAuthenticationRequest extends ServerRequest{
     private Principal principal;
 
     public CompleteAuthenticationRequest() {
+        //required by GWT RPC serializer
     }
 
     public CompleteAuthenticationRequest(Principal principal) {

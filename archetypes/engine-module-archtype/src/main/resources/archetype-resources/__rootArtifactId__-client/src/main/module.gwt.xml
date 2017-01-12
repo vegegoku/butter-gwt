@@ -9,6 +9,7 @@
   <source path="" />
 
   <entry-point class="${package}.${subpackage}.client.${module}ClientModule" />
+
   <set-configuration-property name="CssResource.enableGss" value="true"/>
 
   <!-- Only support recent browsers -->

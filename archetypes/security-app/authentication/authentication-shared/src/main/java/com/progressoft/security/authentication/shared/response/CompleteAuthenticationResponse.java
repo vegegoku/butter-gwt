@@ -7,6 +7,7 @@ public class CompleteAuthenticationResponse extends ServerResponse{
     private boolean authenticated;
 
     public CompleteAuthenticationResponse() {
+        //required by GWT RPC serializer
     }
 
     public CompleteAuthenticationResponse(boolean authenticated) {

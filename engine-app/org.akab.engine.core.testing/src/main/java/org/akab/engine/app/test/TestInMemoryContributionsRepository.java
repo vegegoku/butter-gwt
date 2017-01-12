@@ -6,15 +6,21 @@ import org.akab.engine.core.client.extensions.InMemoryContributionRepository;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class TestInMemoryContributionsRepository extends InMemoryContributionRepository {
 
-    protected static final Map<String, Contribution> testContributions =new HashMap<>();
+    protected final Map<String, Contribution> testContributions =new HashMap<>();
 
     @Override
     public void registerContribution(Class<? extends ExtensionPoint> extensionPoint, Contribution contribution) {
         super.registerContribution(extensionPoint, contribution);
         testContributions.put(contribution.getClass().getCanonicalName(), contribution);
+    }
+
+    @Override
+    public Set<Contribution> findExtensionPointContributions(Class<? extends ExtensionPoint> extensionPoint) {
+        return super.findExtensionPointContributions(extensionPoint);
     }
 
     public <C extends Contribution> C getContribution(Class<C> contributionClass) {

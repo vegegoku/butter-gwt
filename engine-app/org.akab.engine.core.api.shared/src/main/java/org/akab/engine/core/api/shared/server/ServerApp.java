@@ -55,7 +55,6 @@ public class ServerApp implements HandlerRegistry, InterceptorsRegistry{
         configuration.registerHandlers(this);
         configuration.registerInterceptors(this);
         configuration.registerGlobalInterceptors(this);
-
     }
 
     public static class ServerAppBuilder{

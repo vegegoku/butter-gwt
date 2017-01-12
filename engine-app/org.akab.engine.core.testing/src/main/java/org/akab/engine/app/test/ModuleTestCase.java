@@ -28,6 +28,8 @@ public abstract class ModuleTestCase {
         testModule = new TestModule();
         testEntryPointContext=new TestEntryPointContext();
         testModule.init(testEntryPointContext);
+        testEntryPointContext.setHttpRequest(httpRequest);
+        testEntryPointContext.setHttpServletResponse(httpResponse);
         setUp();
         testModule.run();
     }

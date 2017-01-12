@@ -4,20 +4,16 @@ import com.progressoft.security.authentication.client.views.DefaultAuthenticatio
 
 public class AuthenticationViewSpy extends DefaultAuthenticationView {
 
-    private String welcomeMessage;
-    private String failedAuthenticationCompletionMessage;
+    public static final String AUTHENTICATION_FAILED = "Authentication failed";
+    private String errorMessage;
 
-    public String getWelcomeMessage() {
-        return welcomeMessage;
-    }
-
-    public String getFailedAuthenticationCompletionMessage() {
-        return failedAuthenticationCompletionMessage;
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
     @Override
     public void showErrorMessage(String message) {
         super.showErrorMessage(message);
-        this.failedAuthenticationCompletionMessage=message;
+        this.errorMessage = message;
     }
 }

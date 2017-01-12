@@ -28,35 +28,27 @@ import org.akab.engine.core.api.client.mvp.view.View;
 
 import org.akab.engine.core.api.shared.extension.MainContext;
 import org.akab.engine.core.api.shared.extension.MainExtensionPoint;
+import org.akab.engine.app.test.ModuleTestCase;
 
 @RunWith(GwtMockitoTestRunner.class)
-public class ${module}ClientModuleTest{
+public class ${module}ClientModuleTest extends ModuleTestCase{
 
-    private TestModule testModule;
     private ${module}PresenterSpy presenterSpy;
     private ${module}ViewSpy viewSpy;
 
-    @Before
-    public void setUp() throws Exception {
+    @Override
+    public void setUp() {
 
-        testModule=new TestModule();
-        testModule.init(new TestEntryPointContext());
         testModule.configureModule(new ${module}ModuleConfiguration());
 
-        testModule.replacePresenter(${module}Presenter.class.getCanonicalName(), new TestPresenterFactory() {
-            @Override
-            public Presentable make() {
-                presenterSpy=new ${module}PresenterSpy();
-                return presenterSpy;
-            }
+        testModule.replacePresenter(${module}Presenter.class.getCanonicalName(), () -> {
+            presenterSpy=new ${module}PresenterSpy();
+            return presenterSpy;
         });
 
-        testModule.replaceView(${module}Presenter.class.getCanonicalName(), new TestViewFactory() {
-            @Override
-            public View make() {
-                viewSpy=new ${module}ViewSpy();
-                return viewSpy;
-            }
+        testModule.replaceView(${module}Presenter.class.getCanonicalName(), () -> {
+            viewSpy=new ${module}ViewSpy();
+            return viewSpy;
         });
     }
 

@@ -11,6 +11,6 @@ import org.akab.engine.core.server.RpcEntryPointContext;
 public class CompleteAuthenticationInterceptor implements RequestInterceptor<CompleteAuthenticationRequest, RpcEntryPointContext> {
     @Override
     public void intercept(CompleteAuthenticationRequest request, RpcEntryPointContext context) {
-        ServerAuthenticationContext.authenticationHolder=new WebAuthenticationHolder(context.getHttpRequest().getSession(), request.getPrincipal());
+        ServerAuthenticationContext.hold(new WebAuthenticationHolder(context.getHttpRequest().getSession(), request.getPrincipal()));
     }
 }

@@ -5,6 +5,7 @@ import org.akab.engine.core.api.shared.request.ServerRequest;
 public class AuthenticationRequest extends ServerRequest {
 
     public AuthenticationRequest() {
+        //required by GWT RPC serializer
     }
 
 }

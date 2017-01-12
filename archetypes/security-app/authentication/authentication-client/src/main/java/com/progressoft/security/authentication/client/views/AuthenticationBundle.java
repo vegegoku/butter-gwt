@@ -8,8 +8,6 @@ import com.google.gwt.resources.client.ImageResource;
 
 public interface AuthenticationBundle extends ClientBundle{
 
-    AuthenticationBundle INSTANCE=GWT.create(AuthenticationBundle.class);
-
     interface Style extends CssResource {
         String authentication();
     }

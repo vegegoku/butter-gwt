@@ -13,16 +13,16 @@ public class AuthenticationPresenterSpy extends DefaultAuthenticationPresenter {
     private CompletedChainContext rootChainSuccessContext;
     private FailedChainContext failedChainContext;
     private boolean fakeLoginChainFailed;
-    private int authenticationCallCounter=0;
+    private int authenticationCallCounter = 0;
 
     public boolean isContributionCompleted() {
         return contributionCompleted;
     }
 
     @Override
-    public void startAuthentication(String rootChain){
+    public void startAuthentication(String rootChain) {
         super.startAuthentication(rootChain);
-        this.rootChain=rootChain;
+        this.rootChain = rootChain;
     }
 
     @Override
@@ -38,14 +38,14 @@ public class AuthenticationPresenterSpy extends DefaultAuthenticationPresenter {
     public void onChainCompletedSuccessfully(CompletedChainContext context) {
         super.onChainCompletedSuccessfully(context);
         fakeLoginChainCompletedSuccessfully = true;
-        this.rootChainSuccessContext=context;
+        this.rootChainSuccessContext = context;
     }
 
     @Override
     public void onChainFailed(FailedChainContext failedChainContext) {
         super.onChainFailed(failedChainContext);
-        this.fakeLoginChainFailed=true;
-        this.failedChainContext=failedChainContext;
+        this.fakeLoginChainFailed = true;
+        this.failedChainContext = failedChainContext;
     }
 
     public CompletedChainContext getRootChainSuccessContext() {
@@ -73,4 +73,5 @@ public class AuthenticationPresenterSpy extends DefaultAuthenticationPresenter {
     public boolean getFakeLoginChainFailed() {
         return fakeLoginChainFailed;
     }
+
 }

@@ -10,7 +10,7 @@ import org.akab.engine.core.logger.client.CoreLoggerFactory;
 import java.util.Objects;
 
 public abstract class ClientServerRequest<P extends Presentable, R extends ServerRequest, S extends ServerResponse>
-        extends BaseRequest {
+        extends BaseRequest implements ServerFailedHandler<P,R>{
 
     private static final CoreLogger LOGGER = CoreLoggerFactory.getLogger(ClientServerRequest.class);
 
@@ -65,9 +65,6 @@ public abstract class ClientServerRequest<P extends Presentable, R extends Serve
     }
 
     protected abstract void process(P presenter, R serverArgs, S response);
-
-    protected abstract void processFailed(P presenter, R serverArgs, FailedServerResponse failedRespons);
-
 
     public abstract R buildArguments();
 

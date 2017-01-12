@@ -9,6 +9,9 @@ public class AuthenticationProviderRegistry {
 
     private static final Map<String, ClientAuthenticationProvider> providers = new HashMap<>();
 
+    private AuthenticationProviderRegistry() {
+    }
+
     public static void registerProvider(String key, ClientAuthenticationProvider provider) {
         AuthenticationProviderRegistry.providers.put(key, provider);
     }

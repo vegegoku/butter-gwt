@@ -10,6 +10,6 @@ import org.akab.engine.core.api.shared.server.RequestHandler;
 public class CompleteAuthenticationOnServerHandler implements RequestHandler<CompleteAuthenticationRequest, CompleteAuthenticationResponse> {
     @Override
     public CompleteAuthenticationResponse handleRequest(CompleteAuthenticationRequest request) {
-        return new CompleteAuthenticationResponse(!ServerAuthenticationContext.authenticationHolder.isEmpty());
+        return new CompleteAuthenticationResponse(!ServerAuthenticationContext.holder().isEmpty());
     }
 }

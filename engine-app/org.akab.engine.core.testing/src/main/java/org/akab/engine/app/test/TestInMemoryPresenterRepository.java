@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class TestInMemoryPresenterRepository extends InMemoryPresentersRepository {
 
-    private final HashMap<String, LazyPresenterLoader> replacedPresenters=new HashMap<>();
+    private final HashMap<String, LazyPresenterLoader> replacedPresenters = new HashMap<>();
 
     @Override
     public void clear() {
@@ -20,16 +20,17 @@ public class TestInMemoryPresenterRepository extends InMemoryPresentersRepositor
 
     @Override
     public Presentable getPresenter(String presenterName) {
-        if(replacedPresenters.containsKey(presenterName))
+        if (replacedPresenters.containsKey(presenterName))
             return replacedPresenters.get(presenterName).getPresenter();
         return super.getPresenter(presenterName);
     }
 
-    public void replacePresenter(String presenterName, TestPresenterFactory presenterFactory){
-        replacedPresenters.put(presenterName, new TestPresenterLoader(super.getPresenterLoader(presenterName), presenterFactory));
+    public void replacePresenter(String presenterName, TestPresenterFactory presenterFactory) {
+        replacedPresenters.put(presenterName,
+                new TestPresenterLoader(super.getPresenterLoader(presenterName), presenterFactory));
     }
 
-    private class TestPresenterLoader extends LazyPresenterLoader{
+    private class TestPresenterLoader extends LazyPresenterLoader {
 
         private final LazyPresenterLoader lazyPresenterLoader;
         private final TestPresenterFactory presenterFactory;
@@ -37,7 +38,7 @@ public class TestInMemoryPresenterRepository extends InMemoryPresentersRepositor
 
         public TestPresenterLoader(LazyPresenterLoader lazyPresenterLoader, TestPresenterFactory presenterFactory) {
             super(lazyPresenterLoader.getName(), lazyPresenterLoader.getConcreteName());
-            this.lazyPresenterLoader=lazyPresenterLoader;
+            this.lazyPresenterLoader = lazyPresenterLoader;
             this.presenterFactory = presenterFactory;
         }
 
@@ -53,8 +54,8 @@ public class TestInMemoryPresenterRepository extends InMemoryPresentersRepositor
 
         @Override
         public Presentable getPresenter() {
-            if(Objects.isNull(presenter))
-                presenter=presenterFactory.make();
+            if (Objects.isNull(presenter))
+                presenter = presenterFactory.make();
             return presenter;
         }
 

@@ -10,6 +10,7 @@ public class AuthenticationResponse extends ServerResponse {
     private Principal principal;
 
     public AuthenticationResponse() {
+        //required by GWT RPC serializer
     }
 
     public AuthenticationResponse(Principal principal) {
@@ -28,18 +29,5 @@ public class AuthenticationResponse extends ServerResponse {
         this.principal = principal;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        AuthenticationResponse that = (AuthenticationResponse) o;
-
-        return principal != null ? principal.equals(that.principal) : that.principal == null;
-    }
-
-    @Override
-    public int hashCode() {
-        return principal != null ? principal.hashCode() : 0;
-    }
 }

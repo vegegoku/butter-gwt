@@ -11,17 +11,12 @@ import com.google.gwt.resources.client.ImageResource;
 
 public interface ${module}Bundle extends ClientBundle{
 
-    ${module}Bundle INSTANCE=GWT.create(${module}Bundle.class);
-
     interface Style extends CssResource {
         String ${module}();
     }
 
     @Source("css/${module}.gss")
     Style style();
-
-    @Source("images/gwt.png")
-    ImageResource gwt();
 
     @Source("text/welcome.txt")
     ExternalTextResource welcome();

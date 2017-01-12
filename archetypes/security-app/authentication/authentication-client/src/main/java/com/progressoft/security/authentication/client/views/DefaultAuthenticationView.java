@@ -28,7 +28,7 @@ public class DefaultAuthenticationView extends Composite implements Authenticati
 
     @Override
     public void showErrorMessage(String message) {
-
+        // TODO: 1/11/17 to be implemented after we finish the unit testing.
     }
 
 }

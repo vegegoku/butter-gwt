@@ -20,6 +20,7 @@ public class WebAuthenticationHolder implements AuthenticationHolder {
         this.session.setAttribute(PRINCIPLE, principal);
     }
 
+    @Override
     public boolean isEmpty() {
         return isNull(session.getAttribute(PRINCIPLE));
     }

@@ -1,17 +1,35 @@
 package com.progressoft.security.authentication.server;
 
-import com.progressoft.security.authentication.server.configurations.AuthenticationConfiguration;
-import com.progressoft.security.authentication.server.configurations.AuthenticationConfigurationLoader;
+import com.progressoft.security.authentication.shared.configurations.AuthenticationConfiguration;
+import com.progressoft.security.authentication.shared.configurations.AuthenticationConfigurationLoader;
 import com.progressoft.security.authentication.shared.extension.Principal;
 import com.progressoft.security.authentication.shared.registry.AuthenticationHolder;
 
 public class ServerAuthenticationContext {
 
-    public static AuthenticationHolder authenticationHolder = new NullHolder();
-    public static AuthenticationConfigurationLoader configurationLoader= new NullAuthenticationConfigurationLoader();
+    private static AuthenticationHolder authenticationHolder = new NullHolder();
+    private static AuthenticationConfigurationLoader configurationLoader;
 
-    public static void reset(){
-        authenticationHolder=new NullHolder();
+    private ServerAuthenticationContext(){
+    }
+
+    public static void reset() {
+        authenticationHolder = new NullHolder();
+    }
+    public static void hold(AuthenticationHolder holder){
+        authenticationHolder=holder;
+    }
+
+    public static AuthenticationHolder holder(){
+        return authenticationHolder;
+    }
+
+    public static void withConfigurationLoader( AuthenticationConfigurationLoader loader){
+        configurationLoader=loader;
+    }
+
+    public static AuthenticationConfiguration configuration() {
+        return configurationLoader.load();
     }
 
     private static final class NullHolder implements AuthenticationHolder {
@@ -24,18 +42,6 @@ public class ServerAuthenticationContext {
         @Override
         public Principal getPrincipal() {
             return null;
-        }
-    }
-
-    private static final class NullAuthenticationConfigurationLoader implements AuthenticationConfigurationLoader{
-        @Override
-        public AuthenticationConfiguration load() {
-            return new AuthenticationConfiguration() {
-                @Override
-                public String rootAuthenticationChain() {
-                    return "";
-                }
-            };
         }
     }
 }

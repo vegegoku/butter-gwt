@@ -7,6 +7,7 @@ public class FindRootChainResponse extends ServerResponse{
     private String rootChain;
 
     public FindRootChainResponse() {
+        //required by GWT RPC serializer
     }
 
     public FindRootChainResponse(String rootChain) {
