@@ -1,7 +1,7 @@
 package com.progressoft.security.authentication.server.registry;
 
 import com.progressoft.security.authentication.server.AuthenticationConfigurator;
-import com.progressoft.security.authentication.server.ServerAuthenticationContext;
+import com.progressoft.security.authentication.shared.ServerAuthenticationContext;
 import com.progressoft.security.authentication.shared.configurations.AuthenticationConfiguration;
 import com.progressoft.security.authentication.shared.configurations.AuthenticationConfigurationLoader;
 import org.junit.Test;
@@ -51,6 +51,11 @@ public class AuthenticationConfiguratorTest {
                         @Override
                         public String rootAuthenticationChain() {
                             return "ROOT_CHAIN";
+                        }
+
+                        @Override
+                        public String defaultTenant() {
+                            return "something";
                         }
                     };
                 }

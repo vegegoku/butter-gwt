@@ -1,4 +1,4 @@
-package com.progressoft.security.authentication.server;
+package com.progressoft.security.authentication.shared;
 
 import com.progressoft.security.authentication.shared.configurations.AuthenticationConfiguration;
 import com.progressoft.security.authentication.shared.configurations.AuthenticationConfigurationLoader;

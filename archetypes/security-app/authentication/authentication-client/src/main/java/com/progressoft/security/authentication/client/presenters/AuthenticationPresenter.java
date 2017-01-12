@@ -23,6 +23,4 @@ public interface AuthenticationPresenter extends Presentable{
     void authenticate();
 
     void showErrorMessage();
-
-    void startChain(ClientAuthenticationProvider provider);
 }

@@ -7,14 +7,12 @@ import com.progressoft.security.authentication.client.contributions.FakeAuthenti
 import com.progressoft.security.authentication.client.registry.AuthenticationProviderRegistry;
 import com.progressoft.security.authentication.client.requests.ChainCompletedSuccessfullyRequest;
 import com.progressoft.security.authentication.client.requests.UserLoggedInRequest;
-import com.progressoft.security.authentication.server.ServerAuthenticationContext;
+import com.progressoft.security.authentication.shared.ServerAuthenticationContext;
 import com.progressoft.security.authentication.shared.extension.AuthenticationCompletedExtensionPoint;
 import com.progressoft.security.authentication.shared.extension.AuthenticationExtensionPoint;
 import com.progressoft.security.authentication.shared.extension.Principal;
 import org.akab.engine.app.test.ModuleTestCase;
-import org.akab.engine.app.test.TestClientAppFactory;
 import org.akab.engine.core.api.client.extension.ContributionsRegistry;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -24,9 +22,6 @@ import static org.easymock.EasyMock.*;
 import com.progressoft.security.authentication.client.presenters.AuthenticationPresenter;
 import com.progressoft.security.authentication.shared.request.AuthenticationRequest;
 import com.progressoft.security.authentication.shared.response.AuthenticationResponse;
-
-import java.util.LinkedList;
-import java.util.List;
 
 @RunWith(GwtMockitoTestRunner.class)
 public class AuthenticationClientModuleTest extends ModuleTestCase {

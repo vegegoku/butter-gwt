@@ -5,7 +5,7 @@ import com.progressoft.security.authentication.client.presenters.AuthenticationP
 import com.progressoft.security.authentication.client.requests.ApplyAuthenticationContributionsRequest;
 import com.progressoft.security.authentication.client.requests.FindRootAuthenticationChainRequest;
 import com.progressoft.security.authentication.configuration.PropertiesAuthenticationConfigurationLoader;
-import com.progressoft.security.authentication.server.ServerAuthenticationContext;
+import com.progressoft.security.authentication.shared.ServerAuthenticationContext;
 import org.akab.engine.app.test.ModuleTestCase;
 import org.akab.engine.core.api.client.InitialTaskRegistry;
 import org.junit.Test;

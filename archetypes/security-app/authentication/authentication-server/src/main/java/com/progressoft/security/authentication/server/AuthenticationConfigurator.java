@@ -1,5 +1,6 @@
 package com.progressoft.security.authentication.server;
 
+import com.progressoft.security.authentication.shared.ServerAuthenticationContext;
 import com.progressoft.security.authentication.shared.configurations.AuthenticationConfigurationLoader;
 
 import java.util.Objects;

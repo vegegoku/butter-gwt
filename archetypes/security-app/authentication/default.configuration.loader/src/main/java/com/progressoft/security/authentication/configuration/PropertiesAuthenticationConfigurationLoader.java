@@ -11,11 +11,14 @@ import java.io.InputStream;
 import java.util.Objects;
 import java.util.Properties;
 
+import static java.util.Objects.*;
+
 @AutoService(AuthenticationConfigurationLoader.class)
 public class PropertiesAuthenticationConfigurationLoader implements AuthenticationConfigurationLoader {
 
     private static final CoreLogger LOGGER = CoreLoggerFactory.getLogger(PropertiesAuthenticationConfigurationLoader.class);
     private static final String ROOT_CHAIN = "root.chain";
+    private static final String DEFAULT_TENANT = "default.tenant";
 
     private String path;
     private Properties props = new Properties();
@@ -32,22 +35,30 @@ public class PropertiesAuthenticationConfigurationLoader implements Authenticati
     private class PropertiesAuthenticationConfiguration implements AuthenticationConfiguration {
 
         private final String rootChain;
+        private final String defaultTenant;
 
-        private PropertiesAuthenticationConfiguration(String rootChain) {
-            if (Objects.isNull(rootChain) || rootChain.isEmpty())
+        private PropertiesAuthenticationConfiguration(String rootChain, String defaultTenant) {
+            if (isNull(rootChain) || rootChain.isEmpty())
                 throw new AuthenticationConfigurationLoader.InvalidConfigurationProvidedException();
             this.rootChain = rootChain;
+            this.defaultTenant = defaultTenant;
+
         }
 
         @Override
         public String rootAuthenticationChain() {
             return rootChain;
         }
+
+        @Override
+        public String defaultTenant() {
+            return isNull(defaultTenant)?"":defaultTenant;
+        }
     }
 
     @Override
     public AuthenticationConfiguration load() {
-        if (Objects.isNull(configuration))
+        if (isNull(configuration))
             loadConfiguration();
         return configuration;
     }
@@ -56,12 +67,12 @@ public class PropertiesAuthenticationConfigurationLoader implements Authenticati
         loadPropertiesFile();
         if (props.isEmpty())
             throw new AuthenticationConfigurationLoader.InvalidConfigurationProvidedException();
-        configuration = new PropertiesAuthenticationConfiguration(props.getProperty(ROOT_CHAIN));
+        configuration = new PropertiesAuthenticationConfiguration(props.getProperty(ROOT_CHAIN), props.getProperty(DEFAULT_TENANT));
     }
 
     private Properties loadPropertiesFile() {
         try (InputStream resourceStream = getClassLoader().getResourceAsStream(path)) {
-            if (Objects.isNull(resourceStream))
+            if (isNull(resourceStream))
                 throw new AuthenticationConfigurationLoader.InvalidConfigurationProvidedException();
             props.load(resourceStream);
             return props;

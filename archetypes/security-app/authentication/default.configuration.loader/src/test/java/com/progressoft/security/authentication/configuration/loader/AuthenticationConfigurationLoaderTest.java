@@ -27,6 +27,11 @@ public class AuthenticationConfigurationLoaderTest {
     public void givenValidConfigurationFile_whenLoadingConfigurationAndFetchTheRootChain_shouldReturnTheRootChain() throws Exception {
         assertNotNull(new PropertiesAuthenticationConfigurationLoader("authentication-config.properties").load().rootAuthenticationChain());
     }
+    @Test
+    public void givenValidConfigurationFile_whenLoadingConfigurationAndFetchThedefaultTenant_shouldReturnTheDefaultTenant() throws Exception {
+        assertNotNull(new PropertiesAuthenticationConfigurationLoader("authentication-config.properties").load().defaultTenant());
+    }
+
 
 
 }

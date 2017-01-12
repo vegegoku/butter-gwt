@@ -1,21 +1,25 @@
 package com.progressoft.security.login.client;
 
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.HasText;
+import com.google.gwtmockito.GwtMockito;
 import com.google.gwtmockito.GwtMockitoTestRunner;
 
+import com.google.gwtmockito.fakes.FakeProvider;
+import com.progressoft.security.authentication.shared.extension.*;
+import com.progressoft.security.login.client.contributions.LoginAuthenticationContribution;
+import gwt.material.design.client.base.AbstractValueWidget;
+import gwt.material.design.client.base.mixin.ErrorMixin;
+import gwt.material.design.client.ui.MaterialLabel;
+import gwt.material.design.client.ui.MaterialTextBox;
+import org.akab.engine.core.api.client.extension.Contributions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import static org.junit.Assert.*;
 
 import com.progressoft.security.login.client.presenters.LoginPresenter;
-import com.progressoft.security.login.client.requests.LoginSampleClientRequest;
-import com.progressoft.security.login.shared.request.LoginRequest;
-import com.progressoft.security.login.shared.response.LoginResponse;
-
-import org.akab.engine.core.api.shared.extension.MainContext;
-import org.akab.engine.core.api.shared.extension.MainExtensionPoint;
 import org.akab.engine.app.test.ModuleTestCase;
 
 @RunWith(GwtMockitoTestRunner.class)
@@ -23,10 +27,15 @@ public class LoginClientModuleTest extends ModuleTestCase{
 
     private LoginPresenterSpy presenterSpy;
     private LoginViewSpy viewSpy;
+    private LoginAuthenticationContribution loginAuthenticationContribution;
+    private FakeAuthenticationContext fakeAuthenticationContext;
+
 
     @Override
     public void setUp() {
+        GwtMockito.useProviderForType(MaterialTextBox.class, type -> new FakeMaterialTextBox());
 
+        fakeAuthenticationContext= new FakeAuthenticationContext();
         testModule.configureModule(new LoginModuleConfiguration());
 
         testModule.replacePresenter(LoginPresenter.class.getCanonicalName(), () -> {
@@ -38,46 +47,87 @@ public class LoginClientModuleTest extends ModuleTestCase{
             viewSpy=new LoginViewSpy();
             return viewSpy;
         });
+
+        loginAuthenticationContribution=testModule.getContribution(LoginAuthenticationContribution.class);
+
+
+    }
+
+    private void applyAuthenticationContributions(final AuthenticationContext context) {
+        Contributions.apply(AuthenticationExtensionPoint.class, new AuthenticationExtensionPoint() {
+            @Override
+            public AuthenticationContext context() {
+                return context;
+            }
+        });
     }
 
     @Test
-    public void givenLoginModule_whenLoginSampleClientRequestIsSent_thenShouldContributeToMainExtensionPoint() throws Exception {
-        new LoginSampleClientRequest(new MainExtensionPoint() {
-            @Override
-            public MainContext context() {
-                return new MainContext() {
-                    @Override
-                    public void appendElementToRoot(Element e) {
+    public void givenLoginModule_whenAuthenticationExtensionPointContributionsApplied_thenShouldReceiveTheAuthenticationContext() throws Exception {
+        applyAuthenticationContributions(fakeAuthenticationContext);
+        assertNotNull(presenterSpy.getContext());
+    }
 
-                    }
-
-                    @Override
-                    public void appendWidgetToRoot(IsWidget w) {
-                        assertNotNull(w);
-                    }
-                };
-            }
-        }).send();
-
-        assertTrue(presenterSpy.isContributionCompleted());
-        assertEquals("Hello world! from Login contribution request", viewSpy.getWelcomeMessage());
+    @Test(expected = LoginAuthenticationContribution.InvalidAuthenticationContextRecieved.class)
+    public void givenLoginModule_whenAuthenticationExtensionPointContributionsAppliedAndRecievedContextIsNull_thenShouldThrowException() throws Exception {
+        applyAuthenticationContributions(null);
     }
 
     @Test
-    public void givenLoginClientModule_whenLoginServerRequestIsSent_thenServerMessageShouldBeRecieved()
-            throws Exception {
-
-        new LoginServerRequest(){
-            @Override
-            protected void process(LoginPresenter presenter, LoginRequest serverArgs, LoginResponse response) {
-                super.process(presenter, serverArgs, response);
-                assertEquals("Server message",response.getServerMessage());
-            }
-
-            @Override
-            public String getKey() {
-                return LoginServerRequest.class.getCanonicalName();
-            }
-        }.send();
+    public void givenLoginModule_whenAuthenticationExtensionPointContributionsApplied_thenLoginAuthenticationProviderShouldBeRegistered() throws Exception {
+        applyAuthenticationContributions(fakeAuthenticationContext);
+        assertEquals(FakeAuthenticationContext.PROVIDER_REGISTERED, presenterSpy.getContext().calls.toString());
     }
+
+    @Test
+    public void givenLoginModule_whenLoginProviderBeginMethodIsCalled_thenLoginDialogShouldBeShown() throws Exception {
+        applyAuthenticationContributions(fakeAuthenticationContext);
+        fakeAuthenticationContext.provider.begin();
+        assertTrue(viewSpy.isLoginDialogVisible());
+    }
+
+
+    @Test
+    public void givenLoginModule_whenLoginDialogIsShown_thenUserNameAndPasswordFieldsShouldBeEmpty() throws Exception {
+        applyAuthenticationContributions(fakeAuthenticationContext);
+        viewSpy.setUserName("something");
+        viewSpy.setPassword("something");
+        fakeAuthenticationContext.provider.begin();
+        assertEquals("", viewSpy.getUserName());
+        assertEquals("", viewSpy.getPassword());
+    }
+
+    @Test
+    public void givenLoginModule_whenLoginDialogIsShown_thenTenantFieldValueShouldBeDefaultTenant() throws Exception {
+        applyAuthenticationContributions(fakeAuthenticationContext);
+        fakeAuthenticationContext.provider.begin();
+        assertEquals("System", viewSpy.getTenant());
+    }
+
+    @Test
+    public void givenLoginModule_whenLoginButtonIsClickedAndUserNameIsEmpty_thenShouldMarkUserNameFieldAsRequired() throws Exception {
+        applyAuthenticationContributions(fakeAuthenticationContext);
+        fakeAuthenticationContext.provider.begin();
+        viewSpy.clickLogin();
+        assertEquals("Required", ((FakeMaterialTextBox)viewSpy.getUserNameField()).getError());
+    }
+
+    @Test
+    public void givenLoginModule_whenLoginButtonIsClickedAndPasswordIsEmpty_thenShouldMarkPasswordFieldAsRequired() throws Exception {
+        applyAuthenticationContributions(fakeAuthenticationContext);
+        fakeAuthenticationContext.provider.begin();
+        viewSpy.clickLogin();
+        assertEquals("Required", ((FakeMaterialTextBox)viewSpy.getPasswordField()).getError());
+    }
+
+    @Test
+    public void givenLoginModule_whenLoginButtonIsClickedAndTenantIsEmpty_thenShouldMarkTenantFieldAsRequired() throws Exception {
+        applyAuthenticationContributions(fakeAuthenticationContext);
+        fakeAuthenticationContext.provider.begin();
+        viewSpy.setTenant("");
+        viewSpy.clickLogin();
+        assertEquals("Required", ((FakeMaterialTextBox)viewSpy.getTenantField()).getError());
+    }
+
+
 }

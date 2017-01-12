@@ -1,5 +1,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:m='urn:import:gwt.material.design.client.ui'>
 
     <ui:with field="bundle" type="com.progressoft.security.login.client.views.LoginBundle"/>
     <ui:style gss="true">
@@ -8,7 +9,27 @@
         }
     </ui:style>
 
-    <g:HTMLPanel>
-        <div ui:field="mainDiv" class="sample-div"></div>
-    </g:HTMLPanel>
+    <m:MaterialPanel ui:field="mainPanel">
+        <m:MaterialRow>
+            <m:MaterialColumn grid="s12 m10 l4" >
+                <m:MaterialCard backgroundColor="WHITE" shadow="1">
+                    <m:MaterialCardImage waves="LIGHT">
+                        <m:MaterialImage backgroundColor="GREY_LIGHTEN_5"/>
+                        <m:MaterialCardTitle text="Login" fontSize="2em"/>
+                    </m:MaterialCardImage>
+
+                    <m:MaterialCardContent textColor="BLACK">
+                        <m:MaterialTextBox ui:field="userName" type="TEXT" placeholder="User name"/>
+                        <m:MaterialTextBox ui:field="password" type="PASSWORD" placeholder="Password" />
+                        <m:MaterialTextBox ui:field="tenant" type="TEXT" placeholder="Tenant"/>
+                        <m:MaterialButton ui:field="loginButton" waves="LIGHT" text="Log In" width="100%" backgroundColor="BLUE_LIGHTEN_1"/>
+                    </m:MaterialCardContent>
+
+                    <m:MaterialCardAction>
+                        <m:MaterialCheckBox text="Keep me logged in"/>
+                    </m:MaterialCardAction>
+                </m:MaterialCard>
+            </m:MaterialColumn>
+        </m:MaterialRow>
+    </m:MaterialPanel>
 </ui:UiBinder>

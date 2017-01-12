@@ -5,6 +5,8 @@ import com.progressoft.security.authentication.client.registry.AuthenticationPro
 import java.util.Deque;
 import java.util.Objects;
 
+import static java.util.Objects.*;
+
 
 public class ChainedAuthentication {
 
@@ -17,7 +19,7 @@ public class ChainedAuthentication {
     }
 
     public void fireNextChain(){
-        if(Objects.isNull(AuthenticationProviderRegistry.get(chains.peek())))
+        if(isNull(AuthenticationProviderRegistry.get(chains.peek())))
            presenter.showErrorMessage();
         else
             AuthenticationProviderRegistry.get(chains.pop()).begin();

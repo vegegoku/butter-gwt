@@ -32,8 +32,13 @@ public abstract class ModuleTestCase {
         testEntryPointContext.setHttpServletResponse(httpResponse);
         setUp();
         testModule.run();
+        afterRun();
     }
 
     protected abstract void setUp();
+
+    protected void afterRun(){
+
+    }
 
 }

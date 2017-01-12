@@ -78,11 +78,6 @@ public class DefaultAuthenticationPresenter extends BaseClientPresenter<Authenti
     }
 
     @Override
-    public void startChain(ClientAuthenticationProvider provider) {
-        provider.begin();
-    }
-
-    @Override
     public void showErrorMessage() {
         view.showErrorMessage(AUTHENTICATION_FAILED);
     }

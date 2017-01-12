@@ -3,13 +3,12 @@ package com.progressoft.security.authentication.client;
 import com.google.gwtmockito.GwtMockitoTestRunner;
 import com.progressoft.security.authentication.client.contributions.*;
 import com.progressoft.security.authentication.client.presenters.AuthenticationPresenter;
-import com.progressoft.security.authentication.server.ServerAuthenticationContext;
+import com.progressoft.security.authentication.shared.ServerAuthenticationContext;
 import com.progressoft.security.authentication.shared.extension.AuthenticationCompletedExtensionPoint;
 import com.progressoft.security.authentication.shared.extension.AuthenticationExtensionPoint;
 import com.progressoft.security.authentication.shared.extension.Principal;
 import org.akab.engine.app.test.ModuleTestCase;
 import org.akab.engine.core.api.client.extension.ContributionsRegistry;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

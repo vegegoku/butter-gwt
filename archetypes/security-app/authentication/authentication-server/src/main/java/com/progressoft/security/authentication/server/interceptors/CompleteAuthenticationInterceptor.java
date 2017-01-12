@@ -1,6 +1,6 @@
 package com.progressoft.security.authentication.server.interceptors;
 
-import com.progressoft.security.authentication.server.ServerAuthenticationContext;
+import com.progressoft.security.authentication.shared.ServerAuthenticationContext;
 import com.progressoft.security.authentication.server.registry.WebAuthenticationHolder;
 import com.progressoft.security.authentication.shared.request.CompleteAuthenticationRequest;
 import org.akab.engine.core.api.shared.server.Interceptor;
