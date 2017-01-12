@@ -11,15 +11,20 @@ import static java.util.Objects.isNull;
 @Presenter
 public class DefaultLoginPresenter extends BaseClientPresenter<LoginView> implements LoginPresenter {
 
+    public static final String REQUIRED = "Required";
+
     @Override
     public void initView(LoginView view) {
         view.addLoginHandler(loginCredentials -> {
             if(isNull(loginCredentials.getUserName()) || loginCredentials.getUserName().trim().isEmpty())
-                view.invalidateUserName("Required");
+                view.invalidateUserName(REQUIRED);
             if(isNull(loginCredentials.getPassword()) || loginCredentials.getPassword().trim().isEmpty())
-                view.invalidatePassword("Required");
+                view.invalidatePassword(REQUIRED);
             if(isNull(loginCredentials.getTenant()) || loginCredentials.getTenant().trim().isEmpty())
-                view.invalidateTenant("Required");
+                view.invalidateTenant(REQUIRED);
+
+            // TODO: 1/13/17 next we should write the actual login authentication on server.
+
         });
     }
 
