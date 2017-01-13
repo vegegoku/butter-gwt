@@ -9,8 +9,8 @@ import com.progressoft.security.login.client.provider.LoginClientAuthenticationP
 public class FakeAuthenticationContext implements AuthenticationContext {
 
     public static final String PROVIDER_REGISTERED = "provider-registered";
-    public static final String CHAIN_COMPLETED = "chain-completed";
-    public static final String CHAIN_FAILED = "chain-failed";
+    public static final String CHAIN_COMPLETED = "-chain-completed";
+    public static final String CHAIN_FAILED = "-chain-failed";
     public LoginClientAuthenticationProvider provider;
 
     public StringBuilder calls=new StringBuilder("");

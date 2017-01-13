@@ -8,13 +8,12 @@ import com.progressoft.security.login.client.views.Bundle;
 import org.akab.engine.core.logger.client.CoreLogger;
 import org.akab.engine.core.logger.client.CoreLoggerFactory;
 
-import com.progressoft.security.login.client.views.LoginBundle;
-
 @ClientModule(name="Login")
 public class LoginClientModule implements EntryPoint {
 
 	private static final CoreLogger LOGGER = CoreLoggerFactory.getLogger(LoginClientModule.class);
 
+	@Override
 	public void onModuleLoad() {
 		LOGGER.info("Initializing Login client module ...");
 		Bundle.INSTANCE.style().ensureInjected();

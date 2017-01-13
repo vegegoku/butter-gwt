@@ -4,16 +4,12 @@ import com.progressoft.security.login.client.presenters.LoginPresenter;
 import com.progressoft.security.login.shared.request.DefaultTenantRequest;
 import com.progressoft.security.login.shared.response.DefaultTenantResponse;
 import org.akab.engine.core.api.client.request.ClientServerRequest;
-import org.akab.engine.core.logger.client.CoreLogger;
-import org.akab.engine.core.logger.client.CoreLoggerFactory;
 
 import org.akab.engine.core.api.client.annotations.Request;
 
 @Request
 public class FindDefaultTenantServerRequest
         extends ClientServerRequest<LoginPresenter, DefaultTenantRequest, DefaultTenantResponse> {
-
-    private static final CoreLogger LOGGER = CoreLoggerFactory.getLogger(FindDefaultTenantServerRequest.class);
 
     @Override
     protected void process(LoginPresenter presenter, DefaultTenantRequest serverRequest,

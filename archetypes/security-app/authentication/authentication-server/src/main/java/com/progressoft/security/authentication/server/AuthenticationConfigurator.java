@@ -12,7 +12,7 @@ public class AuthenticationConfigurator {
             throw new InvalidConfigurationLoaders();
         if(loaders.size()>1)
             throw new MoreThanOneAuthenticationLoaderFound();
-        registerConfigurationLoader(loaders.stream().findFirst().get());
+        registerConfigurationLoader(loaders.stream().findFirst().orElseThrow(NoConfigurationLoadersFound::new));
     }
 
     private void registerConfigurationLoader(AuthenticationConfigurationLoader loader) {
@@ -23,5 +23,9 @@ public class AuthenticationConfigurator {
     }
 
     public class MoreThanOneAuthenticationLoaderFound extends RuntimeException{
+    }
+
+    public class NoConfigurationLoadersFound extends RuntimeException{
+
     }
 }

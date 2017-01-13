@@ -8,7 +8,6 @@ import org.akab.engine.core.logger.client.CoreLoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Objects;
 import java.util.Properties;
 
 import static java.util.Objects.*;
@@ -42,7 +41,6 @@ public class PropertiesAuthenticationConfigurationLoader implements Authenticati
                 throw new AuthenticationConfigurationLoader.InvalidConfigurationProvidedException();
             this.rootChain = rootChain;
             this.defaultTenant = defaultTenant;
-
         }
 
         @Override
@@ -80,7 +78,6 @@ public class PropertiesAuthenticationConfigurationLoader implements Authenticati
             LOGGER.error("Could not find root authentication chain", e);
             return new Properties();
         }
-
     }
 
     private ClassLoader getClassLoader() {

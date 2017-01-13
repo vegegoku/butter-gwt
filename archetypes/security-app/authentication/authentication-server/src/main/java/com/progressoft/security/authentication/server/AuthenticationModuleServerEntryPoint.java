@@ -8,7 +8,6 @@ import org.akab.engine.core.api.shared.server.ServerAppEntryPoint;
 import java.util.HashSet;
 import java.util.ServiceLoader;
 import java.util.Set;
-import java.util.stream.Stream;
 
 @AutoService(ServerAppEntryPoint.class)
 public class AuthenticationModuleServerEntryPoint implements ServerAppEntryPoint{
@@ -16,7 +15,7 @@ public class AuthenticationModuleServerEntryPoint implements ServerAppEntryPoint
     @Override
     public void onModulesLoaded() {
         Set<AuthenticationConfigurationLoader> loaders=new HashSet<>();
-        ServiceLoader.load(AuthenticationConfigurationLoader.class).forEach(l->loaders.add(l));
+        ServiceLoader.load(AuthenticationConfigurationLoader.class).forEach(loaders::add);
         new AuthenticationConfigurator(loaders);
     }
 }

@@ -1,23 +1,24 @@
 package com.progressoft.security.login.shared.request;
 
+import com.progressoft.security.login.shared.extension.LoginCredentials;
 import org.akab.engine.core.api.shared.request.ServerRequest;
 
 public class LoginRequest extends ServerRequest {
 
-    private String message;
+    private LoginCredentials loginCredentials;
 
     public LoginRequest() {
     }
 
-    public LoginRequest(String message) {
-        this.message = message;
+    public LoginRequest(LoginCredentials loginCredentials) {
+        this.loginCredentials = loginCredentials;
     }
 
-    public String getMessage() {
-        return message;
+    public LoginCredentials getLoginCredentials() {
+        return loginCredentials;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setLoginCredentials(LoginCredentials loginCredentials) {
+        this.loginCredentials = loginCredentials;
     }
 }

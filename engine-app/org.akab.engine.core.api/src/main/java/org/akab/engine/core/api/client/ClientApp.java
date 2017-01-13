@@ -137,7 +137,7 @@ public class ClientApp
 
     public void run() {
         initialTasks.forEach(InitializeTask::execute);
-//        Contributions.apply(MainExtensionPoint.class, mainExtensionPoint);
+        Contributions.apply(MainExtensionPoint.class, mainExtensionPoint);
     }
 
 

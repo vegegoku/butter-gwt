@@ -1,46 +1,25 @@
 package com.progressoft.security.login.client;
 
-import com.google.gwt.user.client.ui.HasText;
 import com.progressoft.security.login.client.presenters.LoginHandler;
 import com.progressoft.security.login.client.views.DefaultLoginView;
+import com.progressoft.security.login.client.views.LoginView;
 import gwt.material.design.client.ui.MaterialTextBox;
 
 public class LoginViewSpy extends DefaultLoginView {
 
     private boolean loginDialogVisible=false;
-    private String user;
-    private String pass;
     private LoginHandler loginHandler;
+    private String errorMessage;
 
     public boolean isLoginDialogVisible() {
         return loginDialogVisible;
     }
 
-    public void setValues(String user, String password){
-        this.user=user;
-        this.pass =password;
-    }
-
     @Override
-    public void show(String defaultTenant) {
+    public LoginView show(String defaultTenant) {
         super.show(defaultTenant);
         this.loginDialogVisible=true;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
+        return this;
     }
 
     public String getUserName() {
@@ -90,4 +69,13 @@ public class LoginViewSpy extends DefaultLoginView {
         return super.getTenantField();
     }
 
+    @Override
+    public void showErrorMessage(String errorMessage) {
+        super.showErrorMessage(errorMessage);
+        this.errorMessage=errorMessage;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
 }

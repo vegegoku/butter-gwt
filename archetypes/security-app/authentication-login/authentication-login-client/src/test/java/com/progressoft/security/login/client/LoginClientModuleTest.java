@@ -5,8 +5,12 @@ import com.google.gwtmockito.GwtMockito;
 import com.google.gwtmockito.GwtMockitoTestRunner;
 
 import com.google.gwtmockito.fakes.FakeProvider;
+import com.progressoft.security.authentication.shared.ServerAuthenticationContext;
+import com.progressoft.security.authentication.shared.configurations.AuthenticationConfiguration;
+import com.progressoft.security.authentication.shared.configurations.AuthenticationConfigurationLoader;
 import com.progressoft.security.authentication.shared.extension.*;
 import com.progressoft.security.login.client.contributions.LoginAuthenticationContribution;
+import com.progressoft.security.login.server.LoginContext;
 import gwt.material.design.client.base.AbstractValueWidget;
 import gwt.material.design.client.base.mixin.ErrorMixin;
 import gwt.material.design.client.ui.MaterialLabel;
@@ -25,6 +29,8 @@ import org.akab.engine.app.test.ModuleTestCase;
 @RunWith(GwtMockitoTestRunner.class)
 public class LoginClientModuleTest extends ModuleTestCase{
 
+    public static final String REQUIRED = "Required";
+    public static final String SOMETHING = "something";
     private LoginPresenterSpy presenterSpy;
     private LoginViewSpy viewSpy;
     private LoginAuthenticationContribution loginAuthenticationContribution;
@@ -49,8 +55,27 @@ public class LoginClientModuleTest extends ModuleTestCase{
         });
 
         loginAuthenticationContribution=testModule.getContribution(LoginAuthenticationContribution.class);
+        initServerAuthenticationConfigurations();
+        LoginContext.withUserRepository(new InMemoryUserRepository());
+    }
 
+    private void initServerAuthenticationConfigurations() {
+        ServerAuthenticationContext.withConfigurationLoader(new AuthenticationConfigurationLoader() {
+            @Override
+            public AuthenticationConfiguration load() {
+                return new AuthenticationConfiguration() {
+                    @Override
+                    public String rootAuthenticationChain() {
+                        return "LOGIN";
+                    }
 
+                    @Override
+                    public String defaultTenant() {
+                        return "TENANT";
+                    }
+                };
+            }
+        });
     }
 
     private void applyAuthenticationContributions(final AuthenticationContext context) {
@@ -90,8 +115,8 @@ public class LoginClientModuleTest extends ModuleTestCase{
     @Test
     public void givenLoginModule_whenLoginDialogIsShown_thenUserNameAndPasswordFieldsShouldBeEmpty() throws Exception {
         applyAuthenticationContributions(fakeAuthenticationContext);
-        viewSpy.setUserName("something");
-        viewSpy.setPassword("something");
+        viewSpy.setUserName(SOMETHING);
+        viewSpy.setPassword(SOMETHING);
         fakeAuthenticationContext.provider.begin();
         assertEquals("", viewSpy.getUserName());
         assertEquals("", viewSpy.getPassword());
@@ -101,7 +126,7 @@ public class LoginClientModuleTest extends ModuleTestCase{
     public void givenLoginModule_whenLoginDialogIsShown_thenTenantFieldValueShouldBeDefaultTenant() throws Exception {
         applyAuthenticationContributions(fakeAuthenticationContext);
         fakeAuthenticationContext.provider.begin();
-        assertEquals("System", viewSpy.getTenant());
+        assertEquals("TENANT", viewSpy.getTenant());
     }
 
     @Test
@@ -109,7 +134,7 @@ public class LoginClientModuleTest extends ModuleTestCase{
         applyAuthenticationContributions(fakeAuthenticationContext);
         fakeAuthenticationContext.provider.begin();
         viewSpy.clickLogin();
-        assertEquals("Required", ((FakeMaterialTextBox)viewSpy.getUserNameField()).getError());
+        assertEquals(REQUIRED, ((FakeMaterialTextBox)viewSpy.getUserNameField()).getError());
     }
 
     @Test
@@ -117,7 +142,7 @@ public class LoginClientModuleTest extends ModuleTestCase{
         applyAuthenticationContributions(fakeAuthenticationContext);
         fakeAuthenticationContext.provider.begin();
         viewSpy.clickLogin();
-        assertEquals("Required", ((FakeMaterialTextBox)viewSpy.getPasswordField()).getError());
+        assertEquals(REQUIRED, ((FakeMaterialTextBox)viewSpy.getPasswordField()).getError());
     }
 
     @Test
@@ -126,7 +151,49 @@ public class LoginClientModuleTest extends ModuleTestCase{
         fakeAuthenticationContext.provider.begin();
         viewSpy.setTenant("");
         viewSpy.clickLogin();
-        assertEquals("Required", ((FakeMaterialTextBox)viewSpy.getTenantField()).getError());
+        assertEquals(REQUIRED, ((FakeMaterialTextBox)viewSpy.getTenantField()).getError());
+    }
+
+    @Test
+    public void givenLoginModule_whenLoginButtonIsClickedAndCredentialsAreValidAndTheUserIsNotFound_thenShouldShowErrorMessage() throws Exception {
+        applyAuthenticationContributions(fakeAuthenticationContext);
+        fakeAuthenticationContext.provider.begin();
+        viewSpy.setUserName("NOT_FOUND_USER");
+        viewSpy.setPassword(SOMETHING);
+        viewSpy.clickLogin();
+        assertEquals("Bad credentials",viewSpy.getErrorMessage());
+    }
+
+    @Test
+    public void givenLoginModule_whenLoginButtonIsClickedAndCredentialsAreValidAndTheUserIsFoundAndPasswordIsWrong_thenShouldShowErrorMessage() throws Exception {
+        applyAuthenticationContributions(fakeAuthenticationContext);
+        fakeAuthenticationContext.provider.begin();
+        viewSpy.setUserName("FOUND_USER");
+        viewSpy.setPassword("WRONG_PASSWORD");
+        viewSpy.clickLogin();
+        assertEquals("Bad credentials",viewSpy.getErrorMessage());
+    }
+
+    @Test
+    public void givenLoginModule_whenLoginButtonIsClickedAndCredentialsAreValidAndTheUserIsFoundAndTenantIsWrong_thenShouldShowErrorMessage() throws Exception {
+        applyAuthenticationContributions(fakeAuthenticationContext);
+        fakeAuthenticationContext.provider.begin();
+        viewSpy.setUserName("FOUND_USER");
+        viewSpy.setPassword("SECRET");
+        viewSpy.setTenant("WRONG_TENANT");
+        viewSpy.clickLogin();
+        assertEquals("Bad credentials",viewSpy.getErrorMessage());
+    }
+
+    @Test
+    public void givenLoginModule_whenLoginButtonIsClickedAndCredentialsAreValid_thenShouldCompleteTheChainSuccessfully() throws Exception {
+        applyAuthenticationContributions(fakeAuthenticationContext);
+        fakeAuthenticationContext.provider.begin();
+        viewSpy.setUserName("FOUND_USER");
+        viewSpy.setPassword("SECRET");
+        viewSpy.setTenant("TENANT");
+        viewSpy.clickLogin();
+        assertEquals(FakeAuthenticationContext.PROVIDER_REGISTERED+FakeAuthenticationContext.CHAIN_COMPLETED,fakeAuthenticationContext.calls.toString());
     }
 
 

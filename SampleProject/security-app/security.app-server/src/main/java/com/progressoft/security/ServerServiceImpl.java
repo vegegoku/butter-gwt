@@ -16,7 +16,7 @@ public class ServerServiceImpl extends RemoteServiceServlet implements ServerSer
     private static final Logger LOGGER=Logger.getLogger(ServerServiceImpl.class.getName());
 
     @Override
-    public ServerResponse executeRequest(ServerRequest request) throws Exception {
+    public ServerResponse executeRequest(ServerRequest request) {
         LOGGER.info("Server call recieved for request : "+request.toString());
         return ServerApp
                 .make().executeRequest(request, new RpcEntryPointContext(getThreadLocalRequest(), getThreadLocalResponse()));

@@ -1,6 +1,5 @@
 package com.progressoft.security.authentication.client.presenters;
 
-import com.progressoft.security.authentication.shared.extension.ClientAuthenticationProvider;
 import com.progressoft.security.authentication.shared.extension.CompletedChainContext;
 import com.progressoft.security.authentication.shared.extension.FailedChainContext;
 import com.progressoft.security.authentication.shared.extension.Principal;

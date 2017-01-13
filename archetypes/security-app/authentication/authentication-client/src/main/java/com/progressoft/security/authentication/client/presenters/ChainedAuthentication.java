@@ -3,7 +3,6 @@ package com.progressoft.security.authentication.client.presenters;
 import com.progressoft.security.authentication.client.registry.AuthenticationProviderRegistry;
 
 import java.util.Deque;
-import java.util.Objects;
 
 import static java.util.Objects.*;
 

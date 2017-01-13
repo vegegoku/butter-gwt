@@ -10,6 +10,7 @@ public class AppClientModule implements EntryPoint {
 
 	private static final Logger LOGGER= Logger.getLogger(AppClientModule.class.getName());
 
+	@Override
 	public void onModuleLoad() {
 		ClientApp.make().run();
 		LOGGER.info("Application client side have been initialized.");

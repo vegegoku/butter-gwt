@@ -9,12 +9,11 @@
         }
     </ui:style>
 
-    <m:MaterialPanel ui:field="mainPanel">
-        <m:MaterialRow>
-            <m:MaterialColumn grid="s12 m10 l4" >
+        <m:MaterialRow addStyleNames="code {bundle.style.mainPanel}" overflow="AUTO">
+            <m:MaterialColumn grid="s12 m10 l4" offset="l4">
                 <m:MaterialCard backgroundColor="WHITE" shadow="1">
                     <m:MaterialCardImage waves="LIGHT">
-                        <m:MaterialImage backgroundColor="GREY_LIGHTEN_5"/>
+                        <m:MaterialImage resource="{bundle.logo}" backgroundColor="GREY_LIGHTEN_5"/>
                         <m:MaterialCardTitle text="Login" fontSize="2em"/>
                     </m:MaterialCardImage>
 
@@ -24,12 +23,7 @@
                         <m:MaterialTextBox ui:field="tenant" type="TEXT" placeholder="Tenant"/>
                         <m:MaterialButton ui:field="loginButton" waves="LIGHT" text="Log In" width="100%" backgroundColor="BLUE_LIGHTEN_1"/>
                     </m:MaterialCardContent>
-
-                    <m:MaterialCardAction>
-                        <m:MaterialCheckBox text="Keep me logged in"/>
-                    </m:MaterialCardAction>
                 </m:MaterialCard>
             </m:MaterialColumn>
         </m:MaterialRow>
-    </m:MaterialPanel>
 </ui:UiBinder>
