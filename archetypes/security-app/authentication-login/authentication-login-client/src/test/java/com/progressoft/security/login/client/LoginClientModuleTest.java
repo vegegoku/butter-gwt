@@ -1,6 +1,7 @@
 package com.progressoft.security.login.client;
 
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwtmockito.GwtMockito;
 import com.google.gwtmockito.GwtMockitoTestRunner;
 
@@ -9,6 +10,8 @@ import com.progressoft.security.authentication.shared.ServerAuthenticationContex
 import com.progressoft.security.authentication.shared.configurations.AuthenticationConfiguration;
 import com.progressoft.security.authentication.shared.configurations.AuthenticationConfigurationLoader;
 import com.progressoft.security.authentication.shared.extension.*;
+import com.progressoft.security.layout.shared.extension.AuthenticationLayoutContext;
+import com.progressoft.security.layout.shared.extension.AuthenticationLayoutExtensionPoint;
 import com.progressoft.security.login.client.contributions.LoginAuthenticationContribution;
 import com.progressoft.security.login.server.LoginContext;
 import gwt.material.design.client.base.AbstractValueWidget;
@@ -18,6 +21,7 @@ import gwt.material.design.client.ui.MaterialTextBox;
 import org.akab.engine.core.api.client.extension.Contributions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -27,7 +31,7 @@ import com.progressoft.security.login.client.presenters.LoginPresenter;
 import org.akab.engine.app.test.ModuleTestCase;
 
 @RunWith(GwtMockitoTestRunner.class)
-public class LoginClientModuleTest extends ModuleTestCase{
+public class LoginClientModuleTest extends ModuleTestCase {
 
     public static final String REQUIRED = "Required";
     public static final String SOMETHING = "something";
@@ -41,50 +45,42 @@ public class LoginClientModuleTest extends ModuleTestCase{
     public void setUp() {
         GwtMockito.useProviderForType(MaterialTextBox.class, type -> new FakeMaterialTextBox());
 
-        fakeAuthenticationContext= new FakeAuthenticationContext();
+        fakeAuthenticationContext = new FakeAuthenticationContext();
         testModule.configureModule(new LoginModuleConfiguration());
 
         testModule.replacePresenter(LoginPresenter.class.getCanonicalName(), () -> {
-            presenterSpy=new LoginPresenterSpy();
+            presenterSpy = new LoginPresenterSpy();
             return presenterSpy;
         });
 
         testModule.replaceView(LoginPresenter.class.getCanonicalName(), () -> {
-            viewSpy=new LoginViewSpy();
+            viewSpy = new LoginViewSpy();
             return viewSpy;
         });
 
-        loginAuthenticationContribution=testModule.getContribution(LoginAuthenticationContribution.class);
+        loginAuthenticationContribution = testModule.getContribution(LoginAuthenticationContribution.class);
         initServerAuthenticationConfigurations();
+        Contributions.apply(AuthenticationLayoutExtensionPoint.class, (AuthenticationLayoutExtensionPoint) () -> view -> {
+        });
         LoginContext.withUserRepository(new InMemoryUserRepository());
     }
 
     private void initServerAuthenticationConfigurations() {
-        ServerAuthenticationContext.withConfigurationLoader(new AuthenticationConfigurationLoader() {
+        ServerAuthenticationContext.withConfigurationLoader(() -> new AuthenticationConfiguration() {
             @Override
-            public AuthenticationConfiguration load() {
-                return new AuthenticationConfiguration() {
-                    @Override
-                    public String rootAuthenticationChain() {
-                        return "LOGIN";
-                    }
+            public String rootAuthenticationChain() {
+                return "LOGIN";
+            }
 
-                    @Override
-                    public String defaultTenant() {
-                        return "TENANT";
-                    }
-                };
+            @Override
+            public String defaultTenant() {
+                return "TENANT";
             }
         });
     }
 
     private void applyAuthenticationContributions(final AuthenticationContext context) {
-        Contributions.apply(AuthenticationExtensionPoint.class, new AuthenticationExtensionPoint() {
-            @Override
-            public AuthenticationContext context() {
-                return context;
-            }
-        });
+        Contributions.apply(AuthenticationExtensionPoint.class, (AuthenticationExtensionPoint) () -> context);
     }
 
     @Test
@@ -134,7 +130,7 @@ public class LoginClientModuleTest extends ModuleTestCase{
         applyAuthenticationContributions(fakeAuthenticationContext);
         fakeAuthenticationContext.provider.begin();
         viewSpy.clickLogin();
-        assertEquals(REQUIRED, ((FakeMaterialTextBox)viewSpy.getUserNameField()).getError());
+        assertEquals(REQUIRED, ((FakeMaterialTextBox) viewSpy.getUserNameField()).getError());
     }
 
     @Test
@@ -142,7 +138,7 @@ public class LoginClientModuleTest extends ModuleTestCase{
         applyAuthenticationContributions(fakeAuthenticationContext);
         fakeAuthenticationContext.provider.begin();
         viewSpy.clickLogin();
-        assertEquals(REQUIRED, ((FakeMaterialTextBox)viewSpy.getPasswordField()).getError());
+        assertEquals(REQUIRED, ((FakeMaterialTextBox) viewSpy.getPasswordField()).getError());
     }
 
     @Test
@@ -151,7 +147,7 @@ public class LoginClientModuleTest extends ModuleTestCase{
         fakeAuthenticationContext.provider.begin();
         viewSpy.setTenant("");
         viewSpy.clickLogin();
-        assertEquals(REQUIRED, ((FakeMaterialTextBox)viewSpy.getTenantField()).getError());
+        assertEquals(REQUIRED, ((FakeMaterialTextBox) viewSpy.getTenantField()).getError());
     }
 
     @Test
@@ -161,7 +157,7 @@ public class LoginClientModuleTest extends ModuleTestCase{
         viewSpy.setUserName("NOT_FOUND_USER");
         viewSpy.setPassword(SOMETHING);
         viewSpy.clickLogin();
-        assertEquals("Bad credentials",viewSpy.getErrorMessage());
+        assertEquals("Bad credentials", viewSpy.getErrorMessage());
     }
 
     @Test
@@ -171,7 +167,7 @@ public class LoginClientModuleTest extends ModuleTestCase{
         viewSpy.setUserName("FOUND_USER");
         viewSpy.setPassword("WRONG_PASSWORD");
         viewSpy.clickLogin();
-        assertEquals("Bad credentials",viewSpy.getErrorMessage());
+        assertEquals("Bad credentials", viewSpy.getErrorMessage());
     }
 
     @Test
@@ -182,7 +178,7 @@ public class LoginClientModuleTest extends ModuleTestCase{
         viewSpy.setPassword("SECRET");
         viewSpy.setTenant("WRONG_TENANT");
         viewSpy.clickLogin();
-        assertEquals("Bad credentials",viewSpy.getErrorMessage());
+        assertEquals("Bad credentials", viewSpy.getErrorMessage());
     }
 
     @Test
@@ -193,7 +189,7 @@ public class LoginClientModuleTest extends ModuleTestCase{
         viewSpy.setPassword("SECRET");
         viewSpy.setTenant("TENANT");
         viewSpy.clickLogin();
-        assertEquals(FakeAuthenticationContext.PROVIDER_REGISTERED+FakeAuthenticationContext.CHAIN_COMPLETED,fakeAuthenticationContext.calls.toString());
+        assertEquals(FakeAuthenticationContext.PROVIDER_REGISTERED + FakeAuthenticationContext.CHAIN_COMPLETED, fakeAuthenticationContext.calls.toString());
     }
 
 

@@ -9,7 +9,7 @@ public class LoginPrincipal implements Principal {
     private String userName;
     private String tenant;
 
-    private LoginPrincipal() {
+    public LoginPrincipal() {
     }
 
     public LoginPrincipal(String userName, String tenant){

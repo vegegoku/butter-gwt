@@ -3,12 +3,11 @@ package com.progressoft.security.login.shared.response;
 import com.progressoft.security.authentication.shared.extension.Principal;
 import org.akab.engine.core.api.shared.request.ServerResponse;
 
-
 public class LoginResponse extends ServerResponse {
 
     private Principal principal;
 
-    private LoginResponse() {
+    public LoginResponse() {
     }
 
     public LoginResponse(Principal principal) {

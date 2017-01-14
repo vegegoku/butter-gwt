@@ -9,6 +9,6 @@ import org.akab.engine.core.api.shared.extension.Contribution;
 public class LoginContributionToLayout implements Contribution<AuthenticationLayoutExtensionPoint>{
     @Override
     public void contribute(AuthenticationLayoutExtensionPoint extensionPoint) {
-        new ObtainLayoutClientRequest( extensionPoint.context()).send();
+        new ObtainLayoutClientRequest(extensionPoint.context()).send();
     }
 }

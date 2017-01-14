@@ -12,7 +12,6 @@ public class ObtainLayoutClientRequest extends ClientRequest<LoginPresenter> {
     private final AuthenticationLayoutContext context;
 
     public ObtainLayoutClientRequest(AuthenticationLayoutContext context) {
-
         this.context = context;
     }
 

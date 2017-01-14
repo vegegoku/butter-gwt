@@ -10,6 +10,7 @@ public interface AuthenticationLayoutBundle extends ClientBundle{
 
     interface Style extends CssResource {
         String AuthenticationLayout();
+        String securityIcon();
     }
 
     @Source("css/AuthenticationLayout.gss")

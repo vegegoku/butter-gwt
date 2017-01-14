@@ -10,7 +10,6 @@ import org.akab.engine.core.api.shared.server.RequestHandler;
 public class FindDefaultTenantRequestHandler implements RequestHandler<DefaultTenantRequest, DefaultTenantResponse> {
     @Override
     public DefaultTenantResponse handleRequest(DefaultTenantRequest request) {
-
         return new DefaultTenantResponse(ServerAuthenticationContext.configuration().defaultTenant());
     }
 

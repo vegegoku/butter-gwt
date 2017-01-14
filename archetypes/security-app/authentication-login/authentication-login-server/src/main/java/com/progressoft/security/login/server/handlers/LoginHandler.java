@@ -1,6 +1,5 @@
 package com.progressoft.security.login.server.handlers;
 
-import com.progressoft.security.authentication.shared.extension.Principal;
 import com.progressoft.security.login.server.LoginContext;
 import com.progressoft.security.login.server.usecase.LoginUserUseCase;
 import com.progressoft.security.login.shared.request.LoginRequest;
@@ -20,14 +19,11 @@ public class LoginHandler implements RequestHandler<LoginRequest, LoginResponse>
     @Override
     public LoginResponse handleRequest(LoginRequest request) {
         try {
-            new LoginUserUseCase(LoginContext.userRepository()).login(request.getLoginCredentials());
-        }catch (UserNotFoundException | BadCredentialsException e){
-            LOGGER.error("Bad credentials : ",e);
+            return new LoginUserUseCase(LoginContext.userRepository()).login(request.getLoginCredentials());
+        } catch (BadCredentialsException | UserNotFoundException e) {
+            LOGGER.error("Bad credentials : ", e);
             return new LoginResponse(null);
-
         }
-
-        return new LoginResponse(new Principal() {});
     }
 }
 

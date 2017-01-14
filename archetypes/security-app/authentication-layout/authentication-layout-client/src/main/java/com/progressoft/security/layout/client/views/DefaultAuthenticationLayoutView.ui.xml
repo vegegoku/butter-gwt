@@ -12,11 +12,11 @@
     <g:HTMLPanel>
         <m:MaterialHeader depth="996" layoutPosition="FIXED" width="100%">
             <m:MaterialNavBar ui:field="appNav" backgroundColor="BLUE_LIGHTEN_1">
-                <m:MaterialNavBrand text="Security"/>
+                <m:MaterialNavBrand marginLeft="20" text="Security"/>
 
                 <m:MaterialNavSection float="RIGHT" hideOn="HIDE_ON_SMALL_DOWN">
                     <m:MaterialLink iconPosition="NONE" iconType="HELP_OUTLINE" marginRight="20" />
-                    <m:MaterialIcon iconPosition="NONE" iconType="SECURITY" marginRight="20"/>
+                    <m:MaterialIcon addStyleNames="code {bundle.style.securityIcon}" iconPosition="NONE" iconType="SECURITY" marginRight="20"/>
                 </m:MaterialNavSection>
             </m:MaterialNavBar>
         </m:MaterialHeader>

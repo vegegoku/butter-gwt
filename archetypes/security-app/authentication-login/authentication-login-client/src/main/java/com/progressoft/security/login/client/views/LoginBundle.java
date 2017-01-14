@@ -9,6 +9,7 @@ public interface LoginBundle extends ClientBundle{
 
     interface Style extends CssResource {
         String mainPanel();
+        String errorDialogTitle();
         String login();
     }
 

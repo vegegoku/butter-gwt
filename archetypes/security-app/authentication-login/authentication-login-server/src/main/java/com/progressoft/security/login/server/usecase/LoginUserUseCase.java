@@ -2,7 +2,6 @@ package com.progressoft.security.login.server.usecase;
 
 import com.progressoft.security.login.server.model.User;
 import com.progressoft.security.login.server.repository.UserRepository;
-import com.progressoft.security.login.shared.LoginPrincipal;
 import com.progressoft.security.login.shared.extension.LoginCredentials;
 import com.progressoft.security.login.shared.response.LoginResponse;
 
@@ -38,7 +37,7 @@ public class LoginUserUseCase {
         if (isNull(user))
             throw new UserNotFoundException();
         if (!user.isSamePassword(credentials.getPassword()))
-                throw new BadCredentialsException();
+            throw new BadCredentialsException();
         return user;
     }
 

@@ -6,22 +6,16 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
-
 import com.progressoft.security.login.client.presenters.Conclusion;
-import com.progressoft.security.login.shared.extension.LoginCredentials;
 import com.progressoft.security.login.client.presenters.LoginHandler;
+import com.progressoft.security.login.client.presenters.LoginPresenter;
+import com.progressoft.security.login.shared.extension.LoginCredentials;
 import com.progressoft.security.login.shared.extension.ViewLoginCredentials;
-import gwt.material.design.client.ui.MaterialButton;
-import gwt.material.design.client.ui.MaterialPanel;
-import gwt.material.design.client.ui.MaterialRow;
-import gwt.material.design.client.ui.MaterialTextBox;
+import gwt.material.design.client.ui.*;
 import org.akab.engine.core.api.client.annotations.UiView;
 
-import com.progressoft.security.login.client.presenters.LoginPresenter;
-import org.akab.engine.core.api.client.mvp.view.View;
-
 @UiView(presentable = LoginPresenter.class)
-public class DefaultLoginView extends Composite implements LoginView{
+public class DefaultLoginView extends Composite implements LoginView {
 
     private LoginHandler loginHandler;
 
@@ -43,12 +37,18 @@ public class DefaultLoginView extends Composite implements LoginView{
     @UiField
     MaterialButton loginButton;
 
+    @UiField
+    MaterialModal errorDialog;
+
+    @UiField
+    MaterialTitle errorDialogTitle;
+
     public DefaultLoginView() {
         initWidget(ourUiBinder.createAndBindUi(this));
     }
 
     @Override
-    public LoginView show(String defaultTenant){
+    public LoginView show(String defaultTenant) {
         userName.setText("");
         password.setText("");
         tenant.setText(defaultTenant);
@@ -56,7 +56,8 @@ public class DefaultLoginView extends Composite implements LoginView{
     }
 
     @UiHandler("loginButton")
-    void onLoginButtonClick(ClickEvent event){
+    void onLoginButtonClick(ClickEvent event) {
+        MaterialLoader.showProgress(true);
         this.loginHandler.handle(makeLoginCredentials());
     }
 
@@ -64,13 +65,14 @@ public class DefaultLoginView extends Composite implements LoginView{
         return new ViewLoginCredentials(userName.getText(), password.getText(), tenant.getText());
     }
 
-    protected String getUserName(){
+    protected String getUserName() {
         return userName.getText();
     }
 
-    protected String getPassword(){
+    protected String getPassword() {
         return password.getText();
     }
+
     protected String getTenant() {
         return tenant.getText();
     }
@@ -79,16 +81,17 @@ public class DefaultLoginView extends Composite implements LoginView{
         this.userName.setText(userName);
     }
 
-    protected void setPassword(String password){
+    protected void setPassword(String password) {
         this.password.setText(password);
     }
-    protected void setTenant(String tenant){
+
+    protected void setTenant(String tenant) {
         this.tenant.setText(tenant);
     }
 
     @Override
     public void addLoginHandler(LoginHandler loginHandler) {
-        this.loginHandler=loginHandler;
+        this.loginHandler = loginHandler;
     }
 
     private void invalidateUserName(String errorMessage) {
@@ -108,6 +111,7 @@ public class DefaultLoginView extends Composite implements LoginView{
         conclusion.invalidateFiled(Bundle.USERNAME, this::invalidateUserName);
         conclusion.invalidateFiled(Bundle.SECRET, this::invalidatePassword);
         conclusion.invalidateFiled(Bundle.TENANT, this::invalidateTenant);
+        MaterialLoader.showProgress(false);
     }
 
     protected MaterialTextBox getUserNameField() {
@@ -124,6 +128,8 @@ public class DefaultLoginView extends Composite implements LoginView{
 
     @Override
     public void showErrorMessage(String errorMessage) {
-        //to be implemented after we finish the unit testing ..ui thing
+        MaterialLoader.showProgress(false);
+        errorDialogTitle.setDescription(errorMessage);
+        errorDialog.open();
     }
 }

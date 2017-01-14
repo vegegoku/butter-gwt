@@ -1,5 +1,6 @@
 package com.progressoft.security.authentication.client.presenters;
 
+import com.google.gwt.user.client.Window;
 import com.progressoft.security.authentication.client.extensions.DefaultAuthenticationCompletedContext;
 import com.progressoft.security.authentication.client.extensions.DefaultAuthenticationCompletedExtensionPoint;
 import com.progressoft.security.authentication.client.extensions.DefaultAuthenticationContext;
@@ -26,6 +27,7 @@ public class DefaultAuthenticationPresenter extends BaseClientPresenter<Authenti
 
     @Override
     public void onAuthenticationCompleted(Principal principal) {
+        Window.alert("onAuthenticationCompleted");
         Contributions.apply(AuthenticationCompletedExtensionPoint.class, makeAuthenticationExtensionPoint(principal));
     }
 

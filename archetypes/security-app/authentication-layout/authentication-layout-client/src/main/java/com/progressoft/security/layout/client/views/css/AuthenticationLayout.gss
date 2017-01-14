@@ -1,3 +1,7 @@
 .AuthenticationLayout{
     background-color: blue;
 }
+
+.securityIcon{
+    cursor: default !important;
+}
