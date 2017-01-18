@@ -10,7 +10,6 @@ import org.akab.engine.core.server.ServerConfigurationLoader;
 public class TestModule {
 
     public ClientApp init(ServerEntryPointContext entryPointContext) {
-        new ServerConfigurationLoader().loadModules();
         return TestClientAppFactory.make(entryPointContext);
     }
 
