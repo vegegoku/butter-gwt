@@ -15,7 +15,6 @@ import org.junit.runner.RunWith;
 import java.util.Deque;
 import java.util.LinkedList;
 
-import static org.easymock.EasyMock.*;
 import static org.junit.Assert.*;
 
 @RunWith(GwtMockitoTestRunner.class)
@@ -77,9 +76,6 @@ public class AuthenticationClientModuleMultiProvidersTest extends ModuleTestCase
                 }};
             }
         };
-        session.setAttribute(isA(String.class), eq(p));
-        expect(session.getAttribute("principle")).andReturn(p).anyTimes();
-        replay(session);
         rootAuthenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(p);
         assertEquals("Authentication failed", viewSpy.getErrorMessage());
     }
@@ -94,9 +90,6 @@ public class AuthenticationClientModuleMultiProvidersTest extends ModuleTestCase
                 }};
             }
         };
-        session.setAttribute(isA(String.class), eq(p));
-        expect(session.getAttribute("principle")).andReturn(p).anyTimes();
-        replay(session);
         rootAuthenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(p);
         assertTrue(secondFakeAuthenticationContribution.getProvider().isStarted());
     }
@@ -113,9 +106,7 @@ public class AuthenticationClientModuleMultiProvidersTest extends ModuleTestCase
                 return chains;
             }
         };
-        session.setAttribute(isA(String.class), eq(p));
-        expect(session.getAttribute("principle")).andReturn(p).anyTimes();
-        replay(session);
+
         rootAuthenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(p);
         secondFakeAuthenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(p);
         thirdFakeAuthenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(p);

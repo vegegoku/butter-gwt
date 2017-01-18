@@ -1,5 +1,8 @@
 package com.progressoft.security.login.server.repository;
 
+import com.progressoft.security.JpaStoresLoader;
+import com.progressoft.security.jpa.StoreContext;
+import com.progressoft.security.jpa.entity.UserEntity;
 import com.progressoft.security.login.server.model.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,11 +14,22 @@ import static org.junit.Assert.assertNull;
 public class MySqlUserRepositoryTest {
 
     public static final String WRONG_TENANT = "WRONG_TENANT";
-    private MySqlUserRepository repository;
+    private UserRepository repository;
 
     @Before
     public void setUp() throws Exception {
-        repository = new MySqlUserRepository();
+        repository = new JpaUserRepository();
+        JpaStoresLoader.load();
+
+        StoreContext.userStore().deleteAll();
+
+        UserEntity userEntity=new UserEntity();
+        userEntity.username="FOUND_USER";
+        userEntity.secret="SECRET";
+        userEntity.tenant="TENANT";
+
+        StoreContext.userStore().save(userEntity);
+
     }
 
     @Test

@@ -1,6 +1,9 @@
 package com.progressoft.security.login.server;
 
+import com.progressoft.security.login.server.repository.JpaUserRepository;
 import com.progressoft.security.login.server.repository.UserRepository;
+
+import java.util.Objects;
 
 public class LoginContext {
 
@@ -14,6 +17,8 @@ public class LoginContext {
     }
 
     public static UserRepository userRepository(){
+        if(Objects.isNull(LoginContext.userRepository))
+            LoginContext.withUserRepository(new JpaUserRepository());
         return LoginContext.userRepository;
     }
 }

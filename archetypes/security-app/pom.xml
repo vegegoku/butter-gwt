@@ -122,5 +122,6 @@
     <module>authentication</module>
     <module>authentication-login</module>
     <module>authentication-layout</module>
+      <module>authentication-data-store</module>
   </modules>
 </project>
