@@ -1,7 +1,7 @@
 package com.progressoft.notification.smtp;
 
+import com.dumbster.smtp.MailMessage;
 import com.dumbster.smtp.ServerOptions;
-import com.dumbster.smtp.SmtpMessage;
 import com.dumbster.smtp.SmtpServer;
 import com.dumbster.smtp.SmtpServerFactory;
 import com.progressoft.notification.configuration.SmtpConfiguration;
@@ -14,7 +14,6 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 public class EmailMessageTest {
 
@@ -26,7 +25,7 @@ public class EmailMessageTest {
         ServerOptions serverOptions = new ServerOptions();
         serverOptions.port = 2025;
         serverOptions.threaded = false;
-        server = SmtpServerFactory.startServer();
+        server = SmtpServerFactory.startServer(serverOptions);
         configuration = SmtpConfigurationContext.configure("smtp-configuration.properties");
     }
 
@@ -94,13 +93,14 @@ public class EmailMessageTest {
                 make("subject", "message body goes here").send("me@test.com", new ArrayList<String>() {{
                     add("someOneElse@test.com");
                 }});
-        SmtpMessage message = (SmtpMessage) server.getReceivedEmail().next();
+
+        MailMessage message = server.getMessages()[0];
         assertTrue(failedRecipients.isEmpty());
-        assertEquals(1, server.getReceivedEmailSize());
+        assertEquals(1, server.getEmailCount());
         assertTrue(message.getBody().contains("message body goes here"));
-        assertEquals("subject", message.getHeaderValue("Subject"));
-        assertEquals("me@test.com", message.getHeaderValue("From"));
-        assertEquals("someOneElse@test.com", message.getHeaderValue("To"));
+        assertEquals("subject", message.getHeaderValues("Subject")[0]);
+        assertEquals("me@test.com", message.getHeaderValues("From")[0]);
+        assertEquals("someOneElse@test.com", message.getHeaderValues("To")[0]);
     }
 
     @Test
@@ -111,15 +111,14 @@ public class EmailMessageTest {
                     add("someOneElse@test.com");
                     add("anotherOne@test.com");
                 }});
-        Iterator<SmtpMessage> iterator = server.getReceivedEmail();
-        SmtpMessage firstMessage = iterator.next();
+        MailMessage message = server.getMessages()[0];
 
         assertTrue(failedRecipients.isEmpty());
-        assertEquals(1, server.getReceivedEmailSize());
-        assertTrue(firstMessage.getBody().contains("message body goes here"));
-        assertEquals("subject", firstMessage.getHeaderValue("Subject"));
-        assertEquals("me@test.com", firstMessage.getHeaderValue("From"));
-        assertEquals("someOneElse@test.com, anotherOne@test.com", firstMessage.getHeaderValue("To"));
+        assertEquals(1, server.getEmailCount());
+        assertTrue(message.getBody().contains("message body goes here"));
+        assertEquals("subject", message.getHeaderValues("Subject")[0]);
+        assertEquals("me@test.com", message.getHeaderValues("From")[0]);
+        assertEquals("someOneElse@test.com, anotherOne@test.com", message.getHeaderValues("To")[0]);
     }
 
     @Test
@@ -131,16 +130,15 @@ public class EmailMessageTest {
                     add("anotherOne@test.com");
                     add("invalidEmail");
                 }});
-        Iterator<SmtpMessage> iterator = server.getReceivedEmail();
-        SmtpMessage firstMessage = iterator.next();
+        MailMessage message = server.getMessages()[0];
 
         assertFalse(failedRecipients.isEmpty());
         assertTrue(failedRecipients.contains("invalidEmail"));
-        assertEquals(1, server.getReceivedEmailSize());
-        assertTrue(firstMessage.getBody().contains("message body goes here"));
-        assertEquals("subject", firstMessage.getHeaderValue("Subject"));
-        assertEquals("me@test.com", firstMessage.getHeaderValue("From"));
-        assertEquals("someOneElse@test.com, anotherOne@test.com", firstMessage.getHeaderValue("To"));
+        assertEquals(1, server.getEmailCount());
+        assertTrue(message.getBody().contains("message body goes here"));
+        assertEquals("subject", message.getHeaderValues("Subject")[0]);
+        assertEquals("me@test.com", message.getHeaderValues("From")[0]);
+        assertEquals("someOneElse@test.com, anotherOne@test.com", message.getHeaderValues("To")[0]);
     }
 
     @After

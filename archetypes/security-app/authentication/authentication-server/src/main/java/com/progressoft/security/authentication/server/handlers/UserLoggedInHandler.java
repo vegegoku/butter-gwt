@@ -1,6 +1,6 @@
 package com.progressoft.security.authentication.server.handlers;
 
-import com.progressoft.security.authentication.shared.registry.UserSessionContext;
+import com.progressoft.security.authentication.server.shared.UserSessionContext;
 import org.akab.engine.core.api.shared.server.Handler;
 import org.akab.engine.core.api.shared.server.RequestHandler;
 import com.progressoft.security.authentication.shared.response.AuthenticationResponse;

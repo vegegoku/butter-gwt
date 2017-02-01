@@ -110,6 +110,11 @@
             <artifactId>notifications-smtp-shared</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.progressoft.security</groupId>
+            <artifactId>authentication-server-shared</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

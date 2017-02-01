@@ -64,6 +64,7 @@
         <module>authentication-client</module>
         <module>authentication-shared</module>
         <module>authentication-server</module>
+        <module>authentication-server-shared</module>
         <module>default-configuration-loader</module>
     </modules>
 </project>

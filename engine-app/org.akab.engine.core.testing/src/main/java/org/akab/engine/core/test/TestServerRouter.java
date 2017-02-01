@@ -45,7 +45,6 @@ public class TestServerRouter implements RequestRouter<ClientServerRequest> {
         ServerResponse response;
         try{
             filterChain.filter();
-            System.out.println("}}}}}}}}}}}}}}}}]]]]]] executing request : "+request.getClass().getCanonicalName());
             response=service.executeRequest(request.arguments());
         }catch (Exception ex){
             LOGGER.error("could not execute request : ", ex);

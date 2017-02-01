@@ -1,6 +1,7 @@
-package com.progressoft.security.authentication.shared.registry;
+package com.progressoft.security.authentication.server.shared;
 
 import com.progressoft.security.authentication.shared.extension.Principal;
+import com.progressoft.security.authentication.shared.registry.AuthenticationHolder;
 
 import static java.util.Objects.*;
 

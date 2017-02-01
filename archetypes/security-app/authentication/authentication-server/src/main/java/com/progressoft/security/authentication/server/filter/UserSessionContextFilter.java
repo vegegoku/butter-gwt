@@ -1,7 +1,7 @@
 package com.progressoft.security.authentication.server.filter;
 
 import com.progressoft.security.authentication.server.authentication.WebAuthenticationHolder;
-import com.progressoft.security.authentication.shared.registry.UserSessionContext;
+import com.progressoft.security.authentication.server.shared.UserSessionContext;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

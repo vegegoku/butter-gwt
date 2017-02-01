@@ -1,6 +1,6 @@
 package com.progressoft.security.otp.server.handlers;
 
-import com.progressoft.security.authentication.shared.registry.UserSessionContext;
+import com.progressoft.security.authentication.server.shared.UserSessionContext;
 import com.progressoft.security.model.otp.OtpHolder;
 import com.progressoft.security.otp.server.OtpConfigurationContext;
 import com.progressoft.security.otp.server.usecase.SendOtpUseCase;
