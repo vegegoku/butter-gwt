@@ -3,10 +3,7 @@ package com.progressoft.security.authentication.client.extensions;
 import com.progressoft.security.authentication.client.registry.AuthenticationProviderRegistry;
 import com.progressoft.security.authentication.client.requests.ChainCompletedSuccessfullyRequest;
 import com.progressoft.security.authentication.client.requests.ChainFailedRequest;
-import com.progressoft.security.authentication.shared.extension.AuthenticationContext;
-import com.progressoft.security.authentication.shared.extension.ClientAuthenticationProvider;
-import com.progressoft.security.authentication.shared.extension.CompletedChainContext;
-import com.progressoft.security.authentication.shared.extension.FailedChainContext;
+import com.progressoft.security.authentication.shared.extension.*;
 
 public class DefaultAuthenticationContext implements AuthenticationContext {
 
@@ -24,4 +21,5 @@ public class DefaultAuthenticationContext implements AuthenticationContext {
     public void onChainFailed(FailedChainContext failedChainContext) {
         new ChainFailedRequest(failedChainContext).send();
     }
+
 }

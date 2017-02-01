@@ -3,22 +3,22 @@ package com.progressoft.security.authentication.client;
 import com.google.gwtmockito.GwtMockitoTestRunner;
 import com.progressoft.security.authentication.client.contributions.*;
 import com.progressoft.security.authentication.client.presenters.AuthenticationPresenter;
-import com.progressoft.security.authentication.shared.ServerAuthenticationContext;
+import com.progressoft.security.authentication.server.filter.UserSessionContextFilter;
 import com.progressoft.security.authentication.shared.extension.AuthenticationCompletedExtensionPoint;
 import com.progressoft.security.authentication.shared.extension.AuthenticationExtensionPoint;
 import com.progressoft.security.authentication.shared.extension.Principal;
-import org.akab.engine.app.test.ModuleTestCase;
+import com.progressoft.security.repository.FakePrincipal;
 import org.akab.engine.core.api.client.extension.ContributionsRegistry;
+import org.akab.engine.core.test.ModuleTestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Deque;
 import java.util.LinkedList;
 
 import static org.junit.Assert.*;
 
 @RunWith(GwtMockitoTestRunner.class)
-public class AuthenticationClientModuleMultiProvidersTest extends ModuleTestCase{
+public class AuthenticationClientModuleMultiProvidersTest extends ModuleTestCase {
 
 
     private AuthenticationPresenterSpy presenterSpy;
@@ -58,8 +58,9 @@ public class AuthenticationClientModuleMultiProvidersTest extends ModuleTestCase
         testEntryPointContext.setHttpRequest(httpRequest);
         testEntryPointContext.setHttpServletResponse(httpResponse);
         FakeAuthenticationProvider.ORDER=0;
-        ServerAuthenticationContext.reset();
+        filterChain.addFilter(new UserSessionContextFilter());
     }
+
 
     @Test
     public void givenAuthenticationContribution_whenNoUserIsLoggedIn_thenAuthenticationContributionShouldStart() throws Exception {
@@ -68,44 +69,28 @@ public class AuthenticationClientModuleMultiProvidersTest extends ModuleTestCase
 
     @Test
     public void givenSuccessRootAuthenticationChain_WhenPrincipalContainsMoreChainsAndHistNextIsNotRegistered_thenShouldShowErrorMessage() throws Exception {
-        Principal p = new Principal() {
-            @Override
-            public Deque<String> chains(){
-                return new LinkedList<String>(){{
-                    add("NOT_REGISTERED");
-                }};
-            }
-        };
+        Principal p = new FakePrincipal(new LinkedList<String>(){{
+            add("NOT_REGISTERED");
+        }});
         rootAuthenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(p);
         assertEquals("Authentication failed", viewSpy.getErrorMessage());
     }
 
     @Test
     public void givenSuccessRootAuthenticationChain_WhenPrincipalContainsChainRegistered_thenShouldStartThatChain() throws Exception {
-        Principal p = new Principal() {
-            @Override
-            public Deque<String> chains(){
-                return new LinkedList<String>(){{
-                    add(SecondFakeAuthenticationContribution.SECOND_CHAIN);
-                }};
-            }
-        };
+        Principal p = new FakePrincipal(new LinkedList<String>(){{
+            add(SecondFakeAuthenticationContribution.SECOND_CHAIN);
+        }});
         rootAuthenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(p);
         assertTrue(secondFakeAuthenticationContribution.getProvider().isStarted());
     }
 
     @Test
     public void givenSuccessRootAuthenticationChain_WhenPrincipalContains2ChainsRegistered_thenBothChainsShouldStartInOrderAndAuthenticationShouldComplete() throws Exception {
-        Principal p = new Principal() {
-            private Deque<String> chains=new LinkedList<String>(){{
-                add(SecondFakeAuthenticationContribution.SECOND_CHAIN);
-                add(ThirdFakeAuthenticationContribution.THIRD_CHAIN);
-            }};
-            @Override
-            public Deque<String> chains(){
-                return chains;
-            }
-        };
+        Principal p = new FakePrincipal(new LinkedList<String>(){{
+            add(SecondFakeAuthenticationContribution.SECOND_CHAIN);
+            add(ThirdFakeAuthenticationContribution.THIRD_CHAIN);
+        }});
 
         rootAuthenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(p);
         secondFakeAuthenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(p);

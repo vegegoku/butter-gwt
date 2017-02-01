@@ -7,24 +7,12 @@ import com.progressoft.security.authentication.shared.registry.AuthenticationHol
 
 public class ServerAuthenticationContext {
 
-    private static AuthenticationHolder authenticationHolder = new NullHolder();
     private static AuthenticationConfigurationLoader configurationLoader;
 
     private ServerAuthenticationContext(){
     }
 
-    public static void reset() {
-        authenticationHolder = new NullHolder();
-    }
-    public static void hold(AuthenticationHolder holder){
-        authenticationHolder=holder;
-    }
-
-    public static AuthenticationHolder holder(){
-        return authenticationHolder;
-    }
-
-    public static void withConfigurationLoader( AuthenticationConfigurationLoader loader){
+    public static void withConfigurationLoader(AuthenticationConfigurationLoader loader){
         configurationLoader=loader;
     }
 
@@ -32,16 +20,5 @@ public class ServerAuthenticationContext {
         return configurationLoader.load();
     }
 
-    private static final class NullHolder implements AuthenticationHolder {
 
-        @Override
-        public boolean isEmpty() {
-            return true;
-        }
-
-        @Override
-        public Principal getPrincipal() {
-            return null;
-        }
-    }
 }

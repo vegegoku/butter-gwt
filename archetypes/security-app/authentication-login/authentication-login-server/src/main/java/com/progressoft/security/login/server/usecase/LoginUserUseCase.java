@@ -1,9 +1,10 @@
 package com.progressoft.security.login.server.usecase;
 
-import com.progressoft.security.login.server.model.User;
-import com.progressoft.security.login.server.repository.UserRepository;
+import com.progressoft.security.login.server.builder.LoginPrincipalBuilder;
 import com.progressoft.security.login.shared.extension.LoginCredentials;
 import com.progressoft.security.login.shared.response.LoginResponse;
+import com.progressoft.security.model.user.User;
+import com.progressoft.security.repository.UserRepository;
 
 import static java.util.Objects.isNull;
 
@@ -26,14 +27,14 @@ public class LoginUserUseCase {
     }
 
     private LoginResponse makeResponse(User user) {
-        return new LoginResponse(user.makePrincipal());
+        return new LoginResponse(user.makePrincipal(new LoginPrincipalBuilder()));
     }
 
     private User findUser(LoginCredentials credentials) {
-        return getValidUser(userRepository.findUser(credentials.getUserName(), credentials.getTenant()), credentials);
+        return validatedUser(userRepository.findUser(credentials.getUserName(), credentials.getTenant()), credentials);
     }
 
-    private User getValidUser(User user, LoginCredentials credentials) {
+    private User validatedUser(User user, LoginCredentials credentials) {
         if (isNull(user))
             throw new UserNotFoundException();
         if (!user.isSamePassword(credentials.getPassword()))

@@ -23,7 +23,7 @@ public class ServerServiceImpl extends RemoteServiceServlet implements ServerSer
                     .make().executeRequest(request,
                             new RpcEntryPointContext(getThreadLocalRequest(), getThreadLocalResponse()));
         }catch (Exception e){
-            LOGGER.error("Request failed on server", e);
+            LOGGER.debug("Request failed on server", e);
             throw e;
         }
     }

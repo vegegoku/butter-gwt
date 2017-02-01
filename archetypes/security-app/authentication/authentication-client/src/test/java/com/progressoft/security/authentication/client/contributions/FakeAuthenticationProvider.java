@@ -22,12 +22,7 @@ public class FakeAuthenticationProvider implements ClientAuthenticationProvider 
     }
 
     public void chainAuthenticationCompletedSuccessfully(final Principal principal) {
-        context.onChainCompleted(new CompletedChainContext() {
-            @Override
-            public Principal getPrincipal() {
-                return principal;
-            }
-        });
+        context.onChainCompleted(() -> principal);
     }
 
     public AuthenticationContext getContext() {

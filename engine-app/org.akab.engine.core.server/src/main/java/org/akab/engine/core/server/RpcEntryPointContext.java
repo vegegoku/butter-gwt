@@ -4,6 +4,7 @@ import org.akab.engine.core.api.shared.server.ServerEntryPointContext;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class RpcEntryPointContext implements ServerEntryPointContext{
 
@@ -19,12 +20,16 @@ public class RpcEntryPointContext implements ServerEntryPointContext{
         return httpRequest;
     }
 
-    public HttpServletResponse getHttpServletResponse() {
+    public HttpServletResponse getHttpResponse() {
         return httpServletResponse;
     }
 
     @Override
     public String getName() {
         return RpcEntryPointContext.class.getCanonicalName();
+    }
+
+    public HttpSession getSession(){
+        return getHttpRequest().getSession();
     }
 }

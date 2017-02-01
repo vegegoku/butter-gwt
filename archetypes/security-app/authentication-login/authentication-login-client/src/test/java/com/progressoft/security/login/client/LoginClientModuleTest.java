@@ -1,34 +1,23 @@
 package com.progressoft.security.login.client;
 
-import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwtmockito.GwtMockito;
 import com.google.gwtmockito.GwtMockitoTestRunner;
-
-import com.google.gwtmockito.fakes.FakeProvider;
 import com.progressoft.security.authentication.shared.ServerAuthenticationContext;
 import com.progressoft.security.authentication.shared.configurations.AuthenticationConfiguration;
-import com.progressoft.security.authentication.shared.configurations.AuthenticationConfigurationLoader;
-import com.progressoft.security.authentication.shared.extension.*;
-import com.progressoft.security.layout.shared.extension.AuthenticationLayoutContext;
+import com.progressoft.security.authentication.shared.extension.AuthenticationContext;
+import com.progressoft.security.authentication.shared.extension.AuthenticationExtensionPoint;
 import com.progressoft.security.layout.shared.extension.AuthenticationLayoutExtensionPoint;
 import com.progressoft.security.login.client.contributions.LoginAuthenticationContribution;
-import com.progressoft.security.login.server.LoginContext;
-import gwt.material.design.client.base.AbstractValueWidget;
-import gwt.material.design.client.base.mixin.ErrorMixin;
-import gwt.material.design.client.ui.MaterialLabel;
+import com.progressoft.security.login.client.presenters.LoginPresenter;
+import com.progressoft.security.repository.InMemoryUserRepository;
+import com.progressoft.security.repository.RepositoryContext;
 import gwt.material.design.client.ui.MaterialTextBox;
 import org.akab.engine.core.api.client.extension.Contributions;
+import org.akab.engine.core.test.ModuleTestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import static org.junit.Assert.*;
-
-import com.progressoft.security.login.client.presenters.LoginPresenter;
-import org.akab.engine.app.test.ModuleTestCase;
 
 @RunWith(GwtMockitoTestRunner.class)
 public class LoginClientModuleTest extends ModuleTestCase {
@@ -62,7 +51,7 @@ public class LoginClientModuleTest extends ModuleTestCase {
         initServerAuthenticationConfigurations();
         Contributions.apply(AuthenticationLayoutExtensionPoint.class, (AuthenticationLayoutExtensionPoint) () -> view -> {
         });
-        LoginContext.withUserRepository(new InMemoryUserRepository());
+        RepositoryContext.withUserRepository(new InMemoryUserRepository());
     }
 
     private void initServerAuthenticationConfigurations() {

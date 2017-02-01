@@ -1,6 +1,5 @@
 package com.progressoft.security.authentication.server;
 
-
 import com.google.auto.service.AutoService;
 import com.progressoft.security.authentication.shared.configurations.AuthenticationConfigurationLoader;
 import org.akab.engine.core.api.shared.server.ServerAppEntryPoint;

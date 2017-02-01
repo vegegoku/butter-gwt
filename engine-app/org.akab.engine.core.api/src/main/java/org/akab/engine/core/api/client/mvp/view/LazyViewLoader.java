@@ -1,6 +1,6 @@
 package org.akab.engine.core.api.client.mvp.view;
 
-import java.util.Objects;
+import static java.util.Objects.isNull;
 
 public abstract class LazyViewLoader {
 
@@ -16,7 +16,7 @@ public abstract class LazyViewLoader {
     }
 
     public View getView() {
-        if(Objects.isNull(view))
+        if(isNull(view))
             view=make();
         return view;
     }

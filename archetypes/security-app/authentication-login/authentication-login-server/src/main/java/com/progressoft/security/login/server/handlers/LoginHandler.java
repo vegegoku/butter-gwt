@@ -1,9 +1,9 @@
 package com.progressoft.security.login.server.handlers;
 
-import com.progressoft.security.login.server.LoginContext;
 import com.progressoft.security.login.server.usecase.LoginUserUseCase;
 import com.progressoft.security.login.shared.request.LoginRequest;
 import com.progressoft.security.login.shared.response.LoginResponse;
+import com.progressoft.security.repository.RepositoryContext;
 import org.akab.engine.core.api.shared.server.Handler;
 import org.akab.engine.core.api.shared.server.RequestHandler;
 import org.akab.engine.core.logger.client.CoreLogger;
@@ -19,9 +19,9 @@ public class LoginHandler implements RequestHandler<LoginRequest, LoginResponse>
     @Override
     public LoginResponse handleRequest(LoginRequest request) {
         try {
-            return new LoginUserUseCase(LoginContext.userRepository()).login(request.getLoginCredentials());
+            return new LoginUserUseCase(RepositoryContext.userRepository()).login(request.getLoginCredentials());
         } catch (BadCredentialsException | UserNotFoundException e) {
-            LOGGER.error("Bad credentials : ", e);
+            LOGGER.debug("Bad credentials : ", e);
             return new LoginResponse(null);
         }
     }

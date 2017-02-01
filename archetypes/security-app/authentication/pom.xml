@@ -38,6 +38,25 @@
                 </configuration>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.17</version>
+                    <configuration>
+                        <environmentVariables>
+                            <security_app_ds_driver>com.mysql.jdbc.Driver</security_app_ds_driver>
+                            <security_app_ds_url>jdbc:mysql://localhost:3306/SECURITY_APP</security_app_ds_url>
+                            <security_app_ds_user>root</security_app_ds_user>
+                            <security_app_ds_password>root</security_app_ds_password>
+                            <security_app_ds_dialect>org.hibernate.dialect.MySQLDialect</security_app_ds_dialect>
+                            <security_app_ds_type>H2</security_app_ds_type>
+                            <CONFIG_PATH>/mnt/PROJECTS/GIT/butter-gwt/archetypes/security-app/testConfig</CONFIG_PATH>
+                        </environmentVariables>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
 
@@ -45,6 +64,6 @@
         <module>authentication-client</module>
         <module>authentication-shared</module>
         <module>authentication-server</module>
-        <module>default.configuration.loader</module>
+        <module>default-configuration-loader</module>
     </modules>
 </project>

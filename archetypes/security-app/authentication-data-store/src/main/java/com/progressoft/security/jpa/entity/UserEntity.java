@@ -19,6 +19,9 @@ public class UserEntity {
     @Column(name="TENANT")
     public String tenant;
 
+    @Column(name="EMAIL")
+    public String email;
+
     @Override
     public String toString() {
         return "UserEntity{" +

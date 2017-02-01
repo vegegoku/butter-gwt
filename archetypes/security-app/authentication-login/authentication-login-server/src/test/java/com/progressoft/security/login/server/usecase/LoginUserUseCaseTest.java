@@ -1,9 +1,9 @@
 package com.progressoft.security.login.server.usecase;
 
-import com.progressoft.security.login.server.repository.InMemoryUserRepository;
-import com.progressoft.security.login.server.repository.UserRepository;
 import com.progressoft.security.login.shared.LoginPrincipal;
 import com.progressoft.security.login.shared.extension.LoginCredentials;
+import com.progressoft.security.repository.InMemoryUserRepository;
+import com.progressoft.security.repository.UserRepository;
 import org.junit.*;
 import static org.junit.Assert.*;
 

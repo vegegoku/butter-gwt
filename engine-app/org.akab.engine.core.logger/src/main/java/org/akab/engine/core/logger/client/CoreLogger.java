@@ -32,6 +32,10 @@ public class CoreLogger {
 		logger.log(Level.FINE, message);
 	}
 
+	public void debug(String message, Throwable throwable){
+		logger.log(Level.FINEST, message, throwable);
+	}
+
 	public void finer(String message) {
 		logger.log(Level.FINER, message);
 	}

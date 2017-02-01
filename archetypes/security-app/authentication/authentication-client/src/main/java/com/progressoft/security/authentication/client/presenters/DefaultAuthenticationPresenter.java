@@ -1,10 +1,7 @@
 package com.progressoft.security.authentication.client.presenters;
 
 import com.google.gwt.user.client.Window;
-import com.progressoft.security.authentication.client.extensions.DefaultAuthenticationCompletedContext;
-import com.progressoft.security.authentication.client.extensions.DefaultAuthenticationCompletedExtensionPoint;
-import com.progressoft.security.authentication.client.extensions.DefaultAuthenticationContext;
-import com.progressoft.security.authentication.client.extensions.DefaultAuthenticationExtensionPoint;
+import com.progressoft.security.authentication.client.extensions.*;
 import com.progressoft.security.authentication.client.registry.AuthenticationProviderRegistry;
 import com.progressoft.security.authentication.client.requests.CompleteAuthenticationOnServerRequest;
 import com.progressoft.security.authentication.client.requests.FindRootAuthenticationChainRequest;
@@ -17,17 +14,18 @@ import com.progressoft.security.authentication.client.views.AuthenticationView;
 
 import java.util.Objects;
 
+import static java.util.Objects.*;
+
 @Presenter
 public class DefaultAuthenticationPresenter extends BaseClientPresenter<AuthenticationView>
         implements AuthenticationPresenter {
 
     public static final String AUTHENTICATION_FAILED = "Authentication failed";
     private final AuthenticationContext authenticationContext = new DefaultAuthenticationContext();
-    private Principal principal;
+    private RootChainContext rootChainContext;
 
     @Override
     public void onAuthenticationCompleted(Principal principal) {
-        Window.alert("onAuthenticationCompleted");
         Contributions.apply(AuthenticationCompletedExtensionPoint.class, makeAuthenticationExtensionPoint(principal));
     }
 
@@ -58,9 +56,14 @@ public class DefaultAuthenticationPresenter extends BaseClientPresenter<Authenti
 
     @Override
     public void onChainCompletedSuccessfully(CompletedChainContext context) {
-        if(Objects.isNull(principal))
-            principal=context.getPrincipal();
-        toNextChain(principal);
+        if(isNull(rootChainContext))
+            applyRootChainContributions(context);
+        toNextChain(rootChainContext.principal());
+    }
+
+    private void applyRootChainContributions(CompletedChainContext context) {
+        rootChainContext=new DefaultRootChainContext(context.getPrincipal());
+        Contributions.apply(RootChainCompletedExtensionPoint.class, new DefaultRootChainExtensionPoint(rootChainContext));
     }
 
     private void toNextChain(Principal principal) {

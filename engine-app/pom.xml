@@ -113,5 +113,6 @@
         <module>processor-testing</module>
         <module>processor-utils</module>
         <module>org.akab.engine.core.testing</module>
+        <module>core-configurations</module>
     </modules>
 </project>

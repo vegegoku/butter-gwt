@@ -8,12 +8,7 @@
         </layout>
     </appender>
 
-    <logger name="com.mkyong.web" level="info"
-            additivity="false">
-        <appender-ref ref="STDOUT" />
-    </logger>
-
-    <root level="error">
+    <root level="info">
         <appender-ref ref="STDOUT" />
     </root>
 

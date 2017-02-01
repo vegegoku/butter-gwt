@@ -166,7 +166,7 @@ public class ClientApp
         private UrlHistory urlHistory;
 
         public ClientAppBuilder() {
-            //this is  builder for the client app.
+            //this is  builder for the client core.
         }
 
         public ClientAppBuilder clientRouter(RequestRouter<ClientRequest> clientRouter) {

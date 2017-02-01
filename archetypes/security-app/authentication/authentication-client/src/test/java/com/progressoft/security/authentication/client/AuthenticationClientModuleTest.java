@@ -4,17 +4,19 @@ import com.google.gwtmockito.GwtMockitoTestRunner;
 
 import com.progressoft.security.authentication.client.contributions.FakeAuthenticationCompletedContribution;
 import com.progressoft.security.authentication.client.contributions.FakeAuthenticationContribution;
+import com.progressoft.security.authentication.client.contributions.FakeRootChainContribution;
 import com.progressoft.security.authentication.client.registry.AuthenticationProviderRegistry;
 import com.progressoft.security.authentication.client.requests.ChainCompletedSuccessfullyRequest;
 import com.progressoft.security.authentication.client.requests.UserLoggedInRequest;
-import com.progressoft.security.authentication.server.registry.WebAuthenticationHolder;
+import com.progressoft.security.authentication.server.filter.UserSessionContextFilter;
 import com.progressoft.security.authentication.shared.ServerAuthenticationContext;
 import com.progressoft.security.authentication.shared.extension.AuthenticationCompletedExtensionPoint;
 import com.progressoft.security.authentication.shared.extension.AuthenticationExtensionPoint;
 import com.progressoft.security.authentication.shared.extension.Principal;
-import org.akab.engine.app.test.ModuleTestCase;
+import com.progressoft.security.authentication.shared.extension.RootChainCompletedExtensionPoint;
+import com.progressoft.security.authentication.shared.registry.AuthenticationHolder;
 import org.akab.engine.core.api.client.extension.ContributionsRegistry;
-import org.junit.Ignore;
+import org.akab.engine.core.test.ModuleTestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -32,6 +34,7 @@ public class AuthenticationClientModuleTest extends ModuleTestCase {
     private AuthenticationViewSpy viewSpy;
     private FakeAuthenticationCompletedContribution authenticationCompletedContribution;
     private FakeAuthenticationContribution authenticationContribution;
+    private FakeRootChainContribution fakeRootChainContribution;
 
     @Override
     public void setUp() {
@@ -43,6 +46,7 @@ public class AuthenticationClientModuleTest extends ModuleTestCase {
             public void registerContributions(ContributionsRegistry registry) {
                 registry.registerContribution(AuthenticationExtensionPoint.class, new FakeAuthenticationContribution());
                 registry.registerContribution(AuthenticationCompletedExtensionPoint.class, new FakeAuthenticationCompletedContribution());
+                registry.registerContribution(RootChainCompletedExtensionPoint.class, new FakeRootChainContribution());
             }
         });
         testModule.replacePresenter(AuthenticationPresenter.class.getCanonicalName(), () -> {
@@ -57,11 +61,12 @@ public class AuthenticationClientModuleTest extends ModuleTestCase {
 
         authenticationCompletedContribution = testModule.getContribution(FakeAuthenticationCompletedContribution.class);
         authenticationContribution = testModule.getContribution(FakeAuthenticationContribution.class);
+        fakeRootChainContribution=testModule.getContribution(FakeRootChainContribution.class);
 
         testEntryPointContext.setHttpRequest(httpRequest);
         testEntryPointContext.setHttpServletResponse(httpResponse);
-        ServerAuthenticationContext.reset();
-
+        attributes.clear();
+        filterChain.addFilter(new UserSessionContextFilter());
     }
 
     private void sendLoggedInRequest(AssertStrategy strategy) {
@@ -87,19 +92,28 @@ public class AuthenticationClientModuleTest extends ModuleTestCase {
     @Test
     public void givenUserLoggedInRequest_whenThereIsNoUserLoggedIN_thenShouldReceiveResponseWithNegativeValue()
             throws Exception {
-        session.setAttribute("principle", null);
         sendLoggedInRequest(response -> assertFalse(response.isLoggedIn()));
     }
 
     @Test
     public void givenUserLoggedInRequest_whenThereIsUserLoggedIN_thenShouldReceiveREspouseWithPositiveValue()
             throws Exception {
-        session.setAttribute("principle", principal());
+
+        setSessionPrincipal(principal());
         sendLoggedInRequest(response -> assertTrue(response.isLoggedIn()));
     }
 
     private Principal principal() {
         return new Principal() {
+            @Override
+            public String getUserName() {
+                return "";
+            }
+
+            @Override
+            public String getTenant() {
+                return "";
+            }
         };
     }
 
@@ -113,15 +127,19 @@ public class AuthenticationClientModuleTest extends ModuleTestCase {
     @Test
     public void givenUserLoggedInRequest_WhenUserIsLoggedIn_thenShouldApplyAuthenticationCompletedContributions()
             throws Exception {
-        Principal p = principal();
-        ServerAuthenticationContext.hold(new WebAuthenticationHolder(session, p));
+        setSessionPrincipal(principal());
+
         new UserLoggedInRequest().send();
 
         assertNotNull(authenticationCompletedContribution.getContext());
         assertNotNull(authenticationCompletedContribution.getContext().getPrincipal());
     }
 
-    @Test//
+    private void setSessionPrincipal(Principal principal) {
+        session.setAttribute("principal", principal);
+    }
+
+    @Test
     public void givenAuthenticationModule_WhenModuleStarts_ThenAuthenticationPresenterShouldApplyContributionsForAuthenticationExtensionPoint()
             throws Exception {
         assertNotNull(authenticationContribution.getContext());
@@ -145,11 +163,12 @@ public class AuthenticationClientModuleTest extends ModuleTestCase {
     @Test
     public void givenAuthenticationProvider_whenProviderAuthenticationCompletedSuccessfully_thenAuthenticationContextShouldBeInformed()
             throws Exception {
-        authenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(new Principal() {
-        });
+        authenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(principal());
         assertTrue(presenterSpy.getFakeLoginChainCompletedSuccessfully());
         assertNotNull(presenterSpy.getRootChainSuccessContext());
+        assertNotNull(fakeRootChainContribution.getContext().principal());
     }
+
 
     @Test
     public void givenAuthenticationProvider_whenProviderAuthenticationFailed_thenAuthenticationContextShouldBeInformed()
@@ -171,12 +190,8 @@ public class AuthenticationClientModuleTest extends ModuleTestCase {
     @Test
     public void givenASingleAuthenticationProvider_whenProviderAuthenticationIsCompletedSuccessfully_thenAuthenticationShouldBeCompletedAndAllContributionsShouldBeCalled()
             throws Exception {
-        Principal p = new Principal() {
-        };
-        authenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(p);
-
+        authenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(principal());
         assertNotNull(authenticationCompletedContribution.getContext().getPrincipal());
-
     }
 
     @Test(expected = ChainCompletedSuccessfullyRequest.InvalidPrincipal.class)
@@ -184,16 +199,12 @@ public class AuthenticationClientModuleTest extends ModuleTestCase {
     public void givenASingleAuthenticationProvider_whenProviderAuthenticationIsCompletedSuccessfullyAndReturnsNullPrincipal_thenAuthenticationThrowException()
             throws Exception {
         authenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(null);
-
     }
 
     @Test
     public void givenASingleAuthenticationProvider_whenAuthenticationIsCompletedSuccessfullyAndReturnedPrincipalHasNoMoreChains_thenAuthenticationShouldBeCompletedAndAllContributionsShouldBeCalled()
             throws Exception {
-        Principal p = new Principal() {
-        };
-        authenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(p);
-
+        authenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(principal());
         assertNotNull(authenticationCompletedContribution.getContext().getPrincipal());
     }
 

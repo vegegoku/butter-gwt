@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.progressoft</groupId>
+        <artifactId>notifications</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>notifications-smtp</artifactId>
+    <packaging>pom</packaging>
+
+    <name>notifications-smtp</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.17</version>
+                    <configuration>
+                        <environmentVariables>
+                            <security_app_ds_driver>com.mysql.jdbc.Driver</security_app_ds_driver>
+                            <security_app_ds_url>jdbc:mysql://localhost:3306/SECURITY_APP</security_app_ds_url>
+                            <security_app_ds_user>root</security_app_ds_user>
+                            <security_app_ds_password>root</security_app_ds_password>
+                            <security_app_ds_dialect>org.hibernate.dialect.MySQLDialect</security_app_ds_dialect>
+                            <security_app_ds_type>H2</security_app_ds_type>
+                            <CONFIG_PATH>${user.dir}/testConfig</CONFIG_PATH>
+                        </environmentVariables>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <modules>
+        <module>notifications-smtp-shared</module>
+        <module>notifications-smtp-channel</module>
+    </modules>
+</project>

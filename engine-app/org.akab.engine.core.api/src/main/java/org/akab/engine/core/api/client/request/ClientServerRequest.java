@@ -38,7 +38,7 @@ public abstract class ClientServerRequest<P extends Presentable, R extends Serve
                 }
 
                 private void onFailedServerCall(P presenter, R serverArgs, FailedServerResponse failedResponse) {
-                    LOGGER.error("Could not execute request on server!.", failedResponse.getError());
+                    LOGGER.debug("Could not execute request on server!.", failedResponse.getError());
                     processFailed(presenter, serverArgs, failedResponse);
                 }
             };

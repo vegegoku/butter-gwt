@@ -2,14 +2,12 @@ package com.progressoft.security.login.shared;
 
 import com.progressoft.security.authentication.shared.extension.Principal;
 
-import java.util.Objects;
-
 public class LoginPrincipal implements Principal {
 
     private String userName;
     private String tenant;
 
-    public LoginPrincipal() {
+    private LoginPrincipal() {
     }
 
     public LoginPrincipal(String userName, String tenant){
@@ -17,6 +15,7 @@ public class LoginPrincipal implements Principal {
         this.tenant = tenant;
     }
 
+    @Override
     public String getUserName() {
         return userName;
     }
@@ -25,6 +24,7 @@ public class LoginPrincipal implements Principal {
         this.userName = userName;
     }
 
+    @Override
     public String getTenant() {
         return tenant;
     }

@@ -11,7 +11,8 @@ public class DefaultRequestExecutor implements RequestExecutor {
     private final HandlersRepository handlersRepository;
     private final InterceptorsRepository interceptorsRepository;
 
-    public DefaultRequestExecutor(HandlersRepository handlersRepository, InterceptorsRepository interceptorsRepository) {
+    public DefaultRequestExecutor(HandlersRepository handlersRepository,
+                                  InterceptorsRepository interceptorsRepository) {
         this.handlersRepository = handlersRepository;
         this.interceptorsRepository = interceptorsRepository;
     }
@@ -24,7 +25,7 @@ public class DefaultRequestExecutor implements RequestExecutor {
     }
 
     private Collection<RequestInterceptor> getInterceptors(ServerRequest request, ServerEntryPointContext context) {
-        return interceptorsRepository.findInterceptors(request.getClass().getCanonicalName(),context.getName());
+        return interceptorsRepository.findInterceptors(request.getClass().getCanonicalName(), context.getName());
     }
 
     private Collection<GlobalRequestInterceptor> getGlobalInterceptors(ServerEntryPointContext context) {

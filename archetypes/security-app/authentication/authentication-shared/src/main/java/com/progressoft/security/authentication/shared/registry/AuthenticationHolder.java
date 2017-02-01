@@ -1,9 +1,11 @@
 package com.progressoft.security.authentication.shared.registry;
 
 import com.progressoft.security.authentication.shared.extension.Principal;
+import java.io.Serializable;
 
-public interface AuthenticationHolder {
+public interface AuthenticationHolder extends Serializable{
     boolean isEmpty();
-
     Principal getPrincipal();
+    void setProperty(String key, Object value);
+    <T> T getProperty(String key);
 }

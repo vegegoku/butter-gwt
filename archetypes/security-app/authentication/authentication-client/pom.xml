@@ -17,16 +17,16 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.google.gwt</groupId>
-                <artifactId>gwt</artifactId>
-                <version>${gwtVersion}</version>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <!--<dependencyManagement>-->
+        <!--<dependencies>-->
+            <!--<dependency>-->
+                <!--<groupId>com.google.gwt</groupId>-->
+                <!--<artifactId>gwt</artifactId>-->
+                <!--<version>${gwtVersion}</version>-->
+                <!--<scope>import</scope>-->
+            <!--</dependency>-->
+        <!--</dependencies>-->
+    <!--</dependencyManagement>-->
 
     <dependencies>
         <dependency>
@@ -110,6 +110,12 @@
             <version>3.4</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.progressoft.security</groupId>
+            <artifactId>authentication-data-store-testing</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -133,6 +139,15 @@
                 <extensions>true</extensions>
                 <configuration>
                     <moduleName>com.progressoft.security.authentication.AuthenticationClientModule</moduleName>
+                    <environmentVariables>
+                        <security_app_ds_driver>com.mysql.jdbc.Driver</security_app_ds_driver>
+                        <security_app_ds_url>jdbc:mysql://localhost:3306/SECURITY_APP</security_app_ds_url>
+                        <security_app_ds_user>root</security_app_ds_user>
+                        <security_app_ds_password>root</security_app_ds_password>
+                        <security_app_ds_dialect>org.hibernate.dialect.MySQLDialect</security_app_ds_dialect>
+                        <security_app_ds_type>H2</security_app_ds_type>
+                        <CONFIG_PATH>${user.dir}/testConfig</CONFIG_PATH>
+                    </environmentVariables>
                 </configuration>
             </plugin>
             <plugin>
