@@ -5,4 +5,5 @@ import org.akab.engine.core.api.shared.extension.Context;
 
 public interface AuthenticationLayoutContext extends Context {
     void showViewInMainPanel(IsWidget view);
+    void hideViewFromMainPanel(IsWidget view);
 }

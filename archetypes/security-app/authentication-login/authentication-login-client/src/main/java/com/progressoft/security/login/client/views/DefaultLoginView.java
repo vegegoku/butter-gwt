@@ -43,8 +43,12 @@ public class DefaultLoginView extends Composite implements LoginView {
     @UiField
     MaterialTitle errorDialogTitle;
 
+    @UiField
+    MaterialRow root;
+
     public DefaultLoginView() {
-        initWidget(ourUiBinder.createAndBindUi(this));
+        root=ourUiBinder.createAndBindUi(this);
+        initWidget(root);
     }
 
     @Override
@@ -57,7 +61,6 @@ public class DefaultLoginView extends Composite implements LoginView {
 
     @UiHandler("loginButton")
     void onLoginButtonClick(ClickEvent event) {
-        MaterialLoader.showProgress(true);
         this.loginHandler.handle(makeLoginCredentials());
     }
 
@@ -111,7 +114,6 @@ public class DefaultLoginView extends Composite implements LoginView {
         conclusion.invalidateFiled(Bundle.USERNAME, this::invalidateUserName);
         conclusion.invalidateFiled(Bundle.SECRET, this::invalidatePassword);
         conclusion.invalidateFiled(Bundle.TENANT, this::invalidateTenant);
-//        MaterialLoader.showProgress(false);
     }
 
     protected MaterialTextBox getUserNameField() {
@@ -128,9 +130,12 @@ public class DefaultLoginView extends Composite implements LoginView {
 
     @Override
     public void showErrorMessage(String errorMessage) {
-
-//        MaterialLoader.showProgress(false);
         errorDialogTitle.setDescription(errorMessage);
         errorDialog.open();
+    }
+
+    @Override
+    public void hide() {
+        root.setVisible(false);
     }
 }

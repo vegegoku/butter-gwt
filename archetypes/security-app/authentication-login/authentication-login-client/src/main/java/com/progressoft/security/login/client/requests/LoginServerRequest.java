@@ -1,5 +1,6 @@
 package com.progressoft.security.login.client.requests;
 
+import com.google.gwt.user.client.Window;
 import com.progressoft.security.login.client.presenters.LoginPresenter;
 import com.progressoft.security.login.shared.extension.LoginCredentials;
 import com.progressoft.security.login.shared.request.LoginRequest;
@@ -23,10 +24,14 @@ public class LoginServerRequest extends ClientServerRequest<LoginPresenter, Logi
     protected void process(LoginPresenter presenter, LoginRequest serverRequest, LoginResponse response) {
         if(isNull(response.getPrincipal()))
             presenter.showError();
-        else
+        else {
+            Window.alert("Login in success");
             presenter.onLoginSuccess(response.getPrincipal());
+        }
 
     }
+
+
 
     @Override
     public LoginRequest buildArguments() {

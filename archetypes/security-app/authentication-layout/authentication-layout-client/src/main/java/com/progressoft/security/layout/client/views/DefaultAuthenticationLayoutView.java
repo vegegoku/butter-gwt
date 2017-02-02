@@ -29,4 +29,9 @@ public class DefaultAuthenticationLayoutView extends Composite implements Authen
     public void showView(IsWidget view) {
         mainPanel.add(view);
     }
+
+    @Override
+    public void hideView(IsWidget view) {
+        mainPanel.remove(view);
+    }
 }

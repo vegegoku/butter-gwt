@@ -9,7 +9,7 @@
         }
     </ui:style>
 
-    <m:MaterialRow marginBottom="0" addStyleNames="code {bundle.style.mainPanel}" overflow="AUTO">
+    <m:MaterialRow ui:field="root" marginBottom="0" addStyleNames="code {bundle.style.mainPanel}" overflow="AUTO">
         <m:MaterialColumn grid="s12 m10 l4" offset="l4 m1">
             <m:MaterialCard backgroundColor="WHITE" shadow="1">
                 <m:MaterialCardImage waves="LIGHT">

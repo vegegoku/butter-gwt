@@ -8,6 +8,8 @@ public interface LoginView extends View{
 
     LoginView show(String defaultTenant);
 
+    void hide();
+
     void addLoginHandler(LoginHandler loginHandler);
 
     void invalidateFields(Conclusion conclusion);
