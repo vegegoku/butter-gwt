@@ -2,14 +2,14 @@ package com.progressoft.security.model.otp;
 
 import com.progressoft.notification.configuration.SmtpConfigurationContext;
 
-import static java.util.Objects.*;
+import static java.util.Objects.isNull;
 
-public class Otp implements OtpGenerator{
+public class Otp implements OtpGenerator {
 
-    private static final OtpHolderFactory defaultHolderFactory=
+    private static final OtpHolderFactory defaultHolderFactory =
             SimpleOtpHolder::new;
-    public static final int TRUNCATION_OFFSET = 16;
-    public static final boolean ADD_CHECKSUM = false;
+    private static final int TRUNCATION_OFFSET = 16;
+    private static final boolean ADD_CHECKSUM = false;
     private final int digitsCount;
     private final String secret;
     private final int timeout;
@@ -19,28 +19,28 @@ public class Otp implements OtpGenerator{
         validateDigitsCount(digitsCount);
         validateTimeOut(timeout);
 
-        this.secret=secret;
-        this.digitsCount =digitsCount;
-        this.timeout=timeout;
+        this.secret = secret;
+        this.digitsCount = digitsCount;
+        this.timeout = timeout;
     }
 
     private void validateTimeOut(int timeout) {
-        if(timeout<=0)
+        if (timeout <= 0)
             throw new InvalidTimeoutProvidedException();
     }
 
     private void validateDigitsCount(int digitsCount) {
-        if(digitsCount<4)
+        if (digitsCount < 4)
             throw new DigitsCountLessAllowedMinimumException("4");
     }
 
     private void validateSecret(String secret) {
-        if(isNull(secret) || secret.trim().isEmpty())
+        if (isNull(secret) || secret.trim().isEmpty())
             throw new InvalidSecretProvidedException();
     }
 
     @Override
-    public OtpHolder generate(){
+    public OtpHolder generate() {
         return generate(defaultHolderFactory);
     }
 
@@ -48,7 +48,7 @@ public class Otp implements OtpGenerator{
         return System.currentTimeMillis();
     }
 
-    public OtpHolder generate(OtpHolderFactory otpHolderFactory){
+    public OtpHolder generate(OtpHolderFactory otpHolderFactory) {
         return otpHolderFactory.make(generatedCode(), timeout, SmtpConfigurationContext.configure());
     }
 
@@ -56,13 +56,15 @@ public class Otp implements OtpGenerator{
         return HOTPAlgorithm.generateOTP(secret.getBytes(), movingFactor(), digitsCount, ADD_CHECKSUM, TRUNCATION_OFFSET);
     }
 
-    public class InvalidSecretProvidedException extends RuntimeException{}
+    public class InvalidSecretProvidedException extends RuntimeException {
+    }
 
-    public class DigitsCountLessAllowedMinimumException extends RuntimeException{
-        public DigitsCountLessAllowedMinimumException(String message) {
+    public class DigitsCountLessAllowedMinimumException extends RuntimeException {
+        DigitsCountLessAllowedMinimumException(String message) {
             super(message);
         }
     }
 
-    public class InvalidTimeoutProvidedException extends RuntimeException {}
+    public class InvalidTimeoutProvidedException extends RuntimeException {
+    }
 }

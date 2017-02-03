@@ -51,7 +51,7 @@
                             <security_app_ds_password>root</security_app_ds_password>
                             <security_app_ds_dialect>org.hibernate.dialect.MySQLDialect</security_app_ds_dialect>
                             <security_app_ds_type>H2</security_app_ds_type>
-                            <CONFIG_PATH>/mnt/PROJECTS/GIT/butter-gwt/archetypes/security-app/testConfig</CONFIG_PATH>
+                            <CONFIG_PATH>${user.dir}/testConfig</CONFIG_PATH>
                         </environmentVariables>
                     </configuration>
                 </plugin>

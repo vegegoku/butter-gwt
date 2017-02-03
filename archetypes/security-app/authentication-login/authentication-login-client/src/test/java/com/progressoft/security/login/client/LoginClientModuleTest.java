@@ -1,11 +1,13 @@
 package com.progressoft.security.login.client;
 
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwtmockito.GwtMockito;
 import com.google.gwtmockito.GwtMockitoTestRunner;
 import com.progressoft.security.authentication.shared.ServerAuthenticationContext;
 import com.progressoft.security.authentication.shared.configurations.AuthenticationConfiguration;
 import com.progressoft.security.authentication.shared.extension.AuthenticationContext;
 import com.progressoft.security.authentication.shared.extension.AuthenticationExtensionPoint;
+import com.progressoft.security.layout.shared.extension.AuthenticationLayoutContext;
 import com.progressoft.security.layout.shared.extension.AuthenticationLayoutExtensionPoint;
 import com.progressoft.security.login.client.contributions.LoginAuthenticationContribution;
 import com.progressoft.security.login.client.presenters.LoginPresenter;
@@ -49,7 +51,16 @@ public class LoginClientModuleTest extends ModuleTestCase {
 
         loginAuthenticationContribution = testModule.getContribution(LoginAuthenticationContribution.class);
         initServerAuthenticationConfigurations();
-        Contributions.apply(AuthenticationLayoutExtensionPoint.class, (AuthenticationLayoutExtensionPoint) () -> view -> {
+        Contributions.apply(AuthenticationLayoutExtensionPoint.class, (AuthenticationLayoutExtensionPoint) () -> new AuthenticationLayoutContext() {
+            @Override
+            public void showViewInMainPanel(IsWidget view) {
+
+            }
+
+            @Override
+            public void hideViewFromMainPanel(IsWidget view) {
+
+            }
         });
         RepositoryContext.withUserRepository(new InMemoryUserRepository());
     }

@@ -18,6 +18,8 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Objects;
+
 import static org.junit.Assert.*;
 
 @RunWith(GwtMockitoTestRunner.class)
@@ -28,12 +30,22 @@ public class OtpClientModuleTest extends ModuleTestCase {
     private FakeAuthenticationContext fakeAuthenticationContext;
     private SmtpServer smtpServer;
 
+    private void startSmtpServer() {
+        try {
+            ServerOptions serverOptions = new ServerOptions();
+            serverOptions.port = 2025;
+            serverOptions.threaded = false;
+            smtpServer = SmtpServerFactory.startServer(serverOptions);
+            while (!smtpServer.isReady())
+                smtpServer = SmtpServerFactory.startServer(serverOptions);
+        } catch (RuntimeException e) {
+            startSmtpServer();
+        }
+    }
+
     @Override
     public void setUp() {
-        ServerOptions serverOptions = new ServerOptions();
-        serverOptions.port = 2025;
-        serverOptions.threaded = false;
-        smtpServer = SmtpServerFactory.startServer(serverOptions);
+        startSmtpServer();
         fakeAuthenticationContext = new FakeAuthenticationContext();
         testModule.configureModule(new OtpModuleConfiguration());
 
@@ -86,7 +98,18 @@ public class OtpClientModuleTest extends ModuleTestCase {
 
     @After
     public void tearDown() throws Exception {
-        smtpServer.stop();
+        if (Objects.isNull(smtpServer))
+            return;
+        try {
+            closeServer();
+        } catch (Exception e) {
+            closeServer();
+        }
+    }
+
+    private synchronized void closeServer() {
+        while (!smtpServer.isStopped())
+            smtpServer.stop();
     }
 
 }

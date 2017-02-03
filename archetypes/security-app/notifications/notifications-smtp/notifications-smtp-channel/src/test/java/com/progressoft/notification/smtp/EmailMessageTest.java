@@ -4,29 +4,35 @@ import com.dumbster.smtp.MailMessage;
 import com.dumbster.smtp.ServerOptions;
 import com.dumbster.smtp.SmtpServer;
 import com.dumbster.smtp.SmtpServerFactory;
-import com.progressoft.notification.configuration.SmtpConfiguration;
-import com.progressoft.notification.configuration.SmtpConfigurationContext;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.Collection;
+
+import static org.junit.Assert.*;
 
 public class EmailMessageTest {
 
     private SmtpServer server;
-    private SmtpConfiguration configuration;
+
+    private void startSmtpServer() {
+        try {
+            ServerOptions serverOptions = new ServerOptions();
+            serverOptions.port = 2025;
+            serverOptions.threaded = false;
+            server = SmtpServerFactory.startServer(serverOptions);
+            while (!server.isReady())
+                server = SmtpServerFactory.startServer(serverOptions);
+        } catch (RuntimeException e) {
+            startSmtpServer();
+        }
+    }
 
     @Before
     public void setUp() throws Exception {
-        ServerOptions serverOptions = new ServerOptions();
-        serverOptions.port = 2025;
-        serverOptions.threaded = false;
-        server = SmtpServerFactory.startServer(serverOptions);
-        configuration = SmtpConfigurationContext.configure("smtp-configuration.properties");
+        startSmtpServer();
     }
 
     private EmailMessage make(String subject, String body) {

@@ -8,10 +8,14 @@ import com.progressoft.security.otp.shared.extension.OtpConfiguration;
 import com.progressoft.security.repository.FakePrincipal;
 import com.progressoft.security.repository.InMemoryUserRepository;
 import com.progressoft.security.repository.UserRepository;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.Objects;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class SendOtpUseCaseTest {
 
@@ -19,15 +23,15 @@ public class SendOtpUseCaseTest {
     private SendOtpUseCase sendOtpUseCase;
     private OtpConfiguration configuration;
     private UserRepository userRepository;
+    private SimpleSmtpServer server;
 
     @Before
     public void setUp() throws Exception {
-        
-        configuration=new PropertiesOtpConfigurationLoader("otp-configure.properties").load();
-        userRepository=new InMemoryUserRepository();
+        configuration = new PropertiesOtpConfigurationLoader("otp-configure.properties").load();
+        userRepository = new InMemoryUserRepository();
         sendOtpUseCase = new SendOtpUseCase(userRepository, configuration);
+        server = SimpleSmtpServer.start(2025);
     }
-
 
     @Test(expected = SendOtpUseCase.InvalidUserRepositoryProvidedException.class)
     public void creatingSendOtpUseCaseWithNullUserRepository_thenShouldThrowException() throws Exception {
@@ -41,16 +45,12 @@ public class SendOtpUseCaseTest {
 
     @Test
     public void givenSendOtpUseCase_thenCanSendOtpForPrincipal() throws Exception {
-        SimpleSmtpServer server=SimpleSmtpServer.start(2025);
         sendOtpUseCase.sendOtp(new FakePrincipal("FOUND_USER", "TENANT"));
-        server.stop();
     }
 
     @Test(expected = SendOtpUseCase.CantSendOtpForNullPrincipalException.class)
     public void givenSendOtpUseCase_whenSendOtpForNullPrincipal_thenShouldThrowException() throws Exception {
-        SimpleSmtpServer server=SimpleSmtpServer.start(2025);
         sendOtpUseCase.sendOtp(null);
-        server.stop();
     }
 
     @Test(expected = SendOtpUseCase.UserNotFoundException.class)
@@ -60,25 +60,33 @@ public class SendOtpUseCaseTest {
 
     @Test
     public void givenSendOtpUseCase_whenSendOtpForPrincipalOfExistingUser_thenSenddOtpHolderShouldNotBeNull() throws Exception {
-        SimpleSmtpServer server=SimpleSmtpServer.start(2025);
         assertNotNull(sendOtpUseCase.sendOtp(new FakePrincipal("FOUND_USER", "TENANT")));
-        server.stop();
     }
 
     @Test
     public void givenSendOtpUseCase_whenSendOtpForPrincipalOfExistingUser_thenAnOtpEmailShouldBeSent() throws Exception {
-        SimpleSmtpServer server=SimpleSmtpServer.start(2025);
         SmtpConfigurationContext.configure("smtp-configuration.properties");
         sendOtpUseCase.sendOtp(new FakePrincipal("FOUND_USER", "TENANT"));
-        SmtpMessage message= (SmtpMessage) server.getReceivedEmail().next();
-        assertEquals(1,server.getReceivedEmailSize());
+        SmtpMessage message = (SmtpMessage) server.getReceivedEmail().next();
+        assertEquals(1, server.getReceivedEmailSize());
         assertEquals("Verification code", message.getHeaderValue("Subject"));
         assertEquals("found.user@mail.com", message.getHeaderValue("To"));
         assertEquals("system@mail.com", message.getHeaderValue("From"));
-
-
-        server.stop();
     }
 
+    @After
+    public void tearDown() throws Exception {
+        if (Objects.isNull(server))
+            return;
+        try {
+            closeServer();
+        } catch (Exception e) {
+            closeServer();
+        }
+    }
 
+    private synchronized void closeServer() {
+        while (!server.isStopped())
+            server.stop();
+    }
 }

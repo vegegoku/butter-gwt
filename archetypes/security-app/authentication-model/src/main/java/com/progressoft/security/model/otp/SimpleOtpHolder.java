@@ -4,9 +4,9 @@ package com.progressoft.security.model.otp;
 import com.progressoft.notification.configuration.SmtpConfiguration;
 import com.progressoft.notification.smtp.EmailMessage;
 
-import java.util.LinkedList;
+import java.util.Collections;
 
-public class SimpleOtpHolder implements OtpHolder{
+public class SimpleOtpHolder implements OtpHolder {
     private final String code;
     private final int timeout;
     private final long generationTime;
@@ -16,7 +16,7 @@ public class SimpleOtpHolder implements OtpHolder{
         this.code = code;
         this.timeout = timeout;
         this.smtpConfiguration = smtpConfiguration;
-        this.generationTime= getCurrentTimeMillis();
+        this.generationTime = getCurrentTimeMillis();
     }
 
     protected long getCurrentTimeMillis() {
@@ -25,26 +25,24 @@ public class SimpleOtpHolder implements OtpHolder{
 
     @Override
     public boolean verify(String code) {
-        if(!this.code.equals(code))
+        if (!this.code.equals(code))
             return false;
-        if(getCurrentSeconds() > secondsSinceGenerationPlusTimeOut())
+        if (getCurrentSeconds() > secondsSinceGenerationPlusTimeOut())
             return false;
         return true;
     }
 
     @Override
     public void sendEmail(String email) {
-        EmailMessage message=new EmailMessage("Verification code", code);
-        message.send(smtpConfiguration.systemEmail(), new LinkedList<String>(){{
-            add(email);
-        }});
+        EmailMessage message = new EmailMessage("Verification code", code);
+        message.send(smtpConfiguration.systemEmail(), Collections.singletonList(email));
     }
 
     private long secondsSinceGenerationPlusTimeOut() {
-        return (generationTime+(timeout*1000))/1000;
+        return (generationTime + (timeout * 1000)) / 1000;
     }
 
     private long getCurrentSeconds() {
-        return getCurrentTimeMillis()/1000;
+        return getCurrentTimeMillis() / 1000;
     }
 }
