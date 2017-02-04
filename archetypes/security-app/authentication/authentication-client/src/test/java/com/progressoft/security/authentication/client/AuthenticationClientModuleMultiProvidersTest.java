@@ -68,7 +68,7 @@ public class AuthenticationClientModuleMultiProvidersTest extends ModuleTestCase
     }
 
     @Test
-    public void givenSuccessRootAuthenticationChain_WhenPrincipalContainsMoreChainsAndHistNextIsNotRegistered_thenShouldShowErrorMessage() throws Exception {
+    public void givenSuccessRootAuthenticationChain_WhenPrincipalContainsMoreChainsAndHisNextIsNotRegistered_thenShouldShowErrorMessage() throws Exception {
         Principal p = new FakePrincipal(new LinkedList<String>(){{
             add("NOT_REGISTERED");
         }});

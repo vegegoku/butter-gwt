@@ -1,30 +1,26 @@
 package com.progressoft.security.authentication.client;
 
 import com.google.gwtmockito.GwtMockitoTestRunner;
-
 import com.progressoft.security.authentication.client.contributions.FakeAuthenticationCompletedContribution;
 import com.progressoft.security.authentication.client.contributions.FakeAuthenticationContribution;
 import com.progressoft.security.authentication.client.contributions.FakeRootChainContribution;
+import com.progressoft.security.authentication.client.presenters.AuthenticationPresenter;
 import com.progressoft.security.authentication.client.registry.AuthenticationProviderRegistry;
 import com.progressoft.security.authentication.client.requests.ChainCompletedSuccessfullyRequest;
 import com.progressoft.security.authentication.client.requests.UserLoggedInRequest;
 import com.progressoft.security.authentication.server.filter.UserSessionContextFilter;
-import com.progressoft.security.authentication.shared.ServerAuthenticationContext;
 import com.progressoft.security.authentication.shared.extension.AuthenticationCompletedExtensionPoint;
 import com.progressoft.security.authentication.shared.extension.AuthenticationExtensionPoint;
 import com.progressoft.security.authentication.shared.extension.Principal;
 import com.progressoft.security.authentication.shared.extension.RootChainCompletedExtensionPoint;
-import com.progressoft.security.authentication.shared.registry.AuthenticationHolder;
+import com.progressoft.security.authentication.shared.request.AuthenticationRequest;
+import com.progressoft.security.authentication.shared.response.AuthenticationResponse;
 import org.akab.engine.core.api.client.extension.ContributionsRegistry;
 import org.akab.engine.core.test.ModuleTestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
-
-import com.progressoft.security.authentication.client.presenters.AuthenticationPresenter;
-import com.progressoft.security.authentication.shared.request.AuthenticationRequest;
-import com.progressoft.security.authentication.shared.response.AuthenticationResponse;
 
 @RunWith(GwtMockitoTestRunner.class)
 public class AuthenticationClientModuleTest extends ModuleTestCase {
@@ -41,7 +37,7 @@ public class AuthenticationClientModuleTest extends ModuleTestCase {
 
 
         testModule.configureModule(new AuthenticationModuleConfiguration());
-        testModule.configureModule(new AuthenticationTestModuleConfiguration(){
+        testModule.configureModule(new AuthenticationTestModuleConfiguration() {
             @Override
             public void registerContributions(ContributionsRegistry registry) {
                 registry.registerContribution(AuthenticationExtensionPoint.class, new FakeAuthenticationContribution());
@@ -61,7 +57,7 @@ public class AuthenticationClientModuleTest extends ModuleTestCase {
 
         authenticationCompletedContribution = testModule.getContribution(FakeAuthenticationCompletedContribution.class);
         authenticationContribution = testModule.getContribution(FakeAuthenticationContribution.class);
-        fakeRootChainContribution=testModule.getContribution(FakeRootChainContribution.class);
+        fakeRootChainContribution = testModule.getContribution(FakeRootChainContribution.class);
 
         testEntryPointContext.setHttpRequest(httpRequest);
         testEntryPointContext.setHttpServletResponse(httpResponse);

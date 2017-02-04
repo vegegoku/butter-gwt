@@ -4,6 +4,7 @@ import com.progressoft.security.authentication.shared.extension.Principal;
 import com.progressoft.security.model.otp.OtpGeneratorFactory;
 import com.progressoft.security.model.otp.OtpHolder;
 
+import java.util.Deque;
 import java.util.Objects;
 
 public class User {
@@ -11,24 +12,26 @@ public class User {
     private final String secret;
     private final String tenant;
     private final String email;
+    private final Deque<String> chains;
 
-    private User(String userName, String secret, String tenant, String email) {
+    private User(String userName, String secret, String tenant, String email, Deque<String> chains) {
         this.userName = userName;
         this.secret = secret;
         this.tenant = tenant;
         this.email = email;
+        this.chains = chains;
     }
 
     public boolean isSamePassword(String password) {
-        return Objects.equals(password ,secret);
+        return Objects.equals(password, secret);
     }
 
-    public Principal makePrincipal(PrincipalBuilder builder){
-        return builder.name(userName).tenant(tenant).build();
+    public Principal makePrincipal(PrincipalBuilder builder) {
+        return builder.name(userName).tenant(tenant).chains(chains).build();
     }
 
     public OtpHolder sendOtp(OtpGeneratorFactory otpGeneratorFactory) {
-        OtpHolder otpHolder=otpGeneratorFactory.make(secret).generate();
+        OtpHolder otpHolder = otpGeneratorFactory.make(secret).generate();
         otpHolder.sendEmail(email);
         return otpHolder;
     }
@@ -37,9 +40,9 @@ public class User {
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if(isSameUser(o))
+        if (isSameUser(o))
             return false;
-       return true;
+        return true;
     }
 
     private boolean isSameUser(Object o) {
@@ -63,6 +66,10 @@ public class User {
         return o == null || getClass() != o.getClass();
     }
 
+    public boolean hasChains() {
+        return !chains.isEmpty();
+    }
+
     @Override
     public int hashCode() {
         int result = userName != null ? userName.hashCode() : 0;
@@ -76,29 +83,35 @@ public class User {
         private String secret;
         private String tenant;
         private String email;
+        private Deque<String> chains;
 
         public UserBuilder name(String userName) {
-            this.userName=userName;
+            this.userName = userName;
             return this;
         }
 
         public UserBuilder secret(String secret) {
-            this.secret=secret;
+            this.secret = secret;
             return this;
         }
 
         public UserBuilder tenant(String tenant) {
-            this.tenant=tenant;
+            this.tenant = tenant;
             return this;
         }
 
         public UserBuilder email(String email) {
-            this.email=email;
+            this.email = email;
+            return this;
+        }
+
+        public UserBuilder chains(Deque<String> chains) {
+            this.chains = chains;
             return this;
         }
 
         public User build() {
-            return new User(userName, secret, tenant, email);
+            return new User(userName, secret, tenant, email, chains);
         }
     }
 }

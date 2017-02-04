@@ -13,23 +13,23 @@ import javax.mail.PasswordAuthentication;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import static com.progressoft.notification.configuration.SmtpConfigurationContext.*;
-import static java.util.Objects.*;
+import static com.progressoft.notification.configuration.SmtpConfigurationContext.configure;
+import static java.util.Objects.isNull;
 
 public class EmailMessage {
 
-    private static final CoreLogger LOGGER= CoreLoggerFactory.getLogger(EmailMessage.class);
+    private static final CoreLogger LOGGER = CoreLoggerFactory.getLogger(EmailMessage.class);
 
-    private final EmailValidator emailValidator=EmailValidator.getInstance(true, true);
+    private final EmailValidator emailValidator = EmailValidator.getInstance(true, true);
     private final String subject;
     private final String body;
-    private final LinkedList<String> failedRecipients =new LinkedList<>();
-    private Email email=new HtmlEmail();
+    private final LinkedList<String> failedRecipients = new LinkedList<>();
+    private Email email = new HtmlEmail();
 
     public EmailMessage(String subject, String body) {
-        if(isNull(subject) || subject.trim().isEmpty())
+        if (isNull(subject) || subject.trim().isEmpty())
             throw new InvalidSubjectProvidedException();
-        if(isNull(body) || body.trim().isEmpty())
+        if (isNull(body) || body.trim().isEmpty())
             throw new InvalidBodyProvidedException();
         this.subject = subject;
         this.body = body;
@@ -39,16 +39,16 @@ public class EmailMessage {
     private void configureEmail() {
         email.setHostName(configure().host());
         email.setSmtpPort(configure().port());
-        if(configure().authenticationRequired())
+        if (configure().authenticationRequired())
             email.setAuthenticator(new PasswordAuthenticator(configure().userName(), configure().secret()));
     }
 
     public Collection<String> send(String from, Collection<String> to) {
-        if(!emailValidator.isValid(from))
+        if (!emailValidator.isValid(from))
             throw new InvalidFromAddressException();
         addRecipients(to);
 
-        if(failedRecipients.size()<to.size())
+        if (failedRecipients.size() < to.size())
             sendMail(from);
         return copy(failedRecipients);
     }
@@ -64,7 +64,7 @@ public class EmailMessage {
         });
     }
 
-    private void sendMail(String from){
+    private void sendMail(String from) {
         try {
             email.setFrom(from);
             email.setMsg(body);
@@ -76,8 +76,8 @@ public class EmailMessage {
         }
     }
 
-    private boolean validateRecipient(String recipient){
-        if(!emailValidator.isValid(recipient)){
+    private boolean validateRecipient(String recipient) {
+        if (!emailValidator.isValid(recipient)) {
             failedRecipients.add(recipient);
             return false;
         }
@@ -85,12 +85,12 @@ public class EmailMessage {
     }
 
     private Collection<String> copy(LinkedList<String> sourceList) {
-        LinkedList<String> copy=new LinkedList<>();
+        LinkedList<String> copy = new LinkedList<>();
         sourceList.forEach(copy::add);
         return copy;
     }
 
-    private class PasswordAuthenticator extends Authenticator{
+    private class PasswordAuthenticator extends Authenticator {
         private final PasswordAuthentication authentication;
 
         private PasswordAuthenticator(String userName, String password) {
@@ -102,11 +102,15 @@ public class EmailMessage {
         }
     }
 
-    public class InvalidSubjectProvidedException extends RuntimeException{}
+    public class InvalidSubjectProvidedException extends RuntimeException {
+    }
 
-    public class InvalidBodyProvidedException extends RuntimeException{}
+    public class InvalidBodyProvidedException extends RuntimeException {
+    }
 
-    public class InvalidFromAddressException extends RuntimeException{}
+    public class InvalidFromAddressException extends RuntimeException {
+    }
 
-    public class FailedToSendEmailException extends RuntimeException{}
+    public class FailedToSendEmailException extends RuntimeException {
+    }
 }

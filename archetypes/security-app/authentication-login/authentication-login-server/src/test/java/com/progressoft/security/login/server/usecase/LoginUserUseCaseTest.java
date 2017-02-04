@@ -4,8 +4,12 @@ import com.progressoft.security.login.shared.LoginPrincipal;
 import com.progressoft.security.login.shared.extension.LoginCredentials;
 import com.progressoft.security.repository.InMemoryUserRepository;
 import com.progressoft.security.repository.UserRepository;
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.LinkedList;
+
+import static org.junit.Assert.assertEquals;
 
 public class LoginUserUseCaseTest {
     private static final String SOMETHING = "SOMETHING";
@@ -94,7 +98,7 @@ public class LoginUserUseCaseTest {
 
     @Test
     public void givenUseCase_WhenLoginWithExistUserValidCredentials_ThenShouldReturnLoginResponse() throws Exception {
-        assertEquals(new LoginPrincipal(FOUND_USER, TENANT), loginUserUseCase.login(makeCredentials(FOUND_USER, "SECRET",
+        assertEquals(new LoginPrincipal(FOUND_USER, TENANT, new LinkedList<>()), loginUserUseCase.login(makeCredentials(FOUND_USER, "SECRET",
                 TENANT)).getPrincipal());
     }
 }

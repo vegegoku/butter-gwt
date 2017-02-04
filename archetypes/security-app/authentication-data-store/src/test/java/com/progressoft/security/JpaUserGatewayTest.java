@@ -11,7 +11,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ContextConfig.class)
@@ -29,10 +30,10 @@ public class JpaUserGatewayTest {
     public void setUp() throws Exception {
         gateways.getUserGateway().deleteAll();
 
-        foundUser =new UserEntity();
-        foundUser.username="FOUND_USER";
-        foundUser.secret="SECRET";
-        foundUser.tenant="TENANT";
+        foundUser = new UserEntity();
+        foundUser.username = "FOUND_USER";
+        foundUser.secret = "SECRET";
+        foundUser.tenant = "TENANT";
 
         gateways.getUserGateway().save(foundUser);
     }

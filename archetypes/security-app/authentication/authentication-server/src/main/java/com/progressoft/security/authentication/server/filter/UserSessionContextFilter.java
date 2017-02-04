@@ -7,7 +7,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-public class UserSessionContextFilter implements Filter{
+public class UserSessionContextFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         //there is nothing to do for initialization.
@@ -16,8 +16,8 @@ public class UserSessionContextFilter implements Filter{
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        UserSessionContext.setContext(new WebAuthenticationHolder(((HttpServletRequest)request).getSession()));
-        chain.doFilter(request,response);
+        UserSessionContext.setContext(new WebAuthenticationHolder(((HttpServletRequest) request).getSession()));
+        chain.doFilter(request, response);
     }
 
     @Override

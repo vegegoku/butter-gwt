@@ -3,23 +3,23 @@ package com.progressoft.security.jpa.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="USERS")
+@Table(name = "USERS")
 public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long id;
 
-    @Column(name="USERNAME")
+    @Column(name = "USERNAME")
     public String username;
 
-    @Column(name="SECRET")
+    @Column(name = "SECRET")
     public String secret;
 
-    @Column(name="TENANT")
+    @Column(name = "TENANT")
     public String tenant;
 
-    @Column(name="EMAIL")
+    @Column(name = "EMAIL")
     public String email;
 
     @Override
