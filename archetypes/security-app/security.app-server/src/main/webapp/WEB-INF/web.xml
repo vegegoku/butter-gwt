@@ -9,7 +9,7 @@
   
   <filter>
     <filter-name>userSessionContext</filter-name>
-    <filter-class>com.progressoft.security.authentication.server.filter.UserSessionContextFilter</filter-class>
+    <filter-class>com.progressoft.security.authentication.server.filter.SessionContextFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>userSessionContext</filter-name>

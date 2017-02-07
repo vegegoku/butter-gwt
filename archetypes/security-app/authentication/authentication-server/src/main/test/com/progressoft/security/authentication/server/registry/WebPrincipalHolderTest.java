@@ -1,7 +1,6 @@
 package com.progressoft.security.authentication.server.registry;
 
-import com.progressoft.security.authentication.server.authentication.WebAuthenticationHolder;
-import com.progressoft.security.authentication.shared.ServerAuthenticationContext;
+import com.progressoft.security.authentication.server.authentication.WebSessionHolder;
 import com.progressoft.security.authentication.shared.extension.Principal;
 import com.progressoft.security.authentication.shared.registry.AuthenticationHolder;
 import org.akab.engine.core.test.FakeSession;
@@ -13,10 +12,9 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.easymock.EasyMock.*;
 import static org.junit.Assert.*;
 
-public class WebAuthenticationHolderTest {
+public class WebPrincipalHolderTest {
 
     private Principal principal;
     private HttpSession session;
@@ -43,7 +41,7 @@ public class WebAuthenticationHolderTest {
         };
         sessionAttributes=new HashMap<>();
         session=new FakeSession(sessionAttributes);
-        authenticationHolder=new WebAuthenticationHolder(session);
+        authenticationHolder= WebSessionHolder.makeUserSessionHolder(session);
     }
 
 

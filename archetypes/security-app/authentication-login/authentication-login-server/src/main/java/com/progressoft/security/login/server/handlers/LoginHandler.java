@@ -1,6 +1,6 @@
 package com.progressoft.security.login.server.handlers;
 
-import com.progressoft.security.authentication.server.shared.UserSessionContext;
+import com.progressoft.security.authentication.server.shared.AuthenticationProcessContext;
 import com.progressoft.security.login.server.usecase.LoginUserUseCase;
 import com.progressoft.security.login.shared.request.LoginRequest;
 import com.progressoft.security.login.shared.response.LoginResponse;
@@ -22,7 +22,7 @@ public class LoginHandler implements RequestHandler<LoginRequest, LoginResponse>
     public LoginResponse handleRequest(LoginRequest request) {
         try {
             LoginResponse response = new LoginUserUseCase(RepositoryContext.userRepository()).login(request.getLoginCredentials());
-            UserSessionContext.get().setProperty("principal", response.getPrincipal());
+            AuthenticationProcessContext.get().setProperty("authentication", response.getPrincipal());
             return response;
         } catch (BadCredentialsException | UserNotFoundException e) {
             LOGGER.debug("Bad credentials : ", e);

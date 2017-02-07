@@ -1,3 +1,12 @@
 .Otp{
     background-color: blue;
 }
+
+.mainPanel{
+ padding-top:70px;
+}
+
+.errorDialogTitle{
+    font-weight: 300;
+    text-align: center;
+}

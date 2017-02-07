@@ -3,7 +3,7 @@ package com.progressoft.security.authentication.client;
 import com.google.gwtmockito.GwtMockitoTestRunner;
 import com.progressoft.security.authentication.client.contributions.*;
 import com.progressoft.security.authentication.client.presenters.AuthenticationPresenter;
-import com.progressoft.security.authentication.server.filter.UserSessionContextFilter;
+import com.progressoft.security.authentication.server.filter.SessionContextFilter;
 import com.progressoft.security.authentication.shared.extension.AuthenticationCompletedExtensionPoint;
 import com.progressoft.security.authentication.shared.extension.AuthenticationExtensionPoint;
 import com.progressoft.security.authentication.shared.extension.Principal;
@@ -58,7 +58,7 @@ public class AuthenticationClientModuleMultiProvidersTest extends ModuleTestCase
         testEntryPointContext.setHttpRequest(httpRequest);
         testEntryPointContext.setHttpServletResponse(httpResponse);
         FakeAuthenticationProvider.ORDER=0;
-        filterChain.addFilter(new UserSessionContextFilter());
+        filterChain.addFilter(new SessionContextFilter());
     }
 
 

@@ -9,6 +9,8 @@ import com.google.gwt.resources.client.ImageResource;
 public interface OtpBundle extends ClientBundle{
 
     interface Style extends CssResource {
+        String mainPanel();
+        String errorDialogTitle();
         String Otp();
     }
 
@@ -17,5 +19,6 @@ public interface OtpBundle extends ClientBundle{
 
     @Source("text/welcome.txt")
     ExternalTextResource welcome();
+
 
 }

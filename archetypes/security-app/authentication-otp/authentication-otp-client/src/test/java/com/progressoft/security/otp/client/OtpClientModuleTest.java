@@ -4,7 +4,7 @@ import com.dumbster.smtp.ServerOptions;
 import com.dumbster.smtp.SmtpServer;
 import com.dumbster.smtp.SmtpServerFactory;
 import com.google.gwtmockito.GwtMockitoTestRunner;
-import com.progressoft.security.authentication.server.filter.UserSessionContextFilter;
+import com.progressoft.security.authentication.server.filter.SessionContextFilter;
 import com.progressoft.security.authentication.shared.extension.AuthenticationContext;
 import com.progressoft.security.authentication.shared.extension.AuthenticationExtensionPoint;
 import com.progressoft.security.otp.client.contributions.OtpAuthenticationContribution;
@@ -59,7 +59,7 @@ public class OtpClientModuleTest extends ModuleTestCase {
             return viewSpy;
         });
         RepositoryContext.withUserRepository(new InMemoryUserRepository());
-        filterChain.addFilter(new UserSessionContextFilter());
+        filterChain.addFilter(new SessionContextFilter());
     }
 
     private void applyAuthenticationContributions(final AuthenticationContext context) {

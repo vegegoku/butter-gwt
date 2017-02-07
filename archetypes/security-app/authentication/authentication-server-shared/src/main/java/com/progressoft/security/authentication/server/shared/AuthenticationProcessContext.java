@@ -3,14 +3,15 @@ package com.progressoft.security.authentication.server.shared;
 import com.progressoft.security.authentication.shared.extension.Principal;
 import com.progressoft.security.authentication.shared.registry.AuthenticationHolder;
 
-import static java.util.Objects.*;
+import static java.util.Objects.isNull;
 
-public class UserSessionContext {
+public class AuthenticationProcessContext {
+
+    public static final String AUTHENTICATION = "authentication";
 
     private static final ThreadLocal<AuthenticationHolder> contextHolder = new ThreadLocal<>();
-    public static final String PRINCIPAL = "principal";
 
-    private UserSessionContext() {}
+    private AuthenticationProcessContext() {}
 
     public static void clear() {
         contextHolder.remove();

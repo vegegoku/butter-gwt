@@ -1,5 +1,6 @@
 package com.progressoft.security.otp.server.handlers;
 
+import com.progressoft.security.authentication.server.shared.AuthenticationProcessContext;
 import com.progressoft.security.authentication.server.shared.UserSessionContext;
 import com.progressoft.security.model.otp.OtpHolder;
 import com.progressoft.security.otp.server.OtpConfigurationContext;
@@ -18,12 +19,12 @@ public class GenerateOtpHandler implements RequestHandler<GenerateOtpRequest, Ge
 
     @Override
     public GenerateOtpResponse handleRequest(GenerateOtpRequest request) {
-        UserSessionContext.get().setProperty("OTP_HOLDER", generatedOtpHolder());
+        AuthenticationProcessContext.get().setProperty("OTP_HOLDER", generatedOtpHolder());
         return new GenerateOtpResponse();
     }
 
     private OtpHolder generatedOtpHolder() {
         return new SendOtpUseCase(RepositoryContext.userRepository(), OtpConfigurationContext.configuration())
-                .sendOtp(UserSessionContext.get().getPrincipal());
+                .sendOtp(AuthenticationProcessContext.get().getPrincipal());
     }
 }

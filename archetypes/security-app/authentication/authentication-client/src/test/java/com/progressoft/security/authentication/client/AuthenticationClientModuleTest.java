@@ -8,7 +8,7 @@ import com.progressoft.security.authentication.client.presenters.AuthenticationP
 import com.progressoft.security.authentication.client.registry.AuthenticationProviderRegistry;
 import com.progressoft.security.authentication.client.requests.ChainCompletedSuccessfullyRequest;
 import com.progressoft.security.authentication.client.requests.UserLoggedInRequest;
-import com.progressoft.security.authentication.server.filter.UserSessionContextFilter;
+import com.progressoft.security.authentication.server.filter.SessionContextFilter;
 import com.progressoft.security.authentication.shared.extension.AuthenticationCompletedExtensionPoint;
 import com.progressoft.security.authentication.shared.extension.AuthenticationExtensionPoint;
 import com.progressoft.security.authentication.shared.extension.Principal;
@@ -62,7 +62,7 @@ public class AuthenticationClientModuleTest extends ModuleTestCase {
         testEntryPointContext.setHttpRequest(httpRequest);
         testEntryPointContext.setHttpServletResponse(httpResponse);
         attributes.clear();
-        filterChain.addFilter(new UserSessionContextFilter());
+        filterChain.addFilter(new SessionContextFilter());
     }
 
     private void sendLoggedInRequest(AssertStrategy strategy) {
