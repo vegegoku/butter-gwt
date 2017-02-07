@@ -1,6 +1,5 @@
 package com.progressoft.security.otp.client.views;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.resources.client.ExternalTextResource;
@@ -20,5 +19,7 @@ public interface OtpBundle extends ClientBundle{
     @Source("text/welcome.txt")
     ExternalTextResource welcome();
 
+    @Source("images/logo.jpg")
+    ImageResource logo();
 
 }

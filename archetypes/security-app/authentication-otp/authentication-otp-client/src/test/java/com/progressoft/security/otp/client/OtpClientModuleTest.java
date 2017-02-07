@@ -89,7 +89,7 @@ public class OtpClientModuleTest extends ModuleTestCase {
     @Test
     public void givenOtpModule_whenOtpProviderBeginMethodIsCalled_thenOtpCodeShouldBeGeneratedAndOtpDialogShouldBeShown()
             throws Exception {
-        session.setAttribute("principal", new FakePrincipal("FOUND_USER", "TENANT"));
+        session.setAttribute("authentication", new FakePrincipal("FOUND_USER", "TENANT"));
         applyAuthenticationContributions(fakeAuthenticationContext);
         fakeAuthenticationContext.provider.begin();
         assertTrue(presenterSpy.otpCodeGenerated);

@@ -6,16 +6,17 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
-
-import org.akab.engine.core.api.client.annotations.UiView;
-
 import com.progressoft.security.otp.client.presenters.OtpPresenter;
+import org.akab.engine.core.api.client.annotations.UiView;
 
 @UiView(presentable = OtpPresenter.class)
 public class DefaultOtpView extends Composite implements OtpView{
 
     interface DefaultOtpViewUiBinder extends UiBinder<HTMLPanel, DefaultOtpView> {
     }
+
+    @UiField
+    DivElement mainDiv;
 
     private static DefaultOtpViewUiBinder ourUiBinder = GWT.create(DefaultOtpViewUiBinder.class);
 
