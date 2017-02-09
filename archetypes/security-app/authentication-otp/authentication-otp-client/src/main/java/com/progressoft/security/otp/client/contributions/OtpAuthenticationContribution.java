@@ -1,6 +1,5 @@
 package com.progressoft.security.otp.client.contributions;
 
-import com.google.gwt.user.client.Window;
 import com.progressoft.security.authentication.shared.extension.AuthenticationExtensionPoint;
 import com.progressoft.security.otp.client.requests.AuthenticationContextRecievedClientRequest;
 import org.akab.engine.core.api.client.annotations.Contribute;
@@ -13,7 +12,6 @@ public class OtpAuthenticationContribution implements Contribution<Authenticatio
 
     @Override
     public void contribute(AuthenticationExtensionPoint extensionPoint) {
-        Window.alert("otp");
         if(isNull(extensionPoint.context()))
             throw new InvalidAuthenticationContextRecieved();
         new AuthenticationContextRecievedClientRequest(extensionPoint.context()).send();

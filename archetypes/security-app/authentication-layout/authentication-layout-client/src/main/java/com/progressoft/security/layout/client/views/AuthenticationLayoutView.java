@@ -5,5 +5,4 @@ import org.akab.engine.core.api.client.mvp.view.View;
 
 public interface AuthenticationLayoutView extends View{
     void showView(IsWidget view);
-    void hideView(IsWidget view);
 }

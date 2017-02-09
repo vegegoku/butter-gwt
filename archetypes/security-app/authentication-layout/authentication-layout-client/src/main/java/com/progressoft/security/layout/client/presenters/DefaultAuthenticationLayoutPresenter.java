@@ -17,18 +17,6 @@ public class DefaultAuthenticationLayoutPresenter extends BaseClientPresenter<Au
     public void contributeToMainModule(MainExtensionPoint mainExtensionPoint) {
         mainExtensionPoint.context().appendWidgetToRoot(view);
         Contributions.apply(AuthenticationLayoutExtensionPoint.class,
-                (AuthenticationLayoutExtensionPoint) () -> new AuthenticationLayoutContext() {
-                    @Override
-                    public void showViewInMainPanel(IsWidget v) {
-                        view.showView(v);
-                    }
-
-                    @Override
-                    public void hideViewFromMainPanel(IsWidget v) {
-                        view.hideView(v);
-                    }
-                });
+                (AuthenticationLayoutExtensionPoint) () -> (AuthenticationLayoutContext) v -> view.showView(v));
     }
-
-
 }

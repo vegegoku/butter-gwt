@@ -9,7 +9,27 @@
         }
     </ui:style>
 
-    <g:HTMLPanel>
-        <div ui:field="mainDiv" class="sample-div"></div>
-    </g:HTMLPanel>
+    <m:MaterialRow ui:field="root" marginBottom="0" addStyleNames="code {bundle.style.mainPanel}" overflow="AUTO">
+        <m:MaterialColumn grid="s12 m10 l4" offset="l4 m1">
+            <m:MaterialCard backgroundColor="WHITE" shadow="1">
+                <m:MaterialCardImage waves="LIGHT">
+                    <m:MaterialImage resource="{bundle.logo}" backgroundColor="GREY_LIGHTEN_5"/>
+                    <m:MaterialCardTitle text="Otp Authentication" fontSize="2em"/>
+                </m:MaterialCardImage>
+
+                <m:MaterialCardContent textColor="BLACK">
+                    <m:MaterialTextBox ui:field="otpCode" type="TEXT" placeholder="Verification code"/>
+
+                    <m:MaterialButton ui:field="verifyOtpButton" waves="LIGHT" text="Verify code" width="100%"
+                                      backgroundColor="BLUE_LIGHTEN_1"/>
+                </m:MaterialCardContent>
+            </m:MaterialCard>
+        </m:MaterialColumn>
+        <!--<m:MaterialModal ui:field="errorDialog" type="BOTTOM_SHEET" dismissible="true" inDuration="200"-->
+                         <!--outDuration="200">-->
+            <!--<m:MaterialModalContent addStyleNames="code {bundle.style.errorDialogTitle}">-->
+                <!--<m:MaterialTitle ui:field="errorDialogTitle" fontSize="15px" title="Login Failed"/>-->
+            <!--</m:MaterialModalContent>-->
+        <!--</m:MaterialModal>-->
+    </m:MaterialRow>
 </ui:UiBinder>

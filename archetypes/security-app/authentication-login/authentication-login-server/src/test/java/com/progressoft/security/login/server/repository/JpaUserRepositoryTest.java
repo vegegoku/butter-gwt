@@ -1,5 +1,6 @@
 package com.progressoft.security.login.server.repository;
 
+import com.progressoft.security.config.ContextInitializer;
 import com.progressoft.security.jpa.GatewayContext;
 import com.progressoft.security.jpa.entity.UserEntity;
 import com.progressoft.security.model.user.User;
@@ -18,6 +19,7 @@ public class JpaUserRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
+        ContextInitializer.initialize();
         repository = new JpaUserRepository();
 
         GatewayContext.userGateway().deleteAll();

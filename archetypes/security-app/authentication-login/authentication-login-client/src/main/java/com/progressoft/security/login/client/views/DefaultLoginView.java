@@ -2,6 +2,8 @@ package com.progressoft.security.login.client.views;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -56,12 +58,19 @@ public class DefaultLoginView extends Composite implements LoginView {
         userName.setText("");
         password.setText("");
         tenant.setText(defaultTenant);
+        userName.setFocus(true);
         return this;
     }
 
     @UiHandler("loginButton")
     void onLoginButtonClick(ClickEvent event) {
         this.loginHandler.handle(makeLoginCredentials());
+    }
+
+    @UiHandler({"userName", "password", "tenant"})
+    void onUserNameEnterKeyPress(KeyPressEvent event) {
+        if(event.getNativeEvent().getKeyCode()== KeyCodes.KEY_ENTER)
+            this.loginHandler.handle(makeLoginCredentials());
     }
 
     protected LoginCredentials makeLoginCredentials() {

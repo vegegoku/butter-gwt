@@ -51,16 +51,7 @@ public class LoginClientModuleTest extends ModuleTestCase {
 
         loginAuthenticationContribution = testModule.getContribution(LoginAuthenticationContribution.class);
         initServerAuthenticationConfigurations();
-        Contributions.apply(AuthenticationLayoutExtensionPoint.class, (AuthenticationLayoutExtensionPoint) () -> new AuthenticationLayoutContext() {
-            @Override
-            public void showViewInMainPanel(IsWidget view) {
-
-            }
-
-            @Override
-            public void hideViewFromMainPanel(IsWidget view) {
-
-            }
+        Contributions.apply(AuthenticationLayoutExtensionPoint.class, (AuthenticationLayoutExtensionPoint) () -> (AuthenticationLayoutContext) view -> {
         });
         RepositoryContext.withUserRepository(new InMemoryUserRepository());
     }

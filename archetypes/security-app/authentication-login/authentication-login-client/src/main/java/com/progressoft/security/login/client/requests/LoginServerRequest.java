@@ -24,11 +24,8 @@ public class LoginServerRequest extends ClientServerRequest<LoginPresenter, Logi
     protected void process(LoginPresenter presenter, LoginRequest serverRequest, LoginResponse response) {
         if(isNull(response.getPrincipal()))
             presenter.showError();
-        else {
-            Window.alert("Login in success");
+        else
             presenter.onLoginSuccess(response.getPrincipal());
-        }
-
     }
 
 

@@ -1,6 +1,7 @@
 package com.progressoft.security.otp.client;
 
 import com.progressoft.security.otp.client.views.DefaultOtpView;
+import com.progressoft.security.otp.client.views.OtpView;
 
 public class OtpViewSpy extends DefaultOtpView {
 
@@ -11,9 +12,10 @@ public class OtpViewSpy extends DefaultOtpView {
     }
 
     @Override
-    public void show() {
+    public OtpView show() {
         super.show();
         this.otpDialogVisible=true;
+        return this;
     }
 
     @Override

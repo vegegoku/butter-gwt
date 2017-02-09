@@ -83,7 +83,6 @@ public class DefaultLoginPresenter extends BaseClientPresenter<LoginView> implem
     @Override
     public void onLoginSuccess(Principal principal) {
         authenticationContext.onChainCompleted(() -> principal);
-        authenticationLayoutContext.hideViewFromMainPanel(view);
     }
 
     @Override

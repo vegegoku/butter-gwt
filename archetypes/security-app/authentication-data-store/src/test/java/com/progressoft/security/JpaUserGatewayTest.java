@@ -1,6 +1,7 @@
 package com.progressoft.security;
 
 import com.progressoft.security.config.ContextConfig;
+import com.progressoft.security.config.ContextInitializer;
 import com.progressoft.security.jpa.entity.UserEntity;
 import com.progressoft.security.jpa.gateway.Gateways;
 import org.junit.Before;

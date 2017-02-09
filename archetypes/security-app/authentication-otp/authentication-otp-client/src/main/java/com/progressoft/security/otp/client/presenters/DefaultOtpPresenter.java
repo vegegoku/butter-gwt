@@ -1,7 +1,7 @@
 package com.progressoft.security.otp.client.presenters;
 
-import com.google.gwt.user.client.Window;
 import com.progressoft.security.authentication.shared.extension.AuthenticationContext;
+import com.progressoft.security.layout.shared.extension.AuthenticationLayoutContext;
 import com.progressoft.security.otp.client.provider.OtpClientAuthenticationProvider;
 import com.progressoft.security.otp.client.requests.GenerateOtpCodeServerRequest;
 import com.progressoft.security.otp.client.views.OtpView;
@@ -12,11 +12,19 @@ import org.akab.engine.core.api.client.mvp.presenter.BaseClientPresenter;
 public class DefaultOtpPresenter extends BaseClientPresenter<OtpView> implements OtpPresenter {
 
     private AuthenticationContext authenticationContext;
+    private AuthenticationLayoutContext authenticationLayoutContext;
+
+    @Override
+    public void onAuthenticationLayoutInitialized(AuthenticationLayoutContext context) {
+        this.authenticationLayoutContext=context;
+    }
+
+
 
     @Override
     public void onAuthenticationContextRecieved(AuthenticationContext context) {
         this.authenticationContext = context;
-        context.registerProvider(OtpClientAuthenticationProvider.OTP, new OtpClientAuthenticationProvider());
+        this.authenticationContext.registerProvider(OtpClientAuthenticationProvider.OTP, new OtpClientAuthenticationProvider());
     }
 
     @Override
@@ -26,7 +34,6 @@ public class DefaultOtpPresenter extends BaseClientPresenter<OtpView> implements
 
     @Override
     public void onOtpCodeGenerated() {
-        Window.alert("show otp");
-        view.show();
+        this.authenticationLayoutContext.showViewInMainPanel(view.show());
     }
 }
