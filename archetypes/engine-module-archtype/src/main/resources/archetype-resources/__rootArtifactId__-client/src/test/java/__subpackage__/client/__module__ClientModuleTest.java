@@ -19,16 +19,16 @@ import ${package}.${subpackage}.client.requests.${module}ServerRequest;
 import ${package}.${subpackage}.shared.request.${module}Request;
 import ${package}.${subpackage}.shared.response.${module}Response;
 
-import org.akab.engine.app.test.TestEntryPointContext;
-import org.akab.engine.app.test.TestModule;
-import org.akab.engine.app.test.TestPresenterFactory;
-import org.akab.engine.app.test.TestViewFactory;
+import org.akab.engine.core.test.test.TestEntryPointContext;
+import org.akab.engine.core.test.test.TestModule;
+import org.akab.engine.core.test.test.TestPresenterFactory;
+import org.akab.engine.core.test.test.TestViewFactory;
 import org.akab.engine.core.api.client.mvp.presenter.Presentable;
 import org.akab.engine.core.api.client.mvp.view.View;
 
 import org.akab.engine.core.api.shared.extension.MainContext;
 import org.akab.engine.core.api.shared.extension.MainExtensionPoint;
-import org.akab.engine.app.test.ModuleTestCase;
+import org.akab.engine.core.test.ModuleTestCase;
 
 @RunWith(GwtMockitoTestRunner.class)
 public class ${module}ClientModuleTest extends ModuleTestCase{
