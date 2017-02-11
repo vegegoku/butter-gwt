@@ -1,0 +1,21 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:m='urn:import:gwt.material.design.client.ui'>
+
+    <ui:with field="bundle" type="com.progressoft.security.uimessages.client.views.UiMessagesBundle"/>
+    <ui:style gss="true">
+        .sample-div{
+            background-color: #CECECE;
+        }
+    </ui:style>
+    <m:MaterialRow ui:field="root">
+        <m:MaterialModal ui:field="errorDialog" type="BOTTOM_SHEET" dismissible="true" inDuration="200" outDuration="200">
+            <m:MaterialModalContent addStyleNames="code {bundle.style.errorDialogTitle}">
+                <m:MaterialIcon iconType="ERROR" textColor="RED" iconSize="MEDIUM"/>
+                <m:MaterialTitle ui:field="errorDialogTitle" fontSize="15px" title=""/>
+            </m:MaterialModalContent>
+        </m:MaterialModal>
+    </m:MaterialRow>
+
+
+</ui:UiBinder>

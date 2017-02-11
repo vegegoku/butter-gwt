@@ -26,12 +26,6 @@
                 </m:MaterialCardContent>
             </m:MaterialCard>
         </m:MaterialColumn>
-        <m:MaterialModal ui:field="errorDialog" type="BOTTOM_SHEET" dismissible="true" inDuration="200"
-                         outDuration="200">
-            <m:MaterialModalContent addStyleNames="code {bundle.style.errorDialogTitle}">
-                <m:MaterialTitle ui:field="errorDialogTitle" fontSize="15px" title="Login Failed"/>
-            </m:MaterialModalContent>
-        </m:MaterialModal>
     </m:MaterialRow>
 
 </ui:UiBinder>

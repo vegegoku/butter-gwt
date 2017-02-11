@@ -8,6 +8,8 @@ public class LoginPresenterSpy extends DefaultLoginPresenter{
 
     private AuthenticationContext context;
     private boolean loginRequestExecuted;
+    private String errorMessage;
+    private String errorDescription;
 
     @Override
     protected String getConcrete() {
@@ -28,5 +30,18 @@ public class LoginPresenterSpy extends DefaultLoginPresenter{
         return loginRequestExecuted;
     }
 
+    @Override
+    public void showError(String message, String details) {
+        super.showError(message, details);
+        this.errorMessage=message;
+        this.errorDescription=details;
+    }
 
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public String getErrorDescription() {
+        return errorDescription;
+    }
 }

@@ -140,5 +140,6 @@
         <module>authentication-model</module>
         <module>authentication-data-store-testing</module>
         <module>notifications</module>
+        <module>ui-messages</module>
     </modules>
 </project>

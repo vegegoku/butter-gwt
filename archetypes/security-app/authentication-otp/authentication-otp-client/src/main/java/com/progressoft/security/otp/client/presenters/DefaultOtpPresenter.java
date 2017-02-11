@@ -8,6 +8,7 @@ import com.progressoft.security.otp.client.provider.OtpClientAuthenticationProvi
 import com.progressoft.security.otp.client.requests.GenerateOtpCodeServerRequest;
 import com.progressoft.security.otp.client.requests.VerifyOtpCodeServerRequest;
 import com.progressoft.security.otp.client.views.OtpView;
+import com.progressoft.security.uimessages.shared.extension.UiMessagesContext;
 import org.akab.engine.core.api.client.annotations.Presenter;
 import org.akab.engine.core.api.client.mvp.presenter.BaseClientPresenter;
 
@@ -18,6 +19,7 @@ public class DefaultOtpPresenter extends BaseClientPresenter<OtpView> implements
 
     private AuthenticationContext authenticationContext;
     private AuthenticationLayoutContext authenticationLayoutContext;
+    private UiMessagesContext uiMessagesContext;
 
     @Override
     public void initView(OtpView view) {
@@ -35,13 +37,12 @@ public class DefaultOtpPresenter extends BaseClientPresenter<OtpView> implements
     }
 
     @Override
-    public void showErrorMessage() {
-        view.showErrorMessage("Invalid OTP code");
+    public void showErrorMessage(String message, String details) {
+        this.uiMessagesContext.showError(message, details);
     }
 
     @Override
     public void onChainCompletedSuccessfully(Principal principal) {
-        Window.alert("success");
         authenticationContext.onChainCompleted(() -> principal);
     }
 
@@ -49,6 +50,11 @@ public class DefaultOtpPresenter extends BaseClientPresenter<OtpView> implements
     public void onAuthenticationContextRecieved(AuthenticationContext context) {
         this.authenticationContext = context;
         this.authenticationContext.registerProvider(OtpClientAuthenticationProvider.OTP, new OtpClientAuthenticationProvider());
+    }
+
+    @Override
+    public void onUiMessagesContextRecieved(UiMessagesContext uiMessagesContext) {
+        this.uiMessagesContext=uiMessagesContext;
     }
 
     @Override

@@ -5,7 +5,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.progressoft.security.otp.client.presenters.OtpPresenter;
 import com.progressoft.security.otp.client.presenters.VerifyHandler;
@@ -16,7 +15,7 @@ import org.akab.engine.core.api.client.annotations.UiView;
 public class DefaultOtpView extends Composite implements OtpView {
 
     public static final String REQUIRED = "Required";
-    protected VerifyHandler handler;
+    protected VerifyHandler verifyOtpHandler;
 
     interface DefaultOtpViewUiBinder extends UiBinder<MaterialRow, DefaultOtpView> {
     }
@@ -26,15 +25,9 @@ public class DefaultOtpView extends Composite implements OtpView {
 
     @UiField
     MaterialButton verifyOtpButton;
+
     @UiField
-    protected
     MaterialTextBox otpCode;
-
-    @UiField
-    MaterialModal errorDialog;
-
-    @UiField
-    MaterialTitle errorDialogTitle;
 
     private static DefaultOtpViewUiBinder ourUiBinder = GWT.create(DefaultOtpViewUiBinder.class);
 
@@ -45,7 +38,7 @@ public class DefaultOtpView extends Composite implements OtpView {
 
     @UiHandler("verifyOtpButton")
     void onVerifyButtonPressed(ClickEvent event) {
-        this.handler.handle(getOtpCode());
+        this.verifyOtpHandler.handle(getOtpCode());
     }
 
     @Override
@@ -56,18 +49,12 @@ public class DefaultOtpView extends Composite implements OtpView {
 
     @Override
     public void addVerifyHandler(VerifyHandler handler) {
-        this.handler = handler;
+        this.verifyOtpHandler = handler;
     }
 
     @Override
     public void invalidateField() {
         this.otpCode.setError(REQUIRED);
-    }
-
-    @Override
-    public void showErrorMessage(String errorMessage) {
-        errorDialogTitle.setDescription(errorMessage);
-        errorDialog.open();
     }
 
     protected String getOtpCode() {

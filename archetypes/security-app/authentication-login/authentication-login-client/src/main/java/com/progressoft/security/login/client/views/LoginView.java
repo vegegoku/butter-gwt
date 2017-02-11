@@ -14,5 +14,4 @@ public interface LoginView extends View{
 
     void invalidateFields(Conclusion conclusion);
 
-    void showErrorMessage(String errorMessage);
 }

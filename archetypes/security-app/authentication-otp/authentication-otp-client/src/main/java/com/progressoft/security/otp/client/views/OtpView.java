@@ -9,6 +9,4 @@ public interface OtpView extends View {
     void addVerifyHandler(VerifyHandler handler);
 
     void invalidateField();
-
-    void showErrorMessage(String errorMessage);
 }

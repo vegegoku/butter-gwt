@@ -17,6 +17,8 @@ import com.progressoft.security.otp.client.presenters.OtpPresenter;
 import com.progressoft.security.repository.FakePrincipal;
 import com.progressoft.security.repository.InMemoryUserRepository;
 import com.progressoft.security.repository.RepositoryContext;
+import com.progressoft.security.uimessages.shared.extension.UiMessagesContext;
+import com.progressoft.security.uimessages.shared.extension.UiMessagesExtensionPoint;
 import gwt.material.design.client.ui.MaterialTextBox;
 import org.akab.engine.core.api.client.extension.Contributions;
 import org.akab.engine.core.test.ModuleTestCase;
@@ -36,6 +38,7 @@ public class OtpClientModuleTest extends ModuleTestCase {
     private OtpViewSpy viewSpy;
     private FakeAuthenticationContext fakeAuthenticationContext;
     private FakeAuthenticationLayoutContext fakeAuthenticationLayoutContext;
+    private FakeUiMessageContext fakeUiMessageContext;
     private SmtpServer smtpServer;
 
     private void startSmtpServer() {
@@ -57,6 +60,7 @@ public class OtpClientModuleTest extends ModuleTestCase {
         startSmtpServer();
         fakeAuthenticationContext = new FakeAuthenticationContext();
         fakeAuthenticationLayoutContext = new FakeAuthenticationLayoutContext();
+        fakeUiMessageContext=new FakeUiMessageContext();
         testModule.configureModule(new OtpModuleConfiguration());
 
         testModule.replacePresenter(OtpPresenter.class.getCanonicalName(), () -> {
@@ -70,6 +74,7 @@ public class OtpClientModuleTest extends ModuleTestCase {
         });
         RepositoryContext.withUserRepository(new InMemoryUserRepository());
         filterChain.addFilter(new SessionContextFilter());
+
     }
 
     private void applyAuthenticationContributions(final AuthenticationContext context) {
@@ -78,6 +83,10 @@ public class OtpClientModuleTest extends ModuleTestCase {
 
     private void applyAuthenticationLayoutContribution(final AuthenticationLayoutContext context) {
         Contributions.apply(AuthenticationLayoutExtensionPoint.class, (AuthenticationLayoutExtensionPoint) () -> context);
+    }
+
+    private void applyUiMessagesContextContribution(final UiMessagesContext context) {
+        Contributions.apply(UiMessagesExtensionPoint.class, (UiMessagesExtensionPoint) () -> context);
     }
 
     private void initializeOtpHolder() {
@@ -120,6 +129,7 @@ public class OtpClientModuleTest extends ModuleTestCase {
         session.setAttribute("authentication", new FakePrincipal("FOUND_USER", "TENANT"));
         applyAuthenticationContributions(fakeAuthenticationContext);
         applyAuthenticationLayoutContribution(fakeAuthenticationLayoutContext);
+        applyUiMessagesContextContribution(fakeUiMessageContext);
         fakeAuthenticationContext.provider.begin();
         assertTrue(presenterSpy.otpCodeGenerated);
         assertTrue(viewSpy.isOtpDialogVisible());
@@ -130,6 +140,7 @@ public class OtpClientModuleTest extends ModuleTestCase {
         session.setAttribute("authentication", new FakePrincipal("FOUND_USER", "TENANT"));
         applyAuthenticationContributions(fakeAuthenticationContext);
         applyAuthenticationLayoutContribution(fakeAuthenticationLayoutContext);
+        applyUiMessagesContextContribution(fakeUiMessageContext);
         fakeAuthenticationContext.provider.begin();
         viewSpy.setOtpCode(null);
         viewSpy.clickVerify();
@@ -141,11 +152,13 @@ public class OtpClientModuleTest extends ModuleTestCase {
         session.setAttribute("authentication", new FakePrincipal("FOUND_USER", "TENANT"));
         applyAuthenticationContributions(fakeAuthenticationContext);
         applyAuthenticationLayoutContribution(fakeAuthenticationLayoutContext);
+        applyUiMessagesContextContribution(fakeUiMessageContext);
         fakeAuthenticationContext.provider.begin();
         initializeOtpHolder();
         viewSpy.setOtpCode(INVALID_OTP);
         viewSpy.clickVerify();
-        assertTrue(viewSpy.isErrorMessageShowed());
+        assertTrue(presenterSpy.errorMessageShown);
+        assertEquals("Invalid OTP code", presenterSpy.errorDescription);
     }
 
     @Test

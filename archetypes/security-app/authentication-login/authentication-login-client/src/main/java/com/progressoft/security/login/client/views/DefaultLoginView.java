@@ -40,12 +40,6 @@ public class DefaultLoginView extends Composite implements LoginView {
     MaterialButton loginButton;
 
     @UiField
-    MaterialModal errorDialog;
-
-    @UiField
-    MaterialTitle errorDialogTitle;
-
-    @UiField
     MaterialRow root;
 
     public DefaultLoginView() {
@@ -135,12 +129,6 @@ public class DefaultLoginView extends Composite implements LoginView {
 
     protected MaterialTextBox getTenantField() {
         return tenant;
-    }
-
-    @Override
-    public void showErrorMessage(String errorMessage) {
-        errorDialogTitle.setDescription(errorMessage);
-        errorDialog.open();
     }
 
     @Override

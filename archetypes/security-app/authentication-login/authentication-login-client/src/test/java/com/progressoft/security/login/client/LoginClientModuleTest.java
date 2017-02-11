@@ -13,6 +13,8 @@ import com.progressoft.security.login.client.contributions.LoginAuthenticationCo
 import com.progressoft.security.login.client.presenters.LoginPresenter;
 import com.progressoft.security.repository.InMemoryUserRepository;
 import com.progressoft.security.repository.RepositoryContext;
+import com.progressoft.security.uimessages.shared.extension.UiMessagesContext;
+import com.progressoft.security.uimessages.shared.extension.UiMessagesExtensionPoint;
 import gwt.material.design.client.ui.MaterialTextBox;
 import org.akab.engine.core.api.client.extension.Contributions;
 import org.akab.engine.core.test.ModuleTestCase;
@@ -30,6 +32,7 @@ public class LoginClientModuleTest extends ModuleTestCase {
     private LoginViewSpy viewSpy;
     private LoginAuthenticationContribution loginAuthenticationContribution;
     private FakeAuthenticationContext fakeAuthenticationContext;
+    private FakeUiMessagesContext fakeUiMessagesContext;
 
 
     @Override
@@ -37,6 +40,7 @@ public class LoginClientModuleTest extends ModuleTestCase {
         GwtMockito.useProviderForType(MaterialTextBox.class, type -> new FakeMaterialTextBox());
 
         fakeAuthenticationContext = new FakeAuthenticationContext();
+        fakeUiMessagesContext = new FakeUiMessagesContext();
         testModule.configureModule(new LoginModuleConfiguration());
 
         testModule.replacePresenter(LoginPresenter.class.getCanonicalName(), () -> {
@@ -51,8 +55,9 @@ public class LoginClientModuleTest extends ModuleTestCase {
 
         loginAuthenticationContribution = testModule.getContribution(LoginAuthenticationContribution.class);
         initServerAuthenticationConfigurations();
-        Contributions.apply(AuthenticationLayoutExtensionPoint.class, (AuthenticationLayoutExtensionPoint) () -> (AuthenticationLayoutContext) view -> {
-        });
+        Contributions.apply(AuthenticationLayoutExtensionPoint.class,
+                (AuthenticationLayoutExtensionPoint) () -> (AuthenticationLayoutContext) view -> {
+                });
         RepositoryContext.withUserRepository(new InMemoryUserRepository());
     }
 
@@ -74,19 +79,26 @@ public class LoginClientModuleTest extends ModuleTestCase {
         Contributions.apply(AuthenticationExtensionPoint.class, (AuthenticationExtensionPoint) () -> context);
     }
 
+    private void applyUiMessagesContributions(final UiMessagesContext context) {
+        Contributions.apply(UiMessagesExtensionPoint.class, (UiMessagesExtensionPoint) () -> context);
+    }
+
     @Test
-    public void givenLoginModule_whenAuthenticationExtensionPointContributionsApplied_thenShouldReceiveTheAuthenticationContext() throws Exception {
+    public void givenLoginModule_whenAuthenticationExtensionPointContributionsApplied_thenShouldReceiveTheAuthenticationContext()
+            throws Exception {
         applyAuthenticationContributions(fakeAuthenticationContext);
         assertNotNull(presenterSpy.getContext());
     }
 
     @Test(expected = LoginAuthenticationContribution.InvalidAuthenticationContextRecieved.class)
-    public void givenLoginModule_whenAuthenticationExtensionPointContributionsAppliedAndRecievedContextIsNull_thenShouldThrowException() throws Exception {
+    public void givenLoginModule_whenAuthenticationExtensionPointContributionsAppliedAndRecievedContextIsNull_thenShouldThrowException()
+            throws Exception {
         applyAuthenticationContributions(null);
     }
 
     @Test
-    public void givenLoginModule_whenAuthenticationExtensionPointContributionsApplied_thenLoginAuthenticationProviderShouldBeRegistered() throws Exception {
+    public void givenLoginModule_whenAuthenticationExtensionPointContributionsApplied_thenLoginAuthenticationProviderShouldBeRegistered()
+            throws Exception {
         applyAuthenticationContributions(fakeAuthenticationContext);
         assertEquals(FakeAuthenticationContext.PROVIDER_REGISTERED, presenterSpy.getContext().calls.toString());
     }
@@ -117,7 +129,8 @@ public class LoginClientModuleTest extends ModuleTestCase {
     }
 
     @Test
-    public void givenLoginModule_whenLoginButtonIsClickedAndUserNameIsEmpty_thenShouldMarkUserNameFieldAsRequired() throws Exception {
+    public void givenLoginModule_whenLoginButtonIsClickedAndUserNameIsEmpty_thenShouldMarkUserNameFieldAsRequired()
+            throws Exception {
         applyAuthenticationContributions(fakeAuthenticationContext);
         fakeAuthenticationContext.provider.begin();
         viewSpy.clickLogin();
@@ -125,7 +138,8 @@ public class LoginClientModuleTest extends ModuleTestCase {
     }
 
     @Test
-    public void givenLoginModule_whenLoginButtonIsClickedAndPasswordIsEmpty_thenShouldMarkPasswordFieldAsRequired() throws Exception {
+    public void givenLoginModule_whenLoginButtonIsClickedAndPasswordIsEmpty_thenShouldMarkPasswordFieldAsRequired()
+            throws Exception {
         applyAuthenticationContributions(fakeAuthenticationContext);
         fakeAuthenticationContext.provider.begin();
         viewSpy.clickLogin();
@@ -133,7 +147,8 @@ public class LoginClientModuleTest extends ModuleTestCase {
     }
 
     @Test
-    public void givenLoginModule_whenLoginButtonIsClickedAndTenantIsEmpty_thenShouldMarkTenantFieldAsRequired() throws Exception {
+    public void givenLoginModule_whenLoginButtonIsClickedAndTenantIsEmpty_thenShouldMarkTenantFieldAsRequired()
+            throws Exception {
         applyAuthenticationContributions(fakeAuthenticationContext);
         fakeAuthenticationContext.provider.begin();
         viewSpy.setTenant("");
@@ -142,45 +157,53 @@ public class LoginClientModuleTest extends ModuleTestCase {
     }
 
     @Test
-    public void givenLoginModule_whenLoginButtonIsClickedAndCredentialsAreValidAndTheUserIsNotFound_thenShouldShowErrorMessage() throws Exception {
+    public void givenLoginModule_whenLoginButtonIsClickedAndCredentialsAreValidAndTheUserIsNotFound_thenShouldShowErrorMessage()
+            throws Exception {
         applyAuthenticationContributions(fakeAuthenticationContext);
+        applyUiMessagesContributions(fakeUiMessagesContext);
         fakeAuthenticationContext.provider.begin();
         viewSpy.setUserName("NOT_FOUND_USER");
         viewSpy.setPassword(SOMETHING);
         viewSpy.clickLogin();
-        assertEquals("Bad credentials", viewSpy.getErrorMessage());
+        assertEquals("Bad credentials", presenterSpy.getErrorDescription());
     }
 
     @Test
-    public void givenLoginModule_whenLoginButtonIsClickedAndCredentialsAreValidAndTheUserIsFoundAndPasswordIsWrong_thenShouldShowErrorMessage() throws Exception {
+    public void givenLoginModule_whenLoginButtonIsClickedAndCredentialsAreValidAndTheUserIsFoundAndPasswordIsWrong_thenShouldShowErrorMessage()
+            throws Exception {
         applyAuthenticationContributions(fakeAuthenticationContext);
+        applyUiMessagesContributions(fakeUiMessagesContext);
         fakeAuthenticationContext.provider.begin();
         viewSpy.setUserName("FOUND_USER");
         viewSpy.setPassword("WRONG_PASSWORD");
         viewSpy.clickLogin();
-        assertEquals("Bad credentials", viewSpy.getErrorMessage());
+        assertEquals("Bad credentials", presenterSpy.getErrorDescription());
     }
 
     @Test
-    public void givenLoginModule_whenLoginButtonIsClickedAndCredentialsAreValidAndTheUserIsFoundAndTenantIsWrong_thenShouldShowErrorMessage() throws Exception {
+    public void givenLoginModule_whenLoginButtonIsClickedAndCredentialsAreValidAndTheUserIsFoundAndTenantIsWrong_thenShouldShowErrorMessage()
+            throws Exception {
         applyAuthenticationContributions(fakeAuthenticationContext);
+        applyUiMessagesContributions(fakeUiMessagesContext);
         fakeAuthenticationContext.provider.begin();
         viewSpy.setUserName("FOUND_USER");
         viewSpy.setPassword("SECRET");
         viewSpy.setTenant("WRONG_TENANT");
         viewSpy.clickLogin();
-        assertEquals("Bad credentials", viewSpy.getErrorMessage());
+        assertEquals("Bad credentials", presenterSpy.getErrorDescription());
     }
 
     @Test
-    public void givenLoginModule_whenLoginButtonIsClickedAndCredentialsAreValid_thenShouldCompleteTheChainSuccessfully() throws Exception {
+    public void givenLoginModule_whenLoginButtonIsClickedAndCredentialsAreValid_thenShouldCompleteTheChainSuccessfully()
+            throws Exception {
         applyAuthenticationContributions(fakeAuthenticationContext);
         fakeAuthenticationContext.provider.begin();
         viewSpy.setUserName("FOUND_USER");
         viewSpy.setPassword("SECRET");
         viewSpy.setTenant("TENANT");
         viewSpy.clickLogin();
-        assertEquals(FakeAuthenticationContext.PROVIDER_REGISTERED + FakeAuthenticationContext.CHAIN_COMPLETED, fakeAuthenticationContext.calls.toString());
+        assertEquals(FakeAuthenticationContext.PROVIDER_REGISTERED + FakeAuthenticationContext.CHAIN_COMPLETED,
+                fakeAuthenticationContext.calls.toString());
     }
 
 

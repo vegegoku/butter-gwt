@@ -8,6 +8,7 @@ import com.progressoft.security.login.client.requests.LoginServerRequest;
 import com.progressoft.security.login.client.views.Bundle;
 import com.progressoft.security.login.client.views.LoginView;
 import com.progressoft.security.login.shared.extension.LoginCredentials;
+import com.progressoft.security.uimessages.shared.extension.UiMessagesContext;
 import org.akab.engine.core.api.client.annotations.Presenter;
 import org.akab.engine.core.api.client.mvp.presenter.BaseClientPresenter;
 
@@ -24,6 +25,7 @@ public class DefaultLoginPresenter extends BaseClientPresenter<LoginView> implem
     private static final String REQUIRED = "Required";
     private AuthenticationContext authenticationContext;
     private AuthenticationLayoutContext authenticationLayoutContext;
+    private UiMessagesContext uiMessagesContext;
 
     @FunctionalInterface
     private interface FieldValidation {
@@ -76,6 +78,11 @@ public class DefaultLoginPresenter extends BaseClientPresenter<LoginView> implem
     }
 
     @Override
+    public void onUiMessagesContextRecieved(UiMessagesContext uiMessagesContext) {
+        this.uiMessagesContext=uiMessagesContext;
+    }
+
+    @Override
     public void showLoginDialog(String defaultTenant) {
         authenticationLayoutContext.showViewInMainPanel(view.show(defaultTenant));
     }
@@ -91,8 +98,8 @@ public class DefaultLoginPresenter extends BaseClientPresenter<LoginView> implem
     }
 
     @Override
-    public void showError() {
-        view.showErrorMessage("Bad credentials");
+    public void showError(String message, String details) {
+        this.uiMessagesContext.showError("Login failed!", "Bad credentials");
     }
 
     private static class FieldsConclusion implements Conclusion {
@@ -115,4 +122,5 @@ public class DefaultLoginPresenter extends BaseClientPresenter<LoginView> implem
                 strategy.invalidate(errors.get(name));
         }
     }
+    
 }

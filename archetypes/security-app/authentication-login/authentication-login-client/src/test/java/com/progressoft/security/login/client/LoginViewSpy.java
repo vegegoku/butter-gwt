@@ -68,14 +68,4 @@ public class LoginViewSpy extends DefaultLoginView {
     public MaterialTextBox getTenantField(){
         return super.getTenantField();
     }
-
-    @Override
-    public void showErrorMessage(String errorMessage) {
-        super.showErrorMessage(errorMessage);
-        this.errorMessage=errorMessage;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
 }
