@@ -10,16 +10,17 @@ import org.akab.engine.core.api.shared.request.FailedServerResponse;
 @Request
 public class FindRootAuthenticationChainRequest extends
         ClientServerRequest<AuthenticationPresenter, FindRootChainRequest, FindRootChainResponse> {
-    @Override
-    public void processFailed(AuthenticationPresenter presenter, FindRootChainRequest serverArgs,
-                                 FailedServerResponse failedResponse) {
-        presenter.showErrorMessage();
-    }
 
     @Override
     protected void process(AuthenticationPresenter presenter, FindRootChainRequest serverArgs,
                            FindRootChainResponse response) {
         presenter.startAuthentication(response.getRootChain());
+    }
+
+    @Override
+    public void processFailed(AuthenticationPresenter presenter, FindRootChainRequest serverArgs,
+                              FailedServerResponse failedResponse) {
+        presenter.showErrorMessage();
     }
 
     @Override

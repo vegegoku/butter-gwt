@@ -8,6 +8,9 @@ import com.progressoft.security.authentication.shared.extension.AuthenticationCo
 import com.progressoft.security.authentication.shared.extension.AuthenticationExtensionPoint;
 import com.progressoft.security.authentication.shared.extension.Principal;
 import com.progressoft.security.repository.FakePrincipal;
+import com.progressoft.security.uimessages.shared.extension.UiMessagesContext;
+import com.progressoft.security.uimessages.shared.extension.UiMessagesExtensionPoint;
+import org.akab.engine.core.api.client.extension.Contributions;
 import org.akab.engine.core.api.client.extension.ContributionsRegistry;
 import org.akab.engine.core.test.ModuleTestCase;
 import org.junit.Test;
@@ -27,6 +30,7 @@ public class AuthenticationClientModuleMultiProvidersTest extends ModuleTestCase
     private FakeAuthenticationContribution rootAuthenticationContribution;
     private SecondFakeAuthenticationContribution secondFakeAuthenticationContribution;
     private ThirdFakeAuthenticationContribution thirdFakeAuthenticationContribution;
+    private FakeUiMessagesContext fakeUiMessagesContext;
 
     @Override
     protected void setUp() {
@@ -59,6 +63,9 @@ public class AuthenticationClientModuleMultiProvidersTest extends ModuleTestCase
         testEntryPointContext.setHttpServletResponse(httpResponse);
         FakeAuthenticationProvider.ORDER=0;
         filterChain.addFilter(new SessionContextFilter());
+        fakeUiMessagesContext=new FakeUiMessagesContext();
+        Contributions.apply(UiMessagesExtensionPoint.class,
+                (UiMessagesExtensionPoint) () -> fakeUiMessagesContext);
     }
 
 
@@ -73,7 +80,7 @@ public class AuthenticationClientModuleMultiProvidersTest extends ModuleTestCase
             add("NOT_REGISTERED");
         }});
         rootAuthenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(p);
-        assertEquals("Authentication failed", viewSpy.getErrorMessage());
+        assertEquals("Authentication failed", fakeUiMessagesContext.getMessage());
     }
 
     @Test

@@ -1,12 +1,16 @@
 package com.progressoft.security.authentication.client;
 
 import com.google.gwtmockito.GwtMockitoTestRunner;
+import com.progressoft.security.authentication.client.contributions.FakeUiMessagesContext;
 import com.progressoft.security.authentication.client.presenters.AuthenticationPresenter;
 import com.progressoft.security.authentication.client.requests.ApplyAuthenticationContributionsRequest;
 import com.progressoft.security.authentication.client.requests.FindRootAuthenticationChainRequest;
 import com.progressoft.security.authentication.configuration.PropertiesAuthenticationConfigurationLoader;
 import com.progressoft.security.authentication.shared.ServerAuthenticationContext;
+import com.progressoft.security.uimessages.shared.extension.UiMessagesContext;
+import com.progressoft.security.uimessages.shared.extension.UiMessagesExtensionPoint;
 import org.akab.engine.core.api.client.InitialTaskRegistry;
+import org.akab.engine.core.api.client.extension.Contributions;
 import org.akab.engine.core.test.ModuleTestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +22,7 @@ public class FindRootChainRequestTest extends ModuleTestCase {
 
     private AuthenticationPresenterSpy presenterSpy;
     private AuthenticationViewSpy viewSpy;
+    private FakeUiMessagesContext fakeUiMessagesContext;
 
     @Override
     protected void setUp() {
@@ -36,6 +41,9 @@ public class FindRootChainRequestTest extends ModuleTestCase {
             viewSpy = new AuthenticationViewSpy();
             return viewSpy;
         });
+        fakeUiMessagesContext=new FakeUiMessagesContext();
+        Contributions.apply(UiMessagesExtensionPoint.class,
+                (UiMessagesExtensionPoint) () -> fakeUiMessagesContext);
 
     }
 
@@ -46,7 +54,7 @@ public class FindRootChainRequestTest extends ModuleTestCase {
         new FindRootAuthenticationChainRequest().send();
 
         assertNull(presenterSpy.getRootChain());
-        assertEquals("Authentication failed", viewSpy.getErrorMessage());
+        assertEquals("Authentication failed", fakeUiMessagesContext.getMessage());
     }
 
     @Test

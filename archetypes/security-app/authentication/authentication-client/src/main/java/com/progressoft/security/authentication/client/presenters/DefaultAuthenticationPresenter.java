@@ -7,12 +7,12 @@ import com.progressoft.security.authentication.client.requests.CompleteAuthentic
 import com.progressoft.security.authentication.client.requests.FindRootAuthenticationChainRequest;
 import com.progressoft.security.authentication.client.requests.UserLoggedInRequest;
 import com.progressoft.security.authentication.shared.extension.*;
+import com.progressoft.security.uimessages.shared.extension.UiMessagesContext;
 import org.akab.engine.core.api.client.annotations.Presenter;
 import org.akab.engine.core.api.client.extension.Contributions;
 import org.akab.engine.core.api.client.mvp.presenter.BaseClientPresenter;
 import com.progressoft.security.authentication.client.views.AuthenticationView;
 
-import java.util.Objects;
 
 import static java.util.Objects.*;
 
@@ -23,6 +23,7 @@ public class DefaultAuthenticationPresenter extends BaseClientPresenter<Authenti
     public static final String AUTHENTICATION_FAILED = "Authentication failed";
     private final AuthenticationContext authenticationContext = new DefaultAuthenticationContext();
     private RootChainContext rootChainContext;
+    private UiMessagesContext uiMessagesContext;
 
     @Override
     public void onAuthenticationCompleted(Principal principal) {
@@ -31,7 +32,8 @@ public class DefaultAuthenticationPresenter extends BaseClientPresenter<Authenti
 
     @Override
     public void applyAuthenticationContributions() {
-        Contributions.apply(AuthenticationExtensionPoint.class, new DefaultAuthenticationExtensionPoint(authenticationContext));
+        Contributions.apply(AuthenticationExtensionPoint.class,
+                new DefaultAuthenticationExtensionPoint(authenticationContext));
         authenticate();
     }
 
@@ -56,18 +58,18 @@ public class DefaultAuthenticationPresenter extends BaseClientPresenter<Authenti
 
     @Override
     public void onChainCompletedSuccessfully(CompletedChainContext context) {
-        if(isNull(rootChainContext))
+        if (isNull(rootChainContext))
             applyRootChainContributions(context);
         toNextChain(rootChainContext.principal());
     }
 
     private void applyRootChainContributions(CompletedChainContext context) {
-        rootChainContext=new DefaultRootChainContext(context.getPrincipal());
+        rootChainContext = new DefaultRootChainContext(context.getPrincipal());
         Contributions.apply(RootChainCompletedExtensionPoint.class, new DefaultRootChainExtensionPoint(rootChainContext));
     }
 
     private void toNextChain(Principal principal) {
-        if(principal.chains().isEmpty())
+        if (principal.chains().isEmpty())
             completeAuthenticationOnServer(principal);
         else
             new ChainedAuthentication(this, principal.chains()).fireNextChain();
@@ -78,12 +80,18 @@ public class DefaultAuthenticationPresenter extends BaseClientPresenter<Authenti
     }
 
     @Override
+    public void onUiMessagesContextRecieved(UiMessagesContext context) {
+        this.uiMessagesContext=context;
+    }
+
+    @Override
     public void onChainFailed(FailedChainContext failedChainContext) {
+        rootChainContext=null;
         authenticate();
     }
 
     @Override
     public void showErrorMessage() {
-        view.showErrorMessage(AUTHENTICATION_FAILED);
+        uiMessagesContext.showError(AUTHENTICATION_FAILED, "Could not authentication user.");
     }
 }

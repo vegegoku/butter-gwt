@@ -2,6 +2,7 @@ package com.progressoft.security.otp.client.presenters;
 
 import com.google.gwt.user.client.Window;
 import com.progressoft.security.authentication.shared.extension.AuthenticationContext;
+import com.progressoft.security.authentication.shared.extension.FailedChainContext;
 import com.progressoft.security.authentication.shared.extension.Principal;
 import com.progressoft.security.layout.shared.extension.AuthenticationLayoutContext;
 import com.progressoft.security.otp.client.provider.OtpClientAuthenticationProvider;
@@ -38,6 +39,8 @@ public class DefaultOtpPresenter extends BaseClientPresenter<OtpView> implements
 
     @Override
     public void showErrorMessage(String message, String details) {
+        authenticationContext.onChainFailed(new FailedChainContext() {
+        });
         this.uiMessagesContext.showError(message, details);
     }
 

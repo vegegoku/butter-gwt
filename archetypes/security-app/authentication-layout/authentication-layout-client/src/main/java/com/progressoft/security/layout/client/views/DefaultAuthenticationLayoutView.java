@@ -10,6 +10,8 @@ import com.progressoft.security.layout.client.presenters.AuthenticationLayoutPre
 import gwt.material.design.client.ui.MaterialPanel;
 import org.akab.engine.core.api.client.annotations.UiView;
 
+import static java.util.Objects.nonNull;
+
 @UiView(presentable = AuthenticationLayoutPresenter.class)
 public class DefaultAuthenticationLayoutView extends Composite implements AuthenticationLayoutView{
 

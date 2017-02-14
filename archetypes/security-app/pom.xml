@@ -141,5 +141,6 @@
         <module>authentication-data-store-testing</module>
         <module>notifications</module>
         <module>ui-messages</module>
+        <module>security-app-layout</module>
     </modules>
 </project>

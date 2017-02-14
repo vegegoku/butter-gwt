@@ -2,6 +2,8 @@ package com.progressoft.security.otp.client.views;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -24,9 +26,6 @@ public class DefaultOtpView extends Composite implements OtpView {
     MaterialRow root;
 
     @UiField
-    MaterialButton verifyOtpButton;
-
-    @UiField
     MaterialTextBox otpCode;
 
     private static DefaultOtpViewUiBinder ourUiBinder = GWT.create(DefaultOtpViewUiBinder.class);
@@ -41,8 +40,15 @@ public class DefaultOtpView extends Composite implements OtpView {
         this.verifyOtpHandler.handle(getOtpCode());
     }
 
+    @UiHandler({"otpCode"})
+    void onUserNameEnterKeyPress(KeyPressEvent event) {
+        if(event.getNativeEvent().getKeyCode()== KeyCodes.KEY_ENTER)
+            this.verifyOtpHandler.handle(getOtpCode());
+    }
+
     @Override
     public OtpView show() {
+        this.otpCode.clear();
         this.otpCode.setFocus(true);
         return this;
     }

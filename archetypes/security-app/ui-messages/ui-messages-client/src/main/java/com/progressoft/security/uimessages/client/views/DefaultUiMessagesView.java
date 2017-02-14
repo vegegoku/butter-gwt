@@ -2,6 +2,7 @@ package com.progressoft.security.uimessages.client.views;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -16,6 +17,9 @@ import gwt.material.design.client.ui.MaterialTitle;
 import org.akab.engine.core.api.client.annotations.UiView;
 
 import com.progressoft.security.uimessages.client.presenters.UiMessagesPresenter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @UiView(presentable = UiMessagesPresenter.class)
 public class DefaultUiMessagesView extends Composite implements UiMessagesView{
@@ -37,6 +41,7 @@ public class DefaultUiMessagesView extends Composite implements UiMessagesView{
     public DefaultUiMessagesView() {
         root=ourUiBinder.createAndBindUi(this);
         initWidget(root);
+        root.getElement().getStyle().setMarginBottom(0, Style.Unit.PX);
     }
 
     @Override
@@ -45,6 +50,7 @@ public class DefaultUiMessagesView extends Composite implements UiMessagesView{
         errorDialogTitle.setDescription(details);
         errorDialog.open();
     }
+
 
     @UiHandler("errorDialog")
     void onEscapeKey(KeyPressEvent event) {

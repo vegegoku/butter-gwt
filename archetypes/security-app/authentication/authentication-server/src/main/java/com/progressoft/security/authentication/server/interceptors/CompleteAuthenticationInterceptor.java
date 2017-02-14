@@ -7,13 +7,16 @@ import com.progressoft.security.authentication.shared.registry.AuthenticationHol
 import com.progressoft.security.authentication.shared.request.CompleteAuthenticationRequest;
 import org.akab.engine.core.api.shared.server.Interceptor;
 import org.akab.engine.core.api.shared.server.RequestInterceptor;
+import org.akab.engine.core.logger.client.CoreLogger;
+import org.akab.engine.core.logger.client.CoreLoggerFactory;
 import org.akab.engine.core.server.RpcEntryPointContext;
 
 @Interceptor
 public class CompleteAuthenticationInterceptor implements RequestInterceptor<CompleteAuthenticationRequest, RpcEntryPointContext> {
+    private static final CoreLogger LOGGER= CoreLoggerFactory.getLogger(CompleteAuthenticationInterceptor.class);
     @Override
     public void intercept(CompleteAuthenticationRequest request, RpcEntryPointContext context) {
-        context.getHttpRequest().getSession().setAttribute(UserSessionContext.PRINCIPAL, request.getPrincipal());
-        context.getHttpRequest().getSession().removeAttribute(AuthenticationProcessContext.AUTHENTICATION);
+            context.getHttpRequest().getSession().setAttribute(UserSessionContext.PRINCIPAL, request.getPrincipal());
+            context.getHttpRequest().getSession().removeAttribute(AuthenticationProcessContext.AUTHENTICATION);
     }
 }

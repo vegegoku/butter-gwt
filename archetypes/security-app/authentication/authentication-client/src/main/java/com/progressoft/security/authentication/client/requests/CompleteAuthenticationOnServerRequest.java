@@ -1,5 +1,6 @@
 package com.progressoft.security.authentication.client.requests;
 
+import com.google.gwt.user.client.Window;
 import com.progressoft.security.authentication.client.presenters.AuthenticationPresenter;
 import com.progressoft.security.authentication.shared.response.CompleteAuthenticationResponse;
 import com.progressoft.security.authentication.shared.extension.Principal;
