@@ -24,149 +24,34 @@
 
     <g:HTMLPanel>
         <m:MaterialHeader depth="996" layoutPosition="FIXED" width="100%">
-            <!-- NavBar Component -->
+            <!-- NavBar header bar Component -->
             <m:MaterialNavBar ui:field="appNav" backgroundColor="BLUE_LIGHTEN_1" activates="sidenav">
-                <m:MaterialNavBrand text="Drive"/>
+                <m:MaterialNavBrand text="Security"/>
 
-                <m:MaterialNavSection float="RIGHT" hideOn="NONE">
-                    <m:MaterialLink hideOn="HIDE_ON_SMALL_DOWN" text="Drive" iconPosition="RIGHT" marginRight="20" iconType="ARROW_DROP_DOWN" textColor="WHITE" activates="dpDrive" float="LEFT">
-                        <m:MaterialDropDown activator="dpDrive" width="200px" belowOrigin="true" constrainWidth="false">
-                            <m:MaterialLink text="Link 1" iconType="FOLDER" textColor="GREY_DARKEN_1"/>
-                            <m:MaterialLink text="Link 1" iconType="FOLDER_SHARED" textColor="GREY_DARKEN_1"/>
-                            <m:MaterialLink text="Link 1" iconType="FOLDER_SPECIAL" textColor="GREY_DARKEN_1"/>
-                            <m:MaterialLink text="Link 1" iconType="FOLDER_OPEN" textColor="GREY_DARKEN_1"/>
-                        </m:MaterialDropDown>
-                    </m:MaterialLink>
-                    <m:MaterialLink ui:field="btnSearch" iconPosition="NONE" iconType="SEARCH"/>
-                    <m:MaterialLink hideOn="HIDE_ON_SMALL_DOWN" iconType="SORT_BY_ALPHA" iconPosition="NONE" activates="dpSort"  textColor="WHITE" float="LEFT">
-                        <m:MaterialDropDown activator="dpSort" width="200px" belowOrigin="true" constrainWidth="false">
-                            <m:MaterialLink ui:field="sortFileName" text="File Name" textColor="GREY_DARKEN_1"/>
-                            <m:MaterialLink ui:field="sortSharedBy" text="Shared by" textColor="GREY_DARKEN_1"/>
-                            <m:MaterialLink ui:field="sortSharedDate" text="Shared date" textColor="GREY_DARKEN_1"/>
-                        </m:MaterialDropDown>
-                    </m:MaterialLink>
-                    <m:MaterialLink ui:field="iconInfo" iconPosition="NONE" iconType="INFO"/>
-                    <m:MaterialLink hideOn="HIDE_ON_SMALL_DOWN" iconPosition="NONE" iconType="SETTINGS" marginRight="20"/>
+                <m:MaterialNavSection ui:field="headerBar" float="RIGHT" hideOn="NONE">
+                    <m:MaterialLink hideOn="HIDE_ON_SMALL_DOWN" iconPosition="NONE" iconType="EXIT_TO_APP"
+                                    marginRight="20" tooltip="Logout"/>
                 </m:MaterialNavSection>
-            </m:MaterialNavBar>
-
-            <!-- Search Component -->
-            <m:MaterialNavBar ui:field="searchNav" backgroundColor="WHITE" visible="false">
-                <m:MaterialSearch ui:field="search" placeholder="Search Drive" active="true"/>
             </m:MaterialNavBar>
         </m:MaterialHeader>
 
-        <m:MaterialSideNav m:id="sidenav" overflow="AUTO" type="FIXED" showOnAttach="true" alwaysShowActivator="true" shadow="0" backgroundColor="GREY_LIGHTEN_3" top="70">
-            <m:MaterialLink iconType="FOLDER" text="My Drive"/>
-            <m:MaterialLink iconType="GROUP" text="Shared with me"/>
-            <m:MaterialLink iconType="CAMERA" text="Google Photos"/>
-            <m:MaterialLink iconType="ACCESS_TIME" text="Recent"/>
-            <m:MaterialLink iconType="STAR" text="Starred"/>
-            <m:MaterialLink iconType="DELETE" text="Trash"/>
-
+        <!-- Side panel menu -->
+        <m:MaterialSideNav ui:field="menuPanel" m:id="sidenav" overflow="AUTO" type="FIXED" showOnAttach="true" alwaysShowActivator="true"
+                           shadow="1" backgroundColor="BLUE_GREY_LIGHTEN_5" top="65">
 
 
         </m:MaterialSideNav>
 
         <m:MaterialRow ui:field="rightPanel" overflow="AUTO" grid="l3 m3 s12" depth="995" padding="0" backgroundColor="WHITE" height="100%" layoutPosition="FIXED" top="56" right="0" addStyleNames="{style.bordered} {style.animation}">
-            <!-- Header Info -->
-            <m:MaterialRow paddingTop="20">
-                <m:MaterialIcon ui:field="iconViewFile" iconSize="MEDIUM" iconColor="GREY_DARKEN_1" grid="l4"/>
-                <m:MaterialLabel ui:field="lblViewFile" marginTop="16" fontSize="1.4em" textColor="GREY_DARKEN_1" grid="l6"/>
-                <m:MaterialIcon ui:field="iconClose" iconType="CLOSE" marginTop="16" grid="l2" float="RIGHT"/>
-            </m:MaterialRow>
-            <m:MaterialDivider width="100%" height="2px"/>
-            <!-- Tabs -->
-            <m:MaterialRow>
-                <m:MaterialTab backgroundColor="WHITE">
-                    <m:MaterialTabItem><m:MaterialLink href="#details" text="Details" textColor="GREY_DARKEN_1" waves="DEFAULT"/></m:MaterialTabItem>
-                    <m:MaterialTabItem><m:MaterialLink href="#activity" text="Activity" textColor="GREY_DARKEN_1" waves="DEFAULT"/></m:MaterialTabItem>
-                </m:MaterialTab>
-            </m:MaterialRow>
-            <m:MaterialPanel m:id="details">
-                <!-- Users -->
-                <m:MaterialRow>
-                    <m:MaterialImage url="https://s3.amazonaws.com/uifaces/faces/twitter/tonymillion/128.jpg" tooltip="Tony can Edit" tooltipPosition="BOTTOM" width="40px" shadow="1" height="40px" circle="true" float="LEFT" marginLeft="20"/>
-                    <m:MaterialImage url="https://s3.amazonaws.com/uifaces/faces/twitter/roybarberuk/128.jpg" tooltip="Roy can Edit" tooltipPosition="BOTTOM" width="40px" shadow="1" height="40px" circle="true" float="LEFT" marginLeft="20"/>
-                    <m:MaterialImage url="https://s3.amazonaws.com/uifaces/faces/twitter/lebinoclard/128.jpg" tooltip="Lebin can Edit" tooltipPosition="BOTTOM" width="40px" shadow="1" height="40px" circle="true" float="LEFT" marginLeft="20"/>
-                </m:MaterialRow>
-                <m:MaterialDivider width="100%" height="2px"/>
-                <!-- Brief info -->
-                <m:MaterialRow marginTop="20">
-                    <m:MaterialColumn grid="l4">
-                        <m:MaterialLabel marginTop="8" text="Type" fontWeight="BOLD" fontSize="0.8em"/>
-                        <m:MaterialLabel marginTop="8" text="Size" fontWeight="BOLD" fontSize="0.8em"/>
-                        <m:MaterialLabel marginTop="8" text="Storage used" fontWeight="BOLD" fontSize="0.8em"/>
-                        <m:MaterialLabel marginTop="8" text="Owner" fontWeight="BOLD" fontSize="0.8em"/>
-                        <m:MaterialLabel marginTop="8" text="Modified" fontWeight="BOLD" fontSize="0.8em"/>
-                        <m:MaterialLabel marginTop="8" text="Opened" fontWeight="BOLD" fontSize="0.8em"/>
-                        <m:MaterialLabel marginTop="8" text="Created" fontWeight="BOLD" fontSize="0.8em"/>
-                    </m:MaterialColumn>
-                    <m:MaterialColumn grid="l8">
-                        <m:MaterialLabel marginTop="8" text="Folder" truncate="true" fontSize="0.8em"/>
-                        <m:MaterialLabel marginTop="8" text="-" truncate="true" fontSize="0.8em"/>
-                        <m:MaterialLabel marginTop="8" text="0 bytes" truncate="true" fontSize="0.8em"/>
-                        <m:MaterialLabel marginTop="8" text="John Doe" truncate="true" fontSize="0.8em"/>
-                        <m:MaterialLabel marginTop="8" text="March 3, 2016" truncate="true" fontSize="0.8em"/>
-                        <m:MaterialLabel marginTop="8" text="March 3, 2016" truncate="true" fontSize="0.8em"/>
-                        <m:MaterialLabel marginTop="8" text="March 3, 2016" truncate="true" fontSize="0.8em"/>
-                    </m:MaterialColumn>
-                </m:MaterialRow>
-                <!-- Tags -->
-                <m:MaterialRow padding="8" paddingBottom="40">
-                    <m:MaterialChip text="Folder" margin="4"/>
-                    <m:MaterialChip text="My doc" margin="4"/>
-                    <m:MaterialChip text="Urgent" margin="4"/>
-                    <m:MaterialChip text="Company" margin="4"/>
-                </m:MaterialRow>
-            </m:MaterialPanel>
-            <m:MaterialPanel m:id="activity" padding="12">
-                <m:MaterialLabel text="Activity"/>
-                <m:MaterialCollection shadow="1" paddingBottom="12">
-                    <m:MaterialCollectionItem type="AVATAR" height="150px">
-                        <m:MaterialImage url="https://s3.amazonaws.com/uifaces/faces/twitter/roybarberuk/128.jpg" circle="true"/>
-                        <m:MaterialLabel text="Tierra uploaded 2 items" fontWeight="BOLD"/>
-                        <m:MaterialLabel text="Wed 2:02 AM" fontSize="0.8em" marginBottom="12"/>
-                        <m:MaterialLink  padding="0" iconType="IMAGE" iconColor="RED" text="image_sample.jpg" fontSize="0.8em" grid="s12"/>
-                        <m:MaterialLink  padding="0" iconType="IMAGE" iconColor="RED" text="image_sample.jpg" fontSize="0.8em" grid="s12"/>
-                    </m:MaterialCollectionItem>
-                    <m:MaterialCollectionItem type="AVATAR" height="150px">
-                        <m:MaterialImage url="https://s3.amazonaws.com/uifaces/faces/twitter/lebinoclard/128.jpg" circle="true"/>
-                        <m:MaterialLabel text="Levin uploaded 2 items" fontWeight="BOLD"/>
-                        <m:MaterialLabel text="Tue 1:02 PM" fontSize="0.8em" marginBottom="12"/>
-                        <m:MaterialLink  padding="0" iconType="ASSIGNMENT" iconColor="BLUE" text="doc_1.jpg" fontSize="0.8em" grid="s12"/>
-                        <m:MaterialLink  padding="0" iconType="ASSIGNMENT" iconColor="BLUE" text="doc_2.jpg" fontSize="0.8em" grid="s12"/>
-                    </m:MaterialCollectionItem>
-                </m:MaterialCollection>
-            </m:MaterialPanel>
+
         </m:MaterialRow>
-        <m:MaterialContainer paddingLeft="240" paddingTop="64">
-            <m:MaterialRow layoutPosition="RELATIVE" grid="l12 s12 m12">
-
-            </m:MaterialRow>
+        <m:MaterialContainer ui:field="mainContainer" paddingLeft="240" paddingTop="64">
         </m:MaterialContainer>
-
-        <!-- Empty State -->
-        <m:MaterialPanel ui:field="emptyState" textAlign="CENTER">
-            <m:MaterialIcon iconType="FOLDER_OPEN" iconSize="LARGE" iconColor="GREY_LIGHTEN_1" padding="20" circle="true"/>
-            <m:MaterialLabel text="Nothing Found" fontSize="2em" fontWeight="LIGHTER" textColor="GREY_DARKEN_1"/>
-            <m:MaterialLabel text="Please try another search keyword" fontWeight="LIGHTER" textColor="GREY_DARKEN_1"/>
-        </m:MaterialPanel>
 
         <!-- FAB -->
         <m:MaterialFAB depth="995">
             <m:MaterialButton type="FLOATING" iconType="POLYMER" size="LARGE"/>
-            <m:MaterialFABList>
-                <m:MaterialAnchorButton type="FLOATING" waves="LIGHT" iconType="POLYMER"/>
-                <m:MaterialAnchorButton type="FLOATING" waves="LIGHT" backgroundColor="GREEN"  iconType="POLYMER"/>
-                <m:MaterialAnchorButton type="FLOATING" waves="LIGHT" backgroundColor="RED"  iconType="POLYMER"/>
-                <m:MaterialAnchorButton type="FLOATING" waves="LIGHT" backgroundColor="ORANGE"  iconType="POLYMER"/>
-                <m:MaterialAnchorButton type="FLOATING" waves="LIGHT"  iconType="POLYMER"/>
-            </m:MaterialFABList>
         </m:MaterialFAB>
-        <!--<m:MaterialFAB>-->
-        <!--<m:MaterialAnchorButton target="_blank" href="https://github.com/GwtMaterialDesign/gwt-material-patterns/tree/master/src/main/java/com/github/gwtmaterialdesign/client/application/googledrive" waves="DEFAULT" type="FLOATING" tooltip="Get Code" tooltipPosition="LEFT" iconType="CODE" backgroundColor="GREY" size="LARGE"/>-->
-        <!--</m:MaterialFAB>-->
 
     </g:HTMLPanel>
 </ui:UiBinder>

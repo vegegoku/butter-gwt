@@ -25,7 +25,6 @@ import static org.junit.Assert.*;
 @RunWith(GwtMockitoTestRunner.class)
 public class AuthenticationClientModuleTest extends ModuleTestCase {
 
-
     private AuthenticationPresenterSpy presenterSpy;
     private AuthenticationViewSpy viewSpy;
     private FakeAuthenticationCompletedContribution authenticationCompletedContribution;

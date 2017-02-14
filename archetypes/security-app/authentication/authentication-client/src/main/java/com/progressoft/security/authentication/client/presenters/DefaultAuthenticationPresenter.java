@@ -1,20 +1,18 @@
 package com.progressoft.security.authentication.client.presenters;
 
-import com.google.gwt.user.client.Window;
 import com.progressoft.security.authentication.client.extensions.*;
 import com.progressoft.security.authentication.client.registry.AuthenticationProviderRegistry;
 import com.progressoft.security.authentication.client.requests.CompleteAuthenticationOnServerRequest;
 import com.progressoft.security.authentication.client.requests.FindRootAuthenticationChainRequest;
 import com.progressoft.security.authentication.client.requests.UserLoggedInRequest;
+import com.progressoft.security.authentication.client.views.AuthenticationView;
 import com.progressoft.security.authentication.shared.extension.*;
 import com.progressoft.security.uimessages.shared.extension.UiMessagesContext;
 import org.akab.engine.core.api.client.annotations.Presenter;
 import org.akab.engine.core.api.client.extension.Contributions;
 import org.akab.engine.core.api.client.mvp.presenter.BaseClientPresenter;
-import com.progressoft.security.authentication.client.views.AuthenticationView;
 
-
-import static java.util.Objects.*;
+import static java.util.Objects.isNull;
 
 @Presenter
 public class DefaultAuthenticationPresenter extends BaseClientPresenter<AuthenticationView>

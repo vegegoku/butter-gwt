@@ -70,5 +70,4 @@ public class DefaultOtpView extends Composite implements OtpView {
     public void setOtpCode(String otpCode) {
         this.otpCode.setValue(otpCode);
     }
-
 }

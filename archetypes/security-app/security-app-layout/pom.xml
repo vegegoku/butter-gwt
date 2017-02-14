@@ -44,6 +44,5 @@
     <modules>
         <module>security-app-layout-client</module>
         <module>security-app-layout-shared</module>
-        <module>security-app-layout-server</module>
     </modules>
 </project>
