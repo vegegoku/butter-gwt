@@ -57,6 +57,16 @@ public class TestClientAppFactory {
                     public void appendWidgetToRoot(IsWidget w) {
                         //default empty implementation for fake main extension point.
                     }
+
+                    @Override
+                    public void removeElement(Element e) {
+
+                    }
+
+                    @Override
+                    public void removeWidget(IsWidget w) {
+
+                    }
                 })
                 .build();
     }

@@ -19,6 +19,17 @@ public class CoreMainExtensionPoint implements MainExtensionPoint {
             public void appendWidgetToRoot(IsWidget w) {
                 RootPanel.get().add(w.asWidget());
             }
+
+            @Override
+            public void removeElement(Element e) {
+                if(Document.get().getBody().isOrHasChild(e))
+                        e.removeFromParent();
+            }
+
+            @Override
+            public void removeWidget(IsWidget w) {
+                RootPanel.get().remove(w);
+            }
         };
     }
 }
