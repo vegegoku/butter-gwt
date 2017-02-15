@@ -45,6 +45,7 @@
         <m:MaterialRow ui:field="rightPanel" overflow="AUTO" grid="l3 m3 s12" depth="995" padding="0" backgroundColor="WHITE" height="100%" layoutPosition="FIXED" top="56" right="0" addStyleNames="{style.bordered} {style.animation}">
 
         </m:MaterialRow>
+
         <m:MaterialContainer ui:field="mainContainer" paddingLeft="240" paddingTop="64">
         </m:MaterialContainer>
 

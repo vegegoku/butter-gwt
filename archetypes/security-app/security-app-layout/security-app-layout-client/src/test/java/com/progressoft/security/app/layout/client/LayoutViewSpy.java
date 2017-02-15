@@ -29,4 +29,10 @@ public class LayoutViewSpy extends DefaultLayoutView {
         super.showContent(contentItem);
         this.content=contentItem;
     }
+
+    @Override
+    public void showSideContent(LayoutItem content) {
+        super.showSideContent(content);
+        this.sideContent=content;
+    }
 }

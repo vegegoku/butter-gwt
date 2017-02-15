@@ -9,6 +9,7 @@ import com.progressoft.security.app.layout.client.presenters.AppLayoutPresenter;
 import com.progressoft.security.app.layout.shared.extension.LayoutItem;
 import gwt.material.design.client.ui.MaterialContainer;
 import gwt.material.design.client.ui.MaterialNavSection;
+import gwt.material.design.client.ui.MaterialRow;
 import gwt.material.design.client.ui.MaterialSideNav;
 import org.akab.engine.core.api.client.annotations.UiView;
 
@@ -25,6 +26,9 @@ public class DefaultLayoutView extends Composite implements LayoutView{
 
     @UiField
     MaterialSideNav menuPanel;
+
+    @UiField
+    MaterialRow rightPanel;
 
     @UiField
     MaterialContainer mainContainer;
@@ -47,6 +51,11 @@ public class DefaultLayoutView extends Composite implements LayoutView{
     public void showContent(LayoutItem contentItem) {
         mainContainer.clear();
         mainContainer.add(contentItem);
+    }
+
+    @Override
+    public void showSideContent(LayoutItem content) {
+        rightPanel.add(content);
     }
 
 }
