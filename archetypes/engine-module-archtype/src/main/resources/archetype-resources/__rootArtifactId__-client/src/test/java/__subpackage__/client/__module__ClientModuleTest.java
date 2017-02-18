@@ -7,7 +7,6 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwtmockito.GwtMockitoTestRunner;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -18,13 +17,6 @@ import ${package}.${subpackage}.client.requests.${module}SampleClientRequest;
 import ${package}.${subpackage}.client.requests.${module}ServerRequest;
 import ${package}.${subpackage}.shared.request.${module}Request;
 import ${package}.${subpackage}.shared.response.${module}Response;
-
-import org.akab.engine.core.test.test.TestEntryPointContext;
-import org.akab.engine.core.test.test.TestModule;
-import org.akab.engine.core.test.test.TestPresenterFactory;
-import org.akab.engine.core.test.test.TestViewFactory;
-import org.akab.engine.core.api.client.mvp.presenter.Presentable;
-import org.akab.engine.core.api.client.mvp.view.View;
 
 import org.akab.engine.core.api.shared.extension.MainContext;
 import org.akab.engine.core.api.shared.extension.MainExtensionPoint;
@@ -66,6 +58,16 @@ public class ${module}ClientModuleTest extends ModuleTestCase{
                     @Override
                     public void appendWidgetToRoot(IsWidget w) {
                         assertNotNull(w);
+                    }
+
+                    @Override
+                    public void removeElement(Element e) {
+
+                    }
+
+                    @Override
+                    public void removeWidget(IsWidget w) {
+
                     }
                 };
             }
