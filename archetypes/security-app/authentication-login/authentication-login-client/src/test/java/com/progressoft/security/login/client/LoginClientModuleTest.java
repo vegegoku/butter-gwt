@@ -1,6 +1,5 @@
 package com.progressoft.security.login.client;
 
-import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwtmockito.GwtMockito;
 import com.google.gwtmockito.GwtMockitoTestRunner;
 import com.progressoft.security.authentication.shared.ServerAuthenticationContext;

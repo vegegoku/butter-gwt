@@ -35,8 +35,8 @@ public class PresentersRegistrationFactory extends TwoArgumentsRegistrationFacto
     }
 
     @Override
-    protected Class<? extends Annotation> annotation() {
-        return Presenter.class;
+    protected String annotation() {
+        return Presenter.class.getCanonicalName();
     }
 
 }

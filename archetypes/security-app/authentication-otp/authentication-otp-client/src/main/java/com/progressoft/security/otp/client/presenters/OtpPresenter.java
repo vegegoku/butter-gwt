@@ -1,6 +1,7 @@
 package com.progressoft.security.otp.client.presenters;
 
 import com.progressoft.security.authentication.shared.extension.AuthenticationContext;
+import com.progressoft.security.authentication.shared.extension.FailedChainContext;
 import com.progressoft.security.authentication.shared.extension.Principal;
 import com.progressoft.security.layout.shared.extension.AuthenticationLayoutContext;
 import com.progressoft.security.uimessages.shared.extension.UiMessagesContext;
@@ -21,4 +22,6 @@ public interface OtpPresenter extends Presentable{
     void onChainCompletedSuccessfully(Principal principal);
 
     void onUiMessagesContextRecieved(UiMessagesContext uiMessagesContext);
+
+    void onOtpFailed(FailedChainContext context);
 }

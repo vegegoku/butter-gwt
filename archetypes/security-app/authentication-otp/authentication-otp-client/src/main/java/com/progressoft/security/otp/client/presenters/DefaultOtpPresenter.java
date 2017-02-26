@@ -1,6 +1,5 @@
 package com.progressoft.security.otp.client.presenters;
 
-import com.google.gwt.user.client.Window;
 import com.progressoft.security.authentication.shared.extension.AuthenticationContext;
 import com.progressoft.security.authentication.shared.extension.FailedChainContext;
 import com.progressoft.security.authentication.shared.extension.Principal;
@@ -58,6 +57,12 @@ public class DefaultOtpPresenter extends BaseClientPresenter<OtpView> implements
     @Override
     public void onUiMessagesContextRecieved(UiMessagesContext uiMessagesContext) {
         this.uiMessagesContext=uiMessagesContext;
+    }
+
+    @Override
+    public void onOtpFailed(FailedChainContext context) {
+        this.uiMessagesContext.showError("Login failed!.", "Could not generate OTP code.");
+        this.authenticationContext.onChainFailed(context);
     }
 
     @Override

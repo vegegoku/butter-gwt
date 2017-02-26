@@ -142,5 +142,7 @@
         <module>notifications</module>
         <module>ui-messages</module>
         <module>security-app-layout</module>
+        <module>authentication-logout</module>
+        <module>user-info</module>
     </modules>
 </project>

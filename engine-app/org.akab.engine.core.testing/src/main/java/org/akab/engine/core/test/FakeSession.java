@@ -97,6 +97,7 @@ public class FakeSession implements HttpSession {
     @Override
     public void invalidate() {
         id=null;
+        attributes.clear();
     }
 
     @Override

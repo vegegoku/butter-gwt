@@ -38,6 +38,11 @@ public class WebPrincipalHolderTest {
             public Deque<String> chains() {
                 return null;
             }
+
+            @Override
+            public String getDisplayName() {
+                return "";
+            }
         };
         sessionAttributes=new HashMap<>();
         session=new FakeSession(sessionAttributes);

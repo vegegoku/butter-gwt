@@ -20,7 +20,7 @@ public class PathRegistrationImplementation implements RegistrationImplementatio
     public String methodBody() {
         return items.entrySet().stream().map(entry ->
                 REGISTRATION_PAGE
-                        + "(" + writeArguments(entry) + ");\n")
+                        + "(" + writeArguments(entry) + ");\n\t")
                 .collect(Collectors.joining());
     }
 

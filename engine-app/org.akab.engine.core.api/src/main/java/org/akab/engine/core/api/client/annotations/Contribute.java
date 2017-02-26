@@ -1,5 +1,7 @@
 package org.akab.engine.core.api.client.annotations;
 
+import org.akab.engine.core.api.client.mvp.presenter.Presentable;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

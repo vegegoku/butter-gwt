@@ -20,7 +20,7 @@ public class EmailMessageTest {
     private void startSmtpServer() {
         try {
             ServerOptions serverOptions = new ServerOptions();
-            serverOptions.port = 2025;
+            serverOptions.port = 3025;
             serverOptions.threaded = false;
             server = SmtpServerFactory.startServer(serverOptions);
             while (!server.isReady())

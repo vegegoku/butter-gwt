@@ -42,9 +42,12 @@ public class FindRootChainRequestTest extends ModuleTestCase {
             return viewSpy;
         });
         fakeUiMessagesContext=new FakeUiMessagesContext();
+    }
+
+    @Override
+    protected void afterRun() {
         Contributions.apply(UiMessagesExtensionPoint.class,
                 (UiMessagesExtensionPoint) () -> fakeUiMessagesContext);
-
     }
 
     @Test

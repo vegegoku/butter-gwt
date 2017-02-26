@@ -4,6 +4,8 @@ import org.akab.engine.annotations.processor.utils.ProcessorElement;
 import org.akab.engine.core.api.client.ModuleConfiguration;
 import org.akab.engine.core.api.client.annotations.ClientModule;
 
+import javax.annotation.processing.Messager;
+import javax.tools.Diagnostic;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,11 +24,11 @@ class ConfigurationSourceWriter {
     }
 
     String write() {
-        return writePackage() +
-                writeImports() +
-                writeClassHeader() +
-                writeImplementations() +
-                CLOSING_PARNTHIES;
+            return writePackage() +
+                    writeImports() +
+                    writeClassHeader() +
+                    writeImplementations() +
+                    CLOSING_PARNTHIES;
     }
 
     private String writeImplementations() {

@@ -27,7 +27,7 @@ public class ContributionRegistrationImplementation implements RegistrationImple
     @Override
     public String methodBody() {
         return items.entrySet().stream().map(entry ->
-                REGISTRATION_LINE + "(" + writeArguments(entry) + ");\n")
+                REGISTRATION_LINE + "(" + writeArguments(entry) + ");\n\t")
                 .collect(Collectors.joining());
     }
 

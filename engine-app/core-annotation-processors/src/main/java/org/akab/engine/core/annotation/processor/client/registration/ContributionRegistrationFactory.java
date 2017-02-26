@@ -37,7 +37,7 @@ public class ContributionRegistrationFactory extends TwoArgumentsRegistrationFac
     }
 
     @Override
-    protected Class<? extends Annotation> annotation() {
-        return Contribute.class;
+    protected String annotation() {
+        return Contribute.class.getCanonicalName();
     }
 }

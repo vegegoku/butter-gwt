@@ -20,6 +20,11 @@ public class WebSessionHolder implements AuthenticationHolder {
     }
 
     @Override
+    public void reset() {
+        session.invalidate();
+    }
+
+    @Override
     public boolean isEmpty() {
         return isNull(session.getAttribute(sessionProperty));
     }

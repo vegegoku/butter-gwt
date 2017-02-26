@@ -98,7 +98,7 @@ public class LoginUserUseCaseTest {
 
     @Test
     public void givenUseCase_WhenLoginWithExistUserValidCredentials_ThenShouldReturnLoginResponse() throws Exception {
-        assertEquals(new LoginPrincipal(FOUND_USER, TENANT, new LinkedList<>()), loginUserUseCase.login(makeCredentials(FOUND_USER, "SECRET",
+        assertEquals(new LoginPrincipal(FOUND_USER, TENANT, "Found user", new LinkedList<>()), loginUserUseCase.login(makeCredentials(FOUND_USER, "SECRET",
                 TENANT)).getPrincipal());
     }
 }

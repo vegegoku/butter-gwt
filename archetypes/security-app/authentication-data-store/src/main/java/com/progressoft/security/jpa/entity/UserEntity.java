@@ -22,6 +22,9 @@ public class UserEntity {
     @Column(name = "EMAIL")
     public String email;
 
+    @Column(name = "DISPLAY_NAME")
+    public String displayName;
+
     @Override
     public String toString() {
         return "UserEntity{" +

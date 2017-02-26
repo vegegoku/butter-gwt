@@ -2,14 +2,14 @@ package com.progressoft.security.app.layout.client;
 
 import com.google.gwtmockito.GwtMockitoTestRunner;
 import com.progressoft.security.app.layout.client.presenters.AppLayoutPresenter;
+import com.progressoft.security.app.layout.shared.extension.FabHandler;
 import com.progressoft.security.authentication.shared.extension.AuthenticationCompletedExtensionPoint;
 import org.akab.engine.core.api.client.extension.Contributions;
 import org.akab.engine.core.test.ModuleTestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @RunWith(GwtMockitoTestRunner.class)
 public class LayoutClientModuleTest extends ModuleTestCase{
@@ -76,7 +76,28 @@ public class LayoutClientModuleTest extends ModuleTestCase{
 
     @Test
     public void givenAppLayoutModule_whenAnyModuleContributeToAppLayoutExtensionPoint_thenShouldAllowShowingContentInRightPanelThroughTheContext() throws Exception {
-        fakeAppLayoutContribution.showSideContent(new FakeLayoutItem());
+        fakeAppLayoutContribution.setSideContent(new FakeLayoutItem());
         assertNotNull(viewSpy.sideContent);
+    }
+
+    @Test
+    public void givenAppLayoutModule_whenAnyModuleContributeToAppLayoutExtensionPoint_thenShouldAllowToggleTheRightPanelVisibilityThroughTheContext() throws Exception {
+        fakeAppLayoutContribution.showRightPanel();
+        fakeAppLayoutContribution.hideRightPanel();
+        assertEquals("truefalse", viewSpy.rightPanelVisibility);
+    }
+
+    @Test
+    public void givenAppLayoutModule_whenAnyModuleContributeToAppLayoutExtensionPoint_thenShouldAllowAddingFabHandlerThroughTheContext() throws Exception {
+        FabHandlerSpy fabHandlerSpy=new FabHandlerSpy();
+        fakeAppLayoutContribution.setFabHandler(fabHandlerSpy);
+        viewSpy.clickOnFab();
+        assertTrue(fabHandlerSpy.clicked);
+    }
+
+    @Test
+    public void givenAppLayoutModule_whenAnyModuleContributeToAppLayoutExtensionPoint_thenShouldAllowAddingFabItemsToTheMainFabThroughTheContext() throws Exception {
+        fakeAppLayoutContribution.addFabItem(new FakeLayoutItem());
+        assertTrue(viewSpy.fabItems.size()>0);
     }
 }

@@ -19,7 +19,6 @@ import javax.tools.Diagnostic;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.*;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @AutoService(Processor.class)
@@ -27,23 +26,51 @@ public class ClientModuleAnnotationProcessor extends BaseProcessor {
     private static final Logger LOGGER=Logger.getLogger(ClientModuleAnnotationProcessor.class.getName());
 
     private RoundEnvironment roundEnv;
+    private static int roundNumber=0;
+    private Set<Element> clientModules=new HashSet<>();
+    private Map<String, List<Element>> elements=new HashMap<String, List<Element>>(){{
+        put(Presenter.class.getCanonicalName(), new LinkedList<>());
+        put(UiView.class.getCanonicalName(), new LinkedList<>());
+        put(Request.class.getCanonicalName(), new LinkedList<>());
+        put(InitialTask.class.getCanonicalName(), new LinkedList<>());
+        put(Contribute.class.getCanonicalName(), new LinkedList<>());
+        put(Path.class.getCanonicalName(), new LinkedList<>());
+        put(PathParameter.class.getCanonicalName(), new LinkedList<>());
+    }};
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         this.roundEnv = roundEnv;
 
-        roundEnv.getElementsAnnotatedWith(ClientModule.class).stream()
-                .filter(e -> validateElementKind(e, ElementKind.CLASS))
-                .forEach(e -> generateModuleConfiguration(newProcessorElement(e)));
-        return true;
+        elements.get(Presenter.class.getCanonicalName()).addAll(roundEnv.getElementsAnnotatedWith(Presenter.class));
+        elements.get(UiView.class.getCanonicalName()).addAll(roundEnv.getElementsAnnotatedWith(UiView.class));
+        elements.get(Request.class.getCanonicalName()).addAll(roundEnv.getElementsAnnotatedWith(Request.class));
+        elements.get(InitialTask.class.getCanonicalName()).addAll(roundEnv.getElementsAnnotatedWith(InitialTask.class));
+        elements.get(Contribute.class.getCanonicalName()).addAll(roundEnv.getElementsAnnotatedWith(Contribute.class));
+        elements.get(Path.class.getCanonicalName()).addAll(roundEnv.getElementsAnnotatedWith(Path.class));
+        elements.get(PathParameter.class.getCanonicalName()).addAll(roundEnv.getElementsAnnotatedWith(PathParameter.class));
+
+        clientModules.addAll(roundEnv.getElementsAnnotatedWith(ClientModule.class));
+        if(roundEnv.processingOver()) {
+            sortElements(elements);
+            clientModules.stream()
+                    .filter(e -> validateElementKind(e, ElementKind.CLASS))
+                    .forEach(e -> generateModuleConfiguration(newProcessorElement(e)));
+        }
+
+        return false;
+    }
+
+    private void sortElements(Map<String, List<Element>> elements) {
     }
 
     private void generateModuleConfiguration(ProcessorElement element) {
         try (Writer sourceWriter = obtainSourceWriter(element.elementPackage(), element.getAnnotation(ClientModule.class).name() + ConfigurationSourceWriter.MODEL_CONFIGURATION)) {
             sourceWriter.write(createConfigurationWriter(element).write());
+            sourceWriter.flush();
+            sourceWriter.close();
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Could not generate classes : ", e);
-            messager.printMessage(Diagnostic.Kind.ERROR, "could not generate class");
+            messager.printMessage(Diagnostic.Kind.ERROR, "could not generate class ");
         }
     }
 
@@ -56,7 +83,7 @@ public class ClientModuleAnnotationProcessor extends BaseProcessor {
     }
 
     private List<RegistrationFactory> generateRegistrationFactories(ProcessorElement element) {
-        RegistrationHelper helper = new RegistrationHelper(roundEnv, element);
+        RegistrationHelper helper = new RegistrationHelper(this.elements, element);
         return Arrays.asList(
                 new PresentersRegistrationFactory(helper),
                 new RequestsRegistrationFactory(helper),
@@ -78,6 +105,8 @@ public class ClientModuleAnnotationProcessor extends BaseProcessor {
         annotations.add(Contribute.class.getCanonicalName());
         annotations.add(Path.class.getCanonicalName());
         annotations.add(PathParameter.class.getCanonicalName());
+        annotations.add(AutoRequest.class.getCanonicalName());
+        annotations.add(InjectContext.class.getCanonicalName());
         return annotations;
     }
 
@@ -85,4 +114,7 @@ public class ClientModuleAnnotationProcessor extends BaseProcessor {
     public SourceVersion getSupportedSourceVersion() {
         return SourceVersion.latestSupported();
     }
+
+
+
 }

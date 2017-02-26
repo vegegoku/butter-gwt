@@ -2,3 +2,12 @@ script for USER_CHAINS:
 
 CREATE TABLE USER_CHAINS ( id INT NOT NULL AUTO_INCREMENT, CHAIN_NAME VARCHAR(20) NOT NULL, USERNAME VARCHAR(100) NOT NULL, CHAIN_ORDER INT NOT NULL, PRIMARY KEY (id));
 INSERT INTO USER_CHAINS (CHAIN_NAME, USERNAME, CHAIN_ORDER) VALUES ("OTP", "FOUND_USER", 1);
+
+Run the application:
+1- do mvn clean install.
+
+2- in one terminal run below command to start super dev mode:
+    mvn gwt:codeserver -pl *-client -am
+
+3- in another terminal run below command to start the tomcat server
+    mvn tomcat7:run -pl *-server -am -Denv=dev

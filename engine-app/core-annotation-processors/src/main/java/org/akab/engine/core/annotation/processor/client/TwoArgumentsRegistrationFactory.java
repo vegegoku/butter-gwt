@@ -24,13 +24,11 @@ public abstract class TwoArgumentsRegistrationFactory implements RegistrationFac
 
     protected abstract ElementRegistration typeRegistration();
 
-    private Stream<? extends Element> elementsAsStream(Class<? extends Annotation> annotation) {
-        return helper.elementsAsStream(annotation);
+    private Stream<? extends Element> elementsAsStream(String annotationName) {
+        return helper.elementsAsStream(annotationName);
     }
 
     protected Map<Element, Element> items() {
-        if (elementsAsStream(annotation()).anyMatch(e -> !isValid(e)))
-            throw new InvalidDeclarationForAnnotationException("Invalid declaration for annotation " + annotation().getSimpleName());
 
         Map<Element, Element> map = new LinkedHashMap<>();
         elementsAsStream(annotation()).forEach(e -> map.put(e, targetType(e)));
@@ -38,14 +36,14 @@ public abstract class TwoArgumentsRegistrationFactory implements RegistrationFac
     }
 
     protected boolean isImplementInterface(Element e, Class<?> interfaceClass) {
-        return helper.isImplementsInterface(e, interfaceClass);
+        return helper.isImplementsGenericInterface(e, interfaceClass) || helper.isImplementsInterface(e, interfaceClass);
     }
 
     protected abstract Element targetType(Element e);
 
     protected abstract boolean isValid(Element e);
 
-    protected abstract Class<? extends Annotation> annotation();
+    protected abstract String annotation();
 
 
 }

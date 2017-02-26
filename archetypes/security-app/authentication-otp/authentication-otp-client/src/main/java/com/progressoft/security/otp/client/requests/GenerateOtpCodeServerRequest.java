@@ -1,6 +1,7 @@
 package com.progressoft.security.otp.client.requests;
 
 import com.google.gwt.user.client.Window;
+import com.progressoft.security.authentication.shared.extension.FailedChainContext;
 import com.progressoft.security.otp.client.presenters.OtpPresenter;
 import com.progressoft.security.otp.shared.request.GenerateOtpRequest;
 import com.progressoft.security.otp.shared.response.GenerateOtpResponse;
@@ -24,7 +25,7 @@ public class GenerateOtpCodeServerRequest
 
     @Override
     public void processFailed(OtpPresenter presenter, GenerateOtpRequest serverArgs, FailedServerResponse failedResponse) {
-        Window.alert("Failed to generate otp code");
+        presenter.onOtpFailed(new FailedChainContext(){});
     }
 
     @Override

@@ -13,13 +13,20 @@ public class AddMenuItemClientRequest extends ClientRequest<AppLayoutPresenter> 
 
     private static final CoreLogger LOGGER = CoreLoggerFactory.getLogger(AddMenuItemClientRequest.class);
     private final LayoutItem menuItem;
+    private final int beforeIndex;
 
     public AddMenuItemClientRequest(LayoutItem menuItem) {
         this.menuItem = menuItem;
+        this.beforeIndex=-1;
+    }
+
+    public AddMenuItemClientRequest(LayoutItem menuItem, int beforeIndex) {
+        this.menuItem = menuItem;
+        this.beforeIndex=beforeIndex;
     }
 
     @Override
     protected void process(AppLayoutPresenter presenter) {
-        presenter.onAddMenuItem(menuItem);
+        presenter.onAddMenuItem(menuItem, beforeIndex);
     }
 }

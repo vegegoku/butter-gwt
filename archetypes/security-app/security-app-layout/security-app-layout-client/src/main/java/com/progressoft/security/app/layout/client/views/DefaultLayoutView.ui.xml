@@ -29,8 +29,6 @@
                 <m:MaterialNavBrand text="Security"/>
 
                 <m:MaterialNavSection ui:field="headerBar" float="RIGHT" hideOn="NONE">
-                    <m:MaterialLink hideOn="HIDE_ON_SMALL_DOWN" iconPosition="NONE" iconType="EXIT_TO_APP"
-                                    marginRight="20" tooltip="Logout"/>
                 </m:MaterialNavSection>
             </m:MaterialNavBar>
         </m:MaterialHeader>
@@ -50,8 +48,10 @@
         </m:MaterialContainer>
 
         <!-- FAB -->
-        <m:MaterialFAB depth="995">
-            <m:MaterialButton type="FLOATING" iconType="POLYMER" size="LARGE"/>
+        <m:MaterialFAB ui:field="fab" depth="995">
+            <m:MaterialButton ui:field="fabButton" type="FLOATING" iconType="POLYMER" size="LARGE" visibility="HIDDEN"/>
+            <m:MaterialFABList ui:field="fabList">
+            </m:MaterialFABList>
         </m:MaterialFAB>
 
     </g:HTMLPanel>

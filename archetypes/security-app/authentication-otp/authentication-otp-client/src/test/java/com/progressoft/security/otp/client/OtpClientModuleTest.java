@@ -44,7 +44,7 @@ public class OtpClientModuleTest extends ModuleTestCase {
     private void startSmtpServer() {
         try {
             ServerOptions serverOptions = new ServerOptions();
-            serverOptions.port = 2025;
+            serverOptions.port = 3025;
             serverOptions.threaded = false;
             smtpServer = SmtpServerFactory.startServer(serverOptions);
             while (!smtpServer.isReady())

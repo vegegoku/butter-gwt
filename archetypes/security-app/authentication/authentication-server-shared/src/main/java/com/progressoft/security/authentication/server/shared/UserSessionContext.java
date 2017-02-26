@@ -13,6 +13,7 @@ public class UserSessionContext {
     private UserSessionContext() {}
 
     public static void clear() {
+        contextHolder.get().reset();
         contextHolder.remove();
     }
 
@@ -36,6 +37,11 @@ public class UserSessionContext {
         @Override
         public boolean isEmpty() {
             return true;
+        }
+
+        @Override
+        public void reset() {
+            //do nothing
         }
 
         @Override

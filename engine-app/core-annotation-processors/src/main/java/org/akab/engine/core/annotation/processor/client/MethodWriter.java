@@ -28,7 +28,7 @@ class MethodWriter {
                 + appendReturnType()
                 + appendName() + "(" + appendArgs() + ")" + "{\n"
                 + "\t" + appendImplementation()
-                + "\t" + "}\n";
+                + "" + "}\n\n";
     }
 
     private String appendModifiers() {

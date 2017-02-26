@@ -30,7 +30,7 @@ public class SendOtpUseCaseTest {
         configuration = new PropertiesOtpConfigurationLoader("otp-configure.properties").load();
         userRepository = new InMemoryUserRepository();
         sendOtpUseCase = new SendOtpUseCase(userRepository, configuration);
-        server = SimpleSmtpServer.start(2025);
+        server = SimpleSmtpServer.start(3025);
     }
 
     @Test(expected = SendOtpUseCase.InvalidUserRepositoryProvidedException.class)

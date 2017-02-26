@@ -1,5 +1,6 @@
 package com.progressoft.security.app.layout.client.presenters;
 
+import com.progressoft.security.app.layout.shared.extension.FabHandler;
 import com.progressoft.security.app.layout.shared.extension.LayoutItem;
 import com.progressoft.security.authentication.shared.extension.AuthenticationCompletedContext;
 import org.akab.engine.core.api.client.mvp.presenter.Presentable;
@@ -12,9 +13,17 @@ public interface AppLayoutPresenter extends Presentable{
 
     void onAddHeaderItem(LayoutItem headerItem);
 
-    void onAddMenuItem(LayoutItem menuItem);
+    void onAddMenuItem(LayoutItem menuItem, int beforeIndex);
 
     void onShowContent(LayoutItem content);
 
-    void onShowSideContent(LayoutItem content);
+    void onSetSideContent(LayoutItem content);
+
+    void onShowRightPanel();
+
+    void onHideRightPanel();
+
+    void onSetFabHandler(FabHandler fabHandler);
+
+    void onAddFabItem(LayoutItem fabItem);
 }

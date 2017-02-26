@@ -48,7 +48,7 @@ public class UiViewsRegistrationFactory extends TwoArgumentsRegistrationFactory 
     }
 
     @Override
-    protected Class<? extends Annotation> annotation() {
-        return UiView.class;
+    protected String annotation() {
+        return UiView.class.getCanonicalName();
     }
 }

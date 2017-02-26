@@ -37,7 +37,7 @@ public class RequestsRegistrationFactory extends TwoArgumentsRegistrationFactory
     }
 
     @Override
-    protected Class<? extends Annotation> annotation() {
-        return Request.class;
+    protected String annotation() {
+        return Request.class.getCanonicalName();
     }
 }

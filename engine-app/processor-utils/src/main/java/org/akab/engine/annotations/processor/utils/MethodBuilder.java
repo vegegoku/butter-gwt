@@ -26,6 +26,11 @@ public class MethodBuilder {
         return setReturnType(new FullClassName(type));
     }
 
+    public MethodBuilder returnsVoid(){
+        returnTypeWriter.append("void ");
+        return this;
+    }
+
     private MethodBuilder setReturnType(FullClassName type) {
         javaSourceBuilder.imports(type);
         returnTypeWriter.append(type.asSimpleGenericName() + " ");

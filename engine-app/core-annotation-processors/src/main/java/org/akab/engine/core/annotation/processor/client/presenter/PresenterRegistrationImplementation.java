@@ -31,7 +31,7 @@ public class PresenterRegistrationImplementation extends LazyRegistrationImpleme
     protected String writeLazyImplementation(Map.Entry<Element, Element> entry) {
         return "\t\t\t@Override\n" +
                 "\t\t\tprotected Presentable make() {\n" +
-                "\t\t\t\treturn new " + getSimpleName(entry.getKey()) + "();\n" +
+                "\t\t\t\treturn new " + getSimpleName(entry.getKey()) + "();\n\t" +
                 "\t\t\t}\n";
     }
 

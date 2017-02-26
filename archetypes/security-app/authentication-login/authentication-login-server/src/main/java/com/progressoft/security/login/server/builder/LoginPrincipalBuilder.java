@@ -10,6 +10,7 @@ public class LoginPrincipalBuilder implements PrincipalBuilder {
 
     private String userName;
     private String tenant;
+    private String displayName;
     private Deque<String> chains;
 
     @Override
@@ -25,6 +26,12 @@ public class LoginPrincipalBuilder implements PrincipalBuilder {
     }
 
     @Override
+    public PrincipalBuilder displayName(String displayName) {
+        this.displayName = displayName;
+        return this;
+    }
+
+    @Override
     public PrincipalBuilder chains(Deque<String> chains) {
         this.chains = chains;
         return this;
@@ -32,6 +39,6 @@ public class LoginPrincipalBuilder implements PrincipalBuilder {
 
     @Override
     public Principal build() {
-        return new LoginPrincipal(userName, tenant, chains);
+        return new LoginPrincipal(userName, tenant, displayName, chains);
     }
 }

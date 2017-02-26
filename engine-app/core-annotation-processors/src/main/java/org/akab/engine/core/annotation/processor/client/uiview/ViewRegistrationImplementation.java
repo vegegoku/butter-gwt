@@ -30,7 +30,7 @@ public class ViewRegistrationImplementation extends LazyRegistrationImplementati
     protected String writeLazyImplementation(Map.Entry<Element, Element> entry) {
         return "\t\t\t@Override\n" +
                 "\t\t\tprotected View make() {\n" +
-                "\t\t\t\treturn new " + getSimpleName(entry.getKey()) + "();\n" +
+                "\t\t\t\treturn new " + getSimpleName(entry.getKey()) + "();\n\t" +
                 "\t\t\t}\n";
     }
 

@@ -11,6 +11,8 @@ public class LayoutViewSpy extends DefaultLayoutView {
     public List<LayoutItem> menuItems=new ArrayList<>();
     public LayoutItem content;
     public LayoutItem sideContent;
+    public String rightPanelVisibility="";
+    public List<LayoutItem> fabItems = new ArrayList<>();
 
     @Override
     public void addHeaderItem(LayoutItem headerItem) {
@@ -19,8 +21,8 @@ public class LayoutViewSpy extends DefaultLayoutView {
     }
 
     @Override
-    public void addMenuItem(LayoutItem menuItem) {
-        super.addMenuItem(menuItem);
+    public void addMenuItem(LayoutItem menuItem, int beforeIndex) {
+        super.addMenuItem(menuItem, beforeIndex);
         menuItems.add(menuItem);
     }
 
@@ -31,8 +33,30 @@ public class LayoutViewSpy extends DefaultLayoutView {
     }
 
     @Override
-    public void showSideContent(LayoutItem content) {
-        super.showSideContent(content);
+    public void setSideContent(LayoutItem content) {
+        super.setSideContent(content);
         this.sideContent=content;
+    }
+
+    @Override
+    public void showRightPanel() {
+        super.showRightPanel();
+        rightPanelVisibility+="true";
+    }
+
+    @Override
+    public void hideRightPanel() {
+        super.hideRightPanel();
+        rightPanelVisibility+="false";
+    }
+
+    public void clickOnFab() {
+        super.fireFabClick();
+    }
+
+    @Override
+    public void addFabItem(LayoutItem fabItem) {
+        super.addFabItem(fabItem);
+        fabItems.add(fabItem);
     }
 }

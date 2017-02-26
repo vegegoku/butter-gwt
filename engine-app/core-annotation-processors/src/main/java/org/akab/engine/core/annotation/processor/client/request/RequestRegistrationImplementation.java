@@ -26,7 +26,7 @@ public class RequestRegistrationImplementation implements RegistrationImplementa
     @Override
     public String methodBody() {
         return requests.entrySet().stream().map(entry ->
-                REGISTRATION_LINE + "(" + writeArguments(entry) + ");\n")
+                REGISTRATION_LINE + "(" + writeArguments(entry) + ");\n\t")
                 .collect(Collectors.joining());
     }
 

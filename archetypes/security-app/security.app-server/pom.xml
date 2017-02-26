@@ -66,6 +66,26 @@
             <artifactId>authentication-otp-shared</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.progressoft.security</groupId>
+            <artifactId>authentication-logout-server</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.progressoft.security</groupId>
+            <artifactId>authentication-logout-shared</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.progressoft.security</groupId>
+            <artifactId>user-info-server</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.progressoft.security</groupId>
+            <artifactId>user-info-shared</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

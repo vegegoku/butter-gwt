@@ -1,5 +1,6 @@
 package com.progressoft.security.app.layout.client.requests;
 
+import com.progressoft.security.app.layout.client.presenters.AppLayoutPresenter;
 import org.akab.engine.core.api.client.request.ClientRequest;
 import org.akab.engine.core.logger.client.CoreLogger;
 import org.akab.engine.core.logger.client.CoreLoggerFactory;
@@ -13,6 +14,6 @@ public class ShowRightPanelClientRequest extends ClientRequest<AppLayoutPresente
 
     @Override
     protected void process(AppLayoutPresenter presenter) {
-
+        presenter.onShowRightPanel();
     }
 }

@@ -1,0 +1,11 @@
+.UserInfo{
+    background-color: blue;
+}
+
+.userDisplayName{
+    cursor:pointer;
+}
+
+.userDisplayName:HOVER{
+    color: #e2eeff !important;
+}

@@ -33,7 +33,7 @@ public class PathRegistrationFactory extends SingleArgumentRegistrationFactory {
 
     protected String pathValue(Element e) {
         AnnotationMirror annotationMirror = e.getAnnotationMirrors().stream()
-                .filter(a -> a.getAnnotationType().toString().equals(annotation().getCanonicalName()))
+                .filter(a -> a.getAnnotationType().toString().equals(annotation()))
                 .findAny().orElseThrow(IllegalArgumentException::new);
         AnnotationValue path = annotationMirror.getElementValues().entrySet()
                 .stream()
@@ -48,7 +48,7 @@ public class PathRegistrationFactory extends SingleArgumentRegistrationFactory {
     }
 
     @Override
-    protected Class<? extends Annotation> annotation() {
-        return Path.class;
+    protected String annotation() {
+        return Path.class.getCanonicalName();
     }
 }

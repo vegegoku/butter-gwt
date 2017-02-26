@@ -4,15 +4,16 @@ import org.akab.engine.core.annotation.processor.client.RegistrationImplementati
 
 import javax.lang.model.element.Element;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class InitialTasksRegistrationImplementation implements RegistrationImplementation {
 
     public static final String REGISTRATION_LINE = "\tregistry.registerInitialTask";
-    private Set<? extends Element> items;
+    private List<? extends Element> items;
 
-    public InitialTasksRegistrationImplementation(Set<? extends Element> items) {
+    public InitialTasksRegistrationImplementation(List<? extends Element> items) {
         this.items = items;
     }
 
@@ -25,7 +26,7 @@ public class InitialTasksRegistrationImplementation implements RegistrationImple
     @Override
     public String methodBody() {
         return items.stream().map(item ->
-                REGISTRATION_LINE + "(" + writeArguments(item) + ");\n")
+                REGISTRATION_LINE + "(" + writeArguments(item) + ");\n\t")
                 .collect(Collectors.joining());
     }
 

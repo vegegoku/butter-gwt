@@ -46,16 +46,17 @@ public class JpaUserRepository implements UserRepository {
         if (isNull(userEntity))
             return null;
 
-        Deque<String> chains1 = chains(chains);
+        Deque<String> chainsNames = toChainsNames(chains);
         return new User.UserBuilder()
                 .name(userEntity.username)
                 .secret(userEntity.secret)
                 .tenant(userEntity.tenant)
                 .email(userEntity.email)
-                .chains(chains1).build();
+                .displayName(userEntity.displayName)
+                .chains(chainsNames).build();
     }
 
-    protected Deque<String> chains(List<UserChainEntity> chains) {
+    protected Deque<String> toChainsNames(List<UserChainEntity> chains) {
         return chains.stream().map(chain -> chain.chainName).collect(Collectors.toCollection(LinkedList::new));
     }
 }

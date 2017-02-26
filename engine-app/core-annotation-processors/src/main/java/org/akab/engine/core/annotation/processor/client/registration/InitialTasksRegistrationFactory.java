@@ -24,11 +24,11 @@ public class InitialTasksRegistrationFactory extends SingleArgumentRegistrationF
 
     @Override
     protected boolean isValid(Element e) {
-        return helper.isImplementsInterface(e, InitializeTask.class);
+        return helper.isImplementsGenericInterface(e, InitializeTask.class);
     }
 
     @Override
-    protected Class<? extends Annotation> annotation() {
-        return InitialTask.class;
+    protected String annotation() {
+        return InitialTask.class.getCanonicalName();
     }
 }

@@ -10,8 +10,8 @@ public class JpaUserRepositorySpy extends JpaUserRepository {
     private Deque<String> chainsDeque;
 
     @Override
-    protected Deque<String> chains(List<UserChainEntity> chains) {
-        chainsDeque = super.chains(chains);
+    protected Deque<String> toChainsNames(List<UserChainEntity> chains) {
+        chainsDeque = super.toChainsNames(chains);
         return chainsDeque;
     }
 

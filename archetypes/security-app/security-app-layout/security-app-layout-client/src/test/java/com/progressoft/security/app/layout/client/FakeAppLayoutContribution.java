@@ -2,6 +2,7 @@ package com.progressoft.security.app.layout.client;
 
 import com.progressoft.security.app.layout.shared.extension.AppLayoutContext;
 import com.progressoft.security.app.layout.shared.extension.AppLayoutExtensionPoint;
+import com.progressoft.security.app.layout.shared.extension.FabHandler;
 import org.akab.engine.core.api.client.annotations.Contribute;
 import org.akab.engine.core.api.shared.extension.Contribution;
 
@@ -31,7 +32,23 @@ public class FakeAppLayoutContribution implements Contribution<AppLayoutExtensio
         context.showContent(fakeLayoutItem);
     }
 
-    public void showSideContent(FakeLayoutItem fakeLayoutItem) {
-        context.showSideContent(fakeLayoutItem);
+    public void setSideContent(FakeLayoutItem fakeLayoutItem) {
+        context.setSideContent(fakeLayoutItem);
+    }
+
+    public void showRightPanel() {
+        context.showRightPanel();
+    }
+
+    public void hideRightPanel() {
+        context.hideRightPanel();
+    }
+
+    public void setFabHandler(FabHandler fabHandler) {
+        context.setFabHandler(fabHandler);
+    }
+
+    public void addFabItem(FakeLayoutItem fakeLayoutItem) {
+        context.addFabItem(fakeLayoutItem);
     }
 }

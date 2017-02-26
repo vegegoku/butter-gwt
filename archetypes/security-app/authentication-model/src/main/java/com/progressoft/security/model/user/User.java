@@ -11,14 +11,16 @@ public class User {
     private final String userName;
     private final String secret;
     private final String tenant;
+    private final String displayName;
     private final String email;
     private final Deque<String> chains;
 
-    private User(String userName, String secret, String tenant, String email, Deque<String> chains) {
+    private User(String userName, String secret, String tenant, String email, String displayName, Deque<String> chains) {
         this.userName = userName;
         this.secret = secret;
         this.tenant = tenant;
         this.email = email;
+        this.displayName=displayName;
         this.chains = chains;
     }
 
@@ -27,7 +29,7 @@ public class User {
     }
 
     public Principal makePrincipal(PrincipalBuilder builder) {
-        return builder.name(userName).tenant(tenant).chains(chains).build();
+        return builder.name(userName).tenant(tenant).displayName(displayName).chains(chains).build();
     }
 
     public OtpHolder sendOtp(OtpGeneratorFactory otpGeneratorFactory) {
@@ -80,6 +82,7 @@ public class User {
 
     public static class UserBuilder {
         private String userName;
+        private String displayName;
         private String secret;
         private String tenant;
         private String email;
@@ -105,13 +108,18 @@ public class User {
             return this;
         }
 
+        public UserBuilder displayName(String displayName) {
+            this.displayName = displayName;
+            return this;
+        }
+
         public UserBuilder chains(Deque<String> chains) {
             this.chains = chains;
             return this;
         }
 
         public User build() {
-            return new User(userName, secret, tenant, email, chains);
+            return new User(userName, secret, tenant, email, displayName, chains);
         }
     }
 }

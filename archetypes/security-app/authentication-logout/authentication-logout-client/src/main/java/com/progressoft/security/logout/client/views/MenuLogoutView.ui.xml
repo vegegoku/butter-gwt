@@ -1,0 +1,12 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:m='urn:import:gwt.material.design.client.ui'>
+
+    <ui:with field="bundle" type="com.progressoft.security.logout.client.views.LogoutBundle"/>
+    <ui:style gss="true">
+        .sample-div{
+            background-color: #CECECE;
+        }
+    </ui:style>
+    <m:MaterialLink  ui:field="root" iconType="EXIT_TO_APP" iconPosition="LEFT" textColor="BLUE_DARKEN_2" text="Logout" />
+</ui:UiBinder>

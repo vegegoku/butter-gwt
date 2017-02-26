@@ -40,6 +40,11 @@ public class AuthenticationProcessContext {
         }
 
         @Override
+        public void reset() {
+            //do nothing
+        }
+
+        @Override
         public Principal getPrincipal() {
             return null;
         }

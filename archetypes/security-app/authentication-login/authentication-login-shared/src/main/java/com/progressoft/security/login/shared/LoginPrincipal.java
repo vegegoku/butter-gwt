@@ -8,15 +8,18 @@ public class LoginPrincipal implements Principal {
 
     private String userName;
     private String tenant;
+    private String displayName;
     private Deque<String> chains;
+
 
     private LoginPrincipal() {
     }
 
-    public LoginPrincipal(String userName, String tenant, Deque<String> chains) {
+    public LoginPrincipal(String userName, String tenant, String displayName, Deque<String> chains) {
         this.userName = userName;
         this.tenant = tenant;
         this.chains = chains;
+        this.displayName=displayName;
     }
 
     @Override
@@ -35,6 +38,15 @@ public class LoginPrincipal implements Principal {
 
     public void setTenant(String tenant) {
         this.tenant = tenant;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return this.displayName;
     }
 
     @Override

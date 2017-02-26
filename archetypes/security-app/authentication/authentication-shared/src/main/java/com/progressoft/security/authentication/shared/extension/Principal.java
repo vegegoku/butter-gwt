@@ -10,4 +10,7 @@ public interface Principal extends Serializable{
     default Deque<String> chains(){
         return new LinkedList<>();
     }
+
+    String getDisplayName();
 }
+

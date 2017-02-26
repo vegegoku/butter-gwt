@@ -13,6 +13,7 @@ public class JavaSourceBuilder {
     private final StringBuilder implementsWriter = new StringBuilder();
     private final StringBuilder classAnnotationWriter = new StringBuilder();
     private final StringBuilder methodsWriter = new StringBuilder();
+    private final StringBuilder fieldsWriter =new StringBuilder();
 
     public JavaSourceBuilder(String className) {
         this.className = className;
@@ -27,11 +28,11 @@ public class JavaSourceBuilder {
         writeExtend();
         writeImplements();
         writeClassBegin();
+        writeFields();
         writeMethods();
         writeClassEnd();
         return sourceWriter.toString();
     }
-
 
     private void writePackage() {
         sourceWriter.append(getPackage());
@@ -72,6 +73,11 @@ public class JavaSourceBuilder {
     private void writeClassBegin() {
         sourceWriter.append("{\n");
     }
+
+    private void writeFields() {
+        sourceWriter.append(fieldsWriter.toString());
+    }
+
 
     private void writeMethods() {
         sourceWriter
@@ -133,6 +139,14 @@ public class JavaSourceBuilder {
         return new MethodBuilder(name, this);
     }
 
+    public ConstructorBuilder constructor(String name) {
+        return new ConstructorBuilder(name, this);
+    }
+
+    public FieldBuilder field(String name) {
+        return new FieldBuilder(name, this);
+    }
+
     public JavaSourceBuilder imports(FullClassName fullClassName) {
         fullClassName.allImports().forEach(importsBuilder::addImport);
         return this;
@@ -140,6 +154,11 @@ public class JavaSourceBuilder {
 
     JavaSourceBuilder writeMethod(MethodBuilder methodBuilder) {
         methodsWriter.append(methodBuilder.write());
+        return this;
+    }
+
+    JavaSourceBuilder writeField(FieldBuilder fieldBuilder) {
+        fieldsWriter.append(fieldBuilder.write());
         return this;
     }
 

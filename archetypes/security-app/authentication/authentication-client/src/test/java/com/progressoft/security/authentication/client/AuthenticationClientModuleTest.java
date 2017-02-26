@@ -109,6 +109,11 @@ public class AuthenticationClientModuleTest extends ModuleTestCase {
             public String getTenant() {
                 return "";
             }
+
+            @Override
+            public String getDisplayName() {
+                return "";
+            }
         };
     }
 
@@ -190,7 +195,6 @@ public class AuthenticationClientModuleTest extends ModuleTestCase {
     }
 
     @Test(expected = ChainCompletedSuccessfullyRequest.InvalidPrincipal.class)
-
     public void givenASingleAuthenticationProvider_whenProviderAuthenticationIsCompletedSuccessfullyAndReturnsNullPrincipal_thenAuthenticationThrowException()
             throws Exception {
         authenticationContribution.getProvider().chainAuthenticationCompletedSuccessfully(null);

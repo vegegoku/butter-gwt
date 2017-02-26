@@ -2,6 +2,7 @@ package org.akab.engine.core.annotation.processor.client;
 
 import javax.lang.model.element.Element;
 import java.lang.annotation.Annotation;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -21,10 +22,7 @@ public abstract class SingleArgumentRegistrationFactory implements RegistrationF
         return typeRegistration();
     }
 
-    protected Set<? extends Element> elements() {
-        if (elementsAsStream().anyMatch(e -> !isValid(e)))
-            throw new InvalidDeclarationForAnnotationException("Invalid declaration for annotation " + annotation().getSimpleName());
-
+    protected List<? extends Element> elements() {
         return helper.elementsAnnotatedWith(annotation());
     }
 
@@ -36,7 +34,7 @@ public abstract class SingleArgumentRegistrationFactory implements RegistrationF
 
     protected abstract boolean isValid(Element e);
 
-    protected abstract Class<? extends Annotation> annotation();
+    protected abstract String annotation();
 
 
 }
