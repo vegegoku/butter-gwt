@@ -1,0 +1,61 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:m='urn:import:gwt.material.design.client.ui'
+             xmlns:ma='urn:import:gwt.material.design.addins.client'>
+
+    <ui:with field="bundle" type="com.progressoft.security.user.client.views.bundle.AddUserBundle"/>
+    <ui:style gss="true">
+        .panel{
+            background-color: #FFFFFF;
+        }
+        .title{
+            color: #CECECE;
+            text-indent: 5px;
+        }
+    </ui:style>
+
+    <m:MaterialRow ui:field="root" marginBottom="0" marginTop="20" overflow="AUTO">
+        <!--<m:MaterialColumn grid="s12 m10 l6" offset="l3 m1">-->
+            <!--<m:MaterialCard backgroundColor="WHITE" shadow="1">-->
+                <!--<m:MaterialRow>-->
+                    <!--<m:MaterialColumn grid="l12" >-->
+                        <!--<m:MaterialCardTitle iconType="PERSON_ADD" iconSize="MEDIUM" text="New user" fontSize="2em" addStyleNames="{style.title}"/>-->
+                    <!--</m:MaterialColumn>-->
+                <!--</m:MaterialRow>-->
+
+
+                <!--<m:MaterialCardContent textColor="BLACK">-->
+                    <!--<m:MaterialTextBox ui:field="userName" type="TEXT" placeholder="User name"/>-->
+                    <!--<m:MaterialRow>-->
+                        <!--<m:MaterialColumn grid="l3" offset="l9">-->
+                            <!--<m:MaterialButton ui:field="createButton" waves="LIGHT" text="Create" width="100%"-->
+                                      <!--backgroundColor="BLUE_LIGHTEN_1"/>-->
+                        <!--</m:MaterialColumn>-->
+                    <!--</m:MaterialRow>-->
+                <!--</m:MaterialCardContent>-->
+            <!--</m:MaterialCard>-->
+        <!--</m:MaterialColumn>-->
+        <m:MaterialColumn grid="l6" offset="l3">
+            <m:MaterialCard backgroundColor="WHITE">
+                <m:MaterialCardContent textColor="BLUE_GREY_DARKEN_1">
+                    <m:MaterialCardTitle text="New user" iconType="PERSON_ADD" iconPosition="RIGHT"/>
+                    <m:MaterialTextBox ui:field="userName" type="TEXT" placeholder="User name"/>
+                </m:MaterialCardContent>
+                <m:MaterialCardAction>
+                    <m:MaterialRow>
+                        <m:MaterialColumn offset="l6">
+                            <m:MaterialButton ui:field="cancelButton" waves="LIGHT" text="cancel" width="100%"
+                                              backgroundColor="RED_LIGHTEN_1"/>
+                        </m:MaterialColumn>
+                        <m:MaterialColumn grid="l3">
+                            <m:MaterialButton ui:field="createButton" waves="LIGHT" text="Create" width="100%"
+                                              backgroundColor="BLUE_LIGHTEN_1"/>
+                        </m:MaterialColumn>
+
+                    </m:MaterialRow>
+
+                </m:MaterialCardAction>
+            </m:MaterialCard>
+        </m:MaterialColumn>
+    </m:MaterialRow>
+</ui:UiBinder>
